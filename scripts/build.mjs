@@ -325,22 +325,20 @@ function home(lang) {
 ${header(lang, 'home')}
 <main id="main">
 <section class="hero" id="product" aria-labelledby="hero-title">
-  <div class="wrap hero-grid">
-    <div class="hero-text">
-      <h1 id="hero-title">${esc(t.hero_h1)}</h1>
-      <p class="lead">${esc(t.hero_sub)}</p>
-      <div class="actions"><a class="btn btn-lg" href="${href(lang, '/start/')}">${esc(t.cta_start)}</a><a class="btn btn-lg btn-ghost" href="#request">${esc(t.cta_demo)}</a></div>
-      <ul class="points">${t.hero_points.map((/** @type {string} */ s) => `<li>${esc(s)}</li>`).join('')}</ul>
-    </div>
-    ${showcase(lang)}
+  <div class="wrap hero-center">
+    <p class="hero-badge">${orb('orb orb-xs')}<span>${esc(t.hero_badge)}</span></p>
+    <h1 id="hero-title">${esc(t.hero_h1)}</h1>
+    <p class="lead">${esc(t.hero_sub)}</p>
+    <div class="actions"><a class="btn btn-lg" href="${href(lang, '/start/')}">${esc(t.cta_start)}</a><a class="btn btn-lg btn-ghost" href="#pricing">${esc(t.cta_plans)}</a></div>
   </div>
+  <div class="wrap hero-visual">${showcase(lang)}</div>
 </section>
+${nexa(lang)}
 <section class="trust" aria-labelledby="trust-title">
   <div class="wrap"><h2 id="trust-title" class="trust-title">${esc(t.trust_label)}</h2>
   <ul class="trust-grid">${t.trust_items.map((/** @type {string[]} */ s) => `<li><b>${esc(s[0])}</b><span>${esc(s[1])}</span></li>`).join('')}</ul></div>
 </section>
 ${features(lang)}
-${nexa(lang)}
 ${pricing(lang, false)}
 ${faq(t.faq, 'faq', t.faq_title, 'h2')}
 ${request(lang)}

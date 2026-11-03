@@ -145,7 +145,7 @@ bdi { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .menu-btn { display: none; }
 
 /* ---------- Hero ---------- */
-.hero { padding-block: clamp(36px, 6vw, 80px) clamp(40px, 5vw, 64px); }
+.hero { padding-block: clamp(40px, 7vw, 96px) clamp(48px, 6vw, 80px); }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(28px, 4vw, 56px); align-items: center; }
 .hero h1 { font-size: var(--t-h1); font-weight: 700; }
 .hero h1 { font-size: clamp(30px, 3.6vw, 48px); line-height: 1.3; }
@@ -191,6 +191,18 @@ bdi { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .ui-insights { list-style: none; display: grid; gap: 10px; }
 .ui-insights li { display: grid; gap: 2px; padding: 12px 14px; border-radius: 12px; background: var(--canvas); border: 1px solid var(--hairline); border-inline-start: 3px solid var(--blue); }
 .ui-insights span { font-size: 13.5px; color: var(--fg-soft); }
+
+/* Hero, centred and product-first */
+.hero-center { display: grid; justify-items: center; text-align: center; }
+.hero-center .lead { margin-inline: auto; max-width: 60ch; }
+.hero-center .actions { justify-content: center; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 10px; border-radius: 999px; border: 1px solid var(--edge); background: var(--surface); font-size: 14.5px; font-weight: 600; color: var(--fg); box-shadow: var(--shadow); margin-bottom: 22px; }
+.orb-xs { width: 22px; height: 22px; }
+.hero .hero-center h1 { padding-bottom: .12em; font-size: clamp(44px, 8vw, 104px); line-height: 1.35; font-weight: 700; letter-spacing: 0; max-width: 16ch; }
+:lang(en) .hero .hero-center h1 { font-size: clamp(38px, 6.4vw, 88px); line-height: 1.02; letter-spacing: -0.03em; max-width: 14ch; }
+.hero-visual { margin-top: clamp(36px, 5vw, 64px); max-width: 1040px; }
+.hero-visual .showcase { box-shadow: var(--shadow-lift), 0 40px 80px -40px rgb(37 99 235 / .35); }
+.hero-visual .sc-body { min-height: 0; }
 
 /* ---------- Trust strip ---------- */
 .trust { padding-block: 8px clamp(48px, 6vw, 72px); }

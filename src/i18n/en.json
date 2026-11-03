@@ -23,8 +23,8 @@
  "theme_light": "Light",
  "theme_dark": "Dark",
  "theme_system": "System",
- "hero_h1": "The AI-powered ERP: automated accounting, controlled inventory, instant invoicing",
- "hero_sub": "See your margins and cash in real time, shorten your operating and month-end cycles, and let operational intelligence spot opportunities and catch errors before they happen.",
+ "hero_h1": "Continuous Close, In Real Time",
+ "hero_sub": "Forward-thinking finance teams rely on Tamnex to unify accounting and inventory, close their books faster, and track margins and cash in real time.",
  "cta_choose": "Choose your plan",
  "cta_demo": "Book a live demo",
  "hero_points": [
@@ -581,5 +581,7 @@
  "f_pw_show": "Show",
  "f_pw_hide": "Hide",
  "e_pw": "Use at least 10 characters, with a letter and a digit.",
- "e_pw2": "The passwords do not match."
+ "e_pw2": "The passwords do not match.",
+ "hero_badge": "AI-Native ERP Powered by Nexa",
+ "cta_plans": "Browse plans"
 }

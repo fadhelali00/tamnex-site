@@ -1,4 +1,4 @@
-// Fails when a published page uses wording that the claims register forbids (marketing/CLAIMS.md).
+// Fails when a published page uses wording that the claims register forbids (the claims register, kept in the private ERP repository).
 import { readFileSync } from 'node:fs';
 const pages = ['index.html', 'pricing/index.html', 'en/index.html', 'en/pricing/index.html'];
 const banned = [

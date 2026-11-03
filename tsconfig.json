@@ -13,5 +13,5 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "include": ["scripts/**/*.mjs", "site/assets/app.js", "site/assets/readiness.js"]
+  "include": ["scripts/**/*.mjs", "site/assets/app.js", "site/assets/readiness.js", "site/assets/start.js"]
 }

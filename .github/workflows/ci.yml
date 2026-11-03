@@ -28,13 +28,15 @@ jobs:
         run: npx tsc --noEmit -p tsconfig.json
       - name: Catalog contract, engine and claims guard
         run: npm test
-      - name: PHP endpoint lint
-        run: php -l site/api/interest.php
+      - name: PHP lint
+        run: for f in site/api/*.php; do php -l "$f"; done
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Browser tests (6 widths, light/dark, ar/en, axe WCAG 2.2 AA, prices, keyboard, no-JS)
+      - name: Endpoint tests (PHP built-in server)
+        run: node --test tests/endpoints.test.mjs
+      - name: Browser tests (6 widths, light/dark, ar/en, axe WCAG 2.2 AA, prices, registration, keyboard, no-JS)
         run: |
-          (cd site && python3 -m http.server 8765 >/dev/null 2>&1 &)
+          (TAMNEX_SALT=ci TAMNEX_DATA_DIR=$(mktemp -d) TAMNEX_ORIGINS=http://127.0.0.1:8765 php -S 127.0.0.1:8765 -t site >/dev/null 2>&1 &)
           sleep 1
           SHOTS=1 AXE=node_modules/axe-core/axe.min.js OUT=shots node tests/e2e.cjs
       - uses: actions/upload-artifact@v4

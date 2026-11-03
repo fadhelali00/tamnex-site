@@ -14,6 +14,7 @@ RewriteCond %{HTTP:X-Forwarded-Proto} !=https
 RewriteRule ^ https://tamnex.com%{REQUEST_URI} [R=301,L]
 # Hide dotfiles and anything that is not part of the site
 RewriteRule (^|/)\. - [F]
+RewriteRule (^|/)_[^/]*\.php$ - [F]
 RewriteRule ^(marketing|tests|brand/README|\.github)(/|$) - [F]
 
 <IfModule mod_headers.c>

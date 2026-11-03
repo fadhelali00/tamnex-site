@@ -28,9 +28,9 @@
  "cta_choose": "Choose your plan",
  "cta_demo": "Book a live demo",
  "hero_points": [
-  "E-invoicing controls on every invoice",
-  "Balanced double entry enforced by the database",
-  "Arabic first, full English"
+  "Continuous close: subledgers reconciled to the general ledger as you go",
+  "Landed costs calculated automatically, with weighted average cost (WAC) updated on receipt",
+  "E-invoicing in both phases: generation and storage, and Fatoora integration"
  ],
  "sc_label": "Preview of the product interface · sample data",
  "sc_tabs_label": "Preview sections",
@@ -40,7 +40,7 @@
  "tab_ai": "Nexa",
  "sc_company": "Al Wadi Trading Co.",
  "sc_acc_title": "Journal entry for sales invoice INV-184",
- "sc_acc_state": "Posted · Balanced",
+ "sc_acc_state": "Posted to the general ledger",
  "sc_cols_entry": [
   "Account",
   "Debit",
@@ -146,24 +146,24 @@
  "trust_label": "Trust and control",
  "trust_items": [
   [
-   "E-invoicing",
-   "Gapless numbering, the authority's QR format, and no deleting an approved invoice."
+   "Strict financial integrity",
+   "Tamper-proof books: a posted entry is never edited, and every correction is a reversing entry recorded in the audit trail."
   ],
   [
-   "Tamper-proof books",
-   "A posted entry is never edited; corrections are reversing entries linked to the original."
+   "E-invoicing (Fatoora)",
+   "Phase 1, generation and storage: sequential numbering that cannot be edited or deleted, and the authority's QR format. Phase 2, integration: we connect your company to the Fatoora platform before its mandated wave date."
   ],
   [
-   "Your data, isolated",
-   "Every company is isolated at the database level, on its own address."
+   "Step-up controls",
+   "Fine-grained access policies per role, and step-up verification before sensitive financial actions such as reopening a period or opening balances."
   ],
   [
-   "Encrypted connection",
-   "All traffic over HTTPS, with step-up verification for sensitive actions."
+   "Protected audit trail",
+   "A complete timeline of every transaction and change: who, when and why, protected from deletion and editing."
   ]
  ],
  "f_title": "Your whole business cycle in one system",
- "f_sub": "From purchase order to financial statements, every document posts its entry the moment it is approved, with branches and warehouses built in.",
+ "f_sub": "Preferred company address",
  "soon": "After launch",
  "close_title": "Continuous close",
  "close_body": "Accounting checks that run all month, each exception with an owner and evidence. Try it: clear the three exceptions, then re-run the checks.",
@@ -183,12 +183,12 @@
   "Error guard before approval",
   "Ask your numbers in Arabic"
  ],
- "sec_title": "Enterprise-grade security and isolation",
+ "sec_title": "Enterprise-grade control and security",
  "sec_points": [
-  "Every company isolated in the database",
-  "Tamper-proof audit trail for every action",
-  "Step-up verification for sensitive actions",
-  "Permissions you grant to any role you create"
+  "Fine-grained access policies per role",
+  "Protected audit trail for every action",
+  "Step-up verification for sensitive financial actions",
+  "Segregation of duties between who drafts and who approves"
  ],
  "mig_title": "Move from your current system",
  "mig_body": "Import master data, the trial balance, open invoices and stock, with a mapping you review and approve, then a balance reconciliation.",
@@ -272,7 +272,7 @@
   ],
   [
    "Does it support e-invoicing?",
-   "Yes: gapless numbering, the authority's QR format, no deleting an approved invoice, and cancellation by credit note. Fatoora platform integration (phase 2) is available after launch."
+   "Yes. Phase 1 (generation and storage): gapless numbering, the authority's QR format, no deleting an approved invoice, and cancellation by credit note. Phase 2 (integration): we connect your company to the Fatoora platform before its mandated wave date."
   ],
   [
    "Does my company get its own address?",
@@ -452,5 +452,134 @@
   "Nexa suggests and explains. It never posts, approves or closes.",
   "Every suggestion links to a document number you can open.",
   "It works with your permissions, inside your company only."
- ]
+ ],
+ "cta_start": "Get started",
+ "nav_start": "Create your account",
+ "sc_acc_seal": "Sealed with its sequence number",
+ "title_start": "Create your company account | Tamnex",
+ "desc_start": "Register your company with Tamnex: company, administrator, and financial and tax setup. We prepare your environment and email your activation link at launch.",
+ "st_title": "Create your company account",
+ "st_sub": "Three short steps, then we prepare your company's environment.",
+ "st_prereg": "Pre-registration: we create your company account and prepare its environment, then email you the activation link as soon as it is ready. No payment is taken.",
+ "st_steps": [
+  "Company",
+  "Administrator",
+  "Financial and tax setup",
+  "Review"
+ ],
+ "st_step_of": "Step {n} of {t}",
+ "st_next": "Next",
+ "st_back": "Back",
+ "st_submit": "Create account",
+ "st_sending": "Saving…",
+ "st_edit": "Edit",
+ "st_optional": "optional",
+ "f_company": "Company name",
+ "f_sector": "Industry",
+ "f_size": "Company size",
+ "f_sizes": [
+  [
+   "1-10",
+   "1 to 10 employees"
+  ],
+  [
+   "11-50",
+   "11 to 50"
+  ],
+  [
+   "51-200",
+   "51 to 200"
+  ],
+  [
+   "201+",
+   "More than 200"
+  ]
+ ],
+ "f_cr": "Commercial registration or unified number",
+ "f_cr_hint": "10 digits",
+ "f_sub_hint": "Lowercase letters, digits and hyphens, 3 to 30. Reserved at activation once availability is confirmed.",
+ "f_first": "First name",
+ "f_last": "Last name",
+ "f_job": "Job title",
+ "f_jobs": [
+  [
+   "owner",
+   "Owner or partner"
+  ],
+  [
+   "cfo",
+   "Finance director"
+  ],
+  [
+   "accountant",
+   "Accountant"
+  ],
+  [
+   "ops",
+   "Operations manager"
+  ],
+  [
+   "other",
+   "Other"
+  ]
+ ],
+ "f_country": "Country",
+ "f_country_v": "Saudi Arabia",
+ "f_tz": "Time zone",
+ "f_tz_v": "Riyadh (UTC+3)",
+ "f_currency": "Base currency",
+ "f_currency_v": "Saudi riyal (SAR)",
+ "f_vatreg": "Is the company registered for VAT?",
+ "f_yes": "Yes",
+ "f_no": "No",
+ "f_vat": "VAT number",
+ "f_vat_hint": "15 digits, starting and ending with 3",
+ "f_fy": "Fiscal year starts in",
+ "f_months": [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+ ],
+ "f_plan": "Plan",
+ "f_terms": "I agree that these details are kept to prepare my company's environment and to contact me about it.",
+ "f_marketing": "Send me Tamnex news and offers.",
+ "st_review": "Review your details",
+ "e_req": "This field is required.",
+ "e_cr": "Enter 10 digits.",
+ "e_vat": "Enter 15 digits starting and ending with 3.",
+ "e_sub": "Use 3 to 30 lowercase letters, digits or hyphens, not starting or ending with a hyphen.",
+ "e_sub_reserved": "This address is reserved. Choose another.",
+ "e_terms": "We need your consent to keep your details.",
+ "st_fail": "Could not save. Your details are still in the form; please try again.",
+ "st_dup": "This email is already registered with us. For another company, use a different email or contact us.",
+ "hold_title": "Putting on the finishing touches… your company environment is being prepared",
+ "hold_body": "We saved your company and administrator account. When the live environment is ready, we email you an activation link to sign in with the password you chose.",
+ "hold_ref": "Registration number",
+ "hold_notify": "Launch notification email",
+ "hold_notify_btn": "Update notification email",
+ "hold_notify_ok": "We will send the launch notice to this email.",
+ "hold_home": "Back to home",
+ "hold_sales": "Ask sales for a private demo",
+ "hold_saved": [
+  "Company details",
+  "Administrator details",
+  "Financial and tax setup"
+ ],
+ "hold_nojs": "If no registration number appears, your details are still saved and we will email the address you entered.",
+ "f_pw": "Password",
+ "f_pw2": "Confirm password",
+ "f_pw_hint": "At least 10 characters, with a letter and a digit.",
+ "f_pw_show": "Show",
+ "f_pw_hide": "Hide",
+ "e_pw": "Use at least 10 characters, with a letter and a digit.",
+ "e_pw2": "The passwords do not match."
 }

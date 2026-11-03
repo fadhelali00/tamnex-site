@@ -1,5 +1,5 @@
 // End-to-end checks for the built site. Usage:
-//   node scripts/build.mjs && (cd site && python3 -m http.server 8765) &
+//   node scripts/build.mjs && TAMNEX_SALT=t TAMNEX_DATA_DIR=$(mktemp -d) TAMNEX_ORIGINS=http://127.0.0.1:8765 php -S 127.0.0.1:8765 -t site &
 //   AXE=node_modules/axe-core/axe.min.js OUT=shots node tests/e2e.cjs
 // Optional: BASE (default http://127.0.0.1:8765), PW_CHROMIUM (browser path), SHOTS=1 (review screenshots).
 const { chromium } = require('playwright');
@@ -18,7 +18,7 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
 
 (async () => {
   const b = await chromium.launch(process.env.PW_CHROMIUM ? { executablePath: process.env.PW_CHROMIUM } : {});
-  const PAGES = ['/', '/pricing/', '/en/', '/en/pricing/'];
+  const PAGES = ['/', '/pricing/', '/en/', '/en/pricing/', '/start/', '/en/start/'];
 
   // 1. Layout at six widths, both themes, both languages; console, network, fonts, targets, axe
   for (const scheme of ['light', 'dark']) {
@@ -121,9 +121,6 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   check('Nexa adjustment creates a draft only, nothing posted', /مسودة/.test(await p.textContent('[data-nx-done="s2"]')) && /لم يُرحَّل/.test(await p.textContent('[data-nx-done="s2"]')));
   await p.click('#tab-s3'); await p.click('[data-nx-act="s3"]');
   check('Nexa purchase request approval is a human action, logged', /باسمك/.test(await p.textContent('[data-nx-done="s3"]')));
-  // choose plan pre-fills the request form
-  await p.click('[data-choose="growth"]');
-  check('“اختر باقتك” pre-fills the plan in the request form', (await p.inputValue('#f-plan')) === 'growth');
   // form
   await p.click('#lead-form [type=submit]');
   check('empty form: field errors and focus on the first', (await p.textContent('#e-name')).length > 0 && (await p.evaluate(() => document.activeElement.id)) === 'f-name');
@@ -132,7 +129,41 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   await p.click('#lead-form [type=submit]');
   await p.waitForFunction(() => document.querySelector('#form-msg').textContent.length > 0);
   const fm = await p.textContent('#form-msg');
-  check('static preview without PHP: honest failure, never a fake success', /تعذّر/.test(fm), fm);
+  check('quote request is saved and confirmed', /وصلنا طلبك/.test(fm), fm);
+  // choose plan starts registration with that plan
+  await p.click('[data-choose="growth"]'); await p.waitForURL(/\/start\/\?plan=growth/);
+  check('“اختر باقتك” opens registration with the plan selected', (await p.inputValue('#s-plan')) === 'growth');
+  // registration flow
+  check('registration shows step 1 of 4 only', await p.isVisible('[data-step="1"]') && !(await p.isVisible('[data-step="2"]')) && /1/.test(await p.textContent('[data-step-of]')));
+  await p.click('[data-next]');
+  check('step 1 blocks with named errors', (await p.textContent('#se-company')).length > 0 && (await p.evaluate(() => document.activeElement.id)) === 's-company');
+  await p.fill('#s-company', 'شركة الاختبار'); await p.selectOption('#s-sector', 'distribution'); await p.selectOption('#s-size', '11-50');
+  await p.fill('#s-subdomain', 'admin'); await p.click('[data-next]');
+  check('reserved subdomain refused', /محجوز/.test(await p.textContent('#se-subdomain')));
+  await p.fill('#s-subdomain', 'test-co'); await p.fill('#s-cr', '1010123456'); await p.click('[data-next]');
+  check('step 2 reached', await p.isVisible('[data-step="2"]'));
+  await p.click('[data-back]'); check('back returns to step 1 with data kept', (await p.inputValue('#s-company')) === 'شركة الاختبار');
+  await p.click('[data-next]');
+  await p.fill('#s-first', 'فاضل'); await p.fill('#s-last', 'علي'); await p.selectOption('#s-job', 'cfo'); await p.fill('#s-email', 'flow@example.com'); await p.fill('#s-phone', '0551234567');
+  await p.fill('#s-password', 'short'); await p.click('[data-next]');
+  check('weak password blocks step 2', /10/.test(await p.textContent('#se-password')));
+  await p.fill('#s-password', 'Secure-pass-2026'); await p.fill('#s-password2', 'Different-2026'); await p.click('[data-next]');
+  check('mismatched confirmation blocks step 2', (await p.textContent('#se-password2')).length > 0);
+  await p.fill('#s-password2', 'Secure-pass-2026'); await p.click('[data-pw-toggle]');
+  check('show/hide password toggle', (await p.getAttribute('#s-password', 'type')) === 'text');
+  await p.click('[data-pw-toggle]'); await p.click('[data-next]');
+  await p.check('input[name="vatreg"][value="yes"]'); await p.fill('#s-vat', '123'); await p.check('#s-terms'); await p.click('[data-next]');
+  check('bad VAT number blocks step 3', /15/.test(await p.textContent('#se-vat')));
+  await p.fill('#s-vat', '310123456700003'); await p.click('[data-next]');
+  check('review lists the entered details', /شركة الاختبار/.test(await p.textContent('[data-review]')) && /test-co\.tamnex\.com/.test(await p.textContent('[data-review]')));
+  await p.click('[data-submit]');
+  await p.waitForSelector('[data-holding]:not([hidden])');
+  check('holding screen: finishing touches, reference number, focus moved', /نضع اللمسات الأخيرة/.test(await p.textContent('[data-holding]')) && /^TMX-[0-9A-F]{8}$/.test(await p.textContent('[data-ref]')) && (await p.evaluate(() => document.activeElement.hasAttribute('data-holding'))));
+  await p.fill('#n-email', 'notify@example.com'); await p.click('[data-notify] [type=submit]');
+  await p.waitForFunction(() => document.querySelector('[data-notify-msg]').textContent.length > 0);
+  check('launch-notification email can be updated', /سنرسل/.test(await p.textContent('[data-notify-msg]')));
+  check('holding offers home and sales', (await p.$$('[data-holding] .actions a')).length === 2);
+  await p.screenshot({ path: `${OUT}/start-holding-ar.png`, fullPage: false });
   check('page made no third-party request', net.length === 0, net.join(' '));
   await ctx.close();
 
@@ -155,16 +186,19 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   check('no-JS: navigation visible', nj.nav >= 6, String(nj.nav));
   check('no-JS: plan prices rendered', nj.plans === catalog.plans.length);
   check('no-JS: all showcase panels readable', nj.panels === 4);
+  await p3.goto(BASE + '/start/');
+  const ns = await p3.evaluate(() => ({ steps: [...document.querySelectorAll('.step')].filter(x => x.offsetParent).length, submit: !!document.querySelector('[data-submit]').offsetParent }));
+  check('no-JS: registration is one complete form with a submit', ns.steps === 3 && ns.submit, JSON.stringify(ns));
   await c3.close();
 
   // 7. Review screenshots: ar/en x light/dark x desktop/mobile
   if (process.env.SHOTS) {
-    for (const [lang, pg] of [['ar', '/'], ['en', '/en/'], ['ar', '/pricing/'], ['en', '/en/pricing/']]) {
+    for (const [lang, pg] of [['ar', '/'], ['en', '/en/'], ['ar', '/pricing/'], ['en', '/en/pricing/'], ['ar', '/start/'], ['en', '/en/start/']]) {
       for (const scheme of ['light', 'dark']) {
         for (const [w, h, dev] of [[1440, 900, 'desktop'], [390, 844, 'mobile']]) {
           const c = await b.newContext({ viewport: { width: w, height: h }, colorScheme: scheme, deviceScaleFactor: dev === 'mobile' ? 2 : 1 });
           const q = await c.newPage(); await q.goto(BASE + pg, { waitUntil: 'networkidle' }); await q.evaluate(() => document.fonts.ready);
-          const name = `${pg.includes('pricing') ? 'pricing' : 'home'}-${lang}-${scheme}-${dev}`;
+          const name = `${pg.includes('pricing') ? 'pricing' : pg.includes('start') ? 'start' : 'home'}-${lang}-${scheme}-${dev}`;
           await q.screenshot({ path: `${OUT}/${name}-fold.png` });
           await q.screenshot({ path: `${OUT}/${name}-full.png`, fullPage: true });
           await c.close();

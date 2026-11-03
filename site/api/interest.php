@@ -14,7 +14,7 @@ $cfgFile = dirname(__DIR__, 2) . '/tamnex-config.php';           // one level ab
 $cfg = is_file($cfgFile) ? (array) require $cfgFile : [];
 $dataDir = $cfg['data_dir'] ?? getenv('TAMNEX_DATA_DIR') ?: dirname(__DIR__, 2) . '/tamnex-data';
 $salt    = $cfg['salt'] ?? getenv('TAMNEX_SALT') ?: '';
-$origins = $cfg['origins'] ?? ['https://tamnex.com', 'https://www.tamnex.com'];
+$origins = $cfg['origins'] ?? (getenv('TAMNEX_ORIGINS') ? explode(',', (string) getenv('TAMNEX_ORIGINS')) : ['https://tamnex.com', 'https://www.tamnex.com']);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') out(405, ['ok' => false, 'error' => 'method']);
 if ($salt === '') out(503, ['ok' => false, 'error' => 'not_configured']);

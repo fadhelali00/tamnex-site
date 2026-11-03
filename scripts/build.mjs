@@ -26,12 +26,12 @@ const href = (lang, path) => (lang === 'ar' ? '' : '/en') + path;
 /** @param {string} s @param {Record<string,string|number>} v */
 const fill = (s, v) => s.replace(/\{(\w+)\}/g, (_, k) => String(v[k]));
 
-/** @param {'ar'|'en'} lang @param {'home'|'pricing'} page */
+/** @param {'ar'|'en'} lang @param {'home'|'pricing'|'start'|'received'} page */
 function head(lang, page) {
   const t = T[lang];
-  const path = page === 'home' ? '/' : '/pricing/';
-  const title = page === 'home' ? t.title_home : t.title_pricing;
-  const desc = page === 'home' ? t.desc_home : t.desc_pricing;
+  const path = { home: '/', pricing: '/pricing/', start: '/start/', received: '/start/received/' }[page];
+  const title = { home: t.title_home, pricing: t.title_pricing, start: t.title_start, received: t.title_start }[page];
+  const desc = { home: t.desc_home, pricing: t.desc_pricing, start: t.desc_start, received: t.desc_start }[page];
   const url = SITE + href(lang, path);
   return `<!doctype html>
 <html lang="${t.lang}" dir="${t.dir}">
@@ -44,7 +44,7 @@ function head(lang, page) {
 <link rel="alternate" hreflang="ar" href="${SITE + path}">
 <link rel="alternate" hreflang="en" href="${SITE + '/en' + path}">
 <link rel="alternate" hreflang="x-default" href="${SITE + path}">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="${page === 'received' ? 'noindex' : 'index, follow'}">
 <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
@@ -65,14 +65,14 @@ function head(lang, page) {
 <link rel="stylesheet" href="/assets/styles.css">
 <script src="/assets/theme.js"></script>
 <script src="/assets/readiness.js" defer></script>
-<script src="/assets/app.js" defer></script>
+<script src="/assets/app.js" defer></script>${page === 'start' ? '\n<script src="/assets/start.js" defer></script>' : ''}
 </head>`;
 }
 
-/** @param {'ar'|'en'} lang @param {'home'|'pricing'} page */
+/** @param {'ar'|'en'} lang @param {'home'|'pricing'|'start'|'received'} page */
 function header(lang, page) {
   const t = T[lang];
-  const otherPath = (t.otherLang === 'ar' ? '' : '/en') + (page === 'home' ? '/' : '/pricing/');
+  const otherPath = (t.otherLang === 'ar' ? '' : '/en') + { home: '/', pricing: '/pricing/', start: '/start/', received: '/start/received/' }[page];
   const wordmark = lang === 'ar' ? 'tamnex-wordmark-ar.svg' : 'tamnex-wordmark.svg';
   const w = lang === 'ar' ? 111 : 118;
   const sec = (/** @type {string} */ id) => (page === 'home' ? '' : href(lang, '/')) + '#' + id;
@@ -87,7 +87,7 @@ function header(lang, page) {
       <a href="${href(lang, '/pricing/')}"${page === 'pricing' ? ' aria-current="page"' : ''}>${esc(t.nav_pricing)}</a>
       <a href="${sec('faq')}">${esc(t.nav_faq)}</a>
       <a class="lang" href="${otherPath}" hreflang="${t.otherLang}" lang="${t.otherLang}">${esc(t.otherLangName)}</a>
-      <a class="btn btn-sm nav-cta" href="${sec('request')}">${esc(t.nav_request)}</a>
+      <a class="btn btn-sm nav-cta" href="${href(lang, '/start/')}"${page === 'start' ? ' aria-current="page"' : ''}>${esc(t.nav_start)}</a>
     </nav>
     <button class="icon-btn theme-btn" type="button" data-theme-btn aria-label="${esc(t.theme_label)}: ${esc(t.theme_system)}" data-l-light="${esc(t.theme_light)}" data-l-dark="${esc(t.theme_dark)}" data-l-system="${esc(t.theme_system)}" data-l-label="${esc(t.theme_label)}">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9A7 7 0 0 1 12 3Z"/></svg>
@@ -226,7 +226,7 @@ function pricing(lang, full) {
   const t = T[lang];
   const plans = publicPlans(catalog);
   const feats = catalog.features;
-  const req = (/** @type {string} */ id) => href(lang, '/') + `?plan=${id}#request`;
+  const req = (/** @type {string} */ id) => id === 'enterprise' ? href(lang, '/') + `?plan=${id}#request` : href(lang, '/start/') + `?plan=${id}`;
   const toggle = `<div class="cycle" role="radiogroup" aria-label="${esc(t.cycle_label)}" data-cycle>
       ${catalog.cycles.map(c => `<button type="button" role="radio" data-c="${c}" aria-checked="${c === catalog.defaultCycle}" tabindex="${c === catalog.defaultCycle ? 0 : -1}">${esc(c === 'monthly' ? t.cycle_monthly : t.cycle_annual)}</button>`).join('')}
     </div>`;
@@ -330,7 +330,7 @@ ${header(lang, 'home')}
     <div class="hero-text">
       <h1 id="hero-title">${esc(t.hero_h1)}</h1>
       <p class="lead">${esc(t.hero_sub)}</p>
-      <div class="actions"><a class="btn btn-lg" href="#pricing">${esc(t.cta_choose)}</a><a class="btn btn-lg btn-ghost" href="#request">${esc(t.cta_demo)}</a></div>
+      <div class="actions"><a class="btn btn-lg" href="${href(lang, '/start/')}">${esc(t.cta_start)}</a><a class="btn btn-lg btn-ghost" href="#request">${esc(t.cta_demo)}</a></div>
       <ul class="points">${t.hero_points.map((/** @type {string} */ s) => `<li>${esc(s)}</li>`).join('')}</ul>
     </div>
     ${showcase(lang)}
@@ -346,6 +346,128 @@ ${pricing(lang, false)}
 ${faq(t.faq, 'faq', t.faq_title, 'h2')}
 ${request(lang)}
 </main>
+${footer(lang)}
+</body>
+</html>
+`;
+}
+
+
+/** Registration flow: progressive enhancement. Without JS it is one form; with JS, steps. @param {'ar'|'en'} lang */
+function startPage(lang) {
+  const t = T[lang];
+  const plans = publicPlans(catalog);
+  const opt = (/** @type {string[][]} */ list) => list.map(o => `<option value="${o[0]}">${esc(o[1])}</option>`).join('');
+  const f = (/** @type {string} */ id, /** @type {string} */ label, /** @type {string} */ input, /** @type {string} */ hint = '', /** @type {boolean} */ optional = false) =>
+    `<div class="field"><label for="s-${id}">${esc(label)}${optional ? ` <span class="opt">(${esc(t.st_optional)})</span>` : ''}</label>${input}${hint ? `<p class="hint" id="h-${id}">${esc(hint)}</p>` : ''}<p class="err" id="se-${id}"></p></div>`;
+  const desc = (/** @type {string} */ id, /** @type {boolean} */ hint) => `aria-describedby="${hint ? `h-${id} ` : ''}se-${id}"`;
+  const steps = t.st_steps;
+  return `${head(lang, 'start')}
+<body>
+${header(lang, 'start')}
+<main id="main" class="start">
+<section class="section start-sec" aria-labelledby="st-title">
+  <div class="wrap start-grid">
+    <aside class="start-side">
+      <h1 id="st-title">${esc(t.st_title)}</h1>
+      <p class="lead">${esc(t.st_sub)}</p>
+      <p class="prelaunch">${esc(t.st_prereg)}</p>
+      <ol class="progress" data-progress aria-label="${esc(t.st_title)}">${steps.map((/** @type {string} */ s, /** @type {number} */ i) => `<li data-p="${i + 1}"${i === 0 ? ' aria-current="step"' : ''}><span class="pn">${i + 1}</span><span>${esc(s)}</span></li>`).join('')}</ol>
+    </aside>
+    <div class="card start-card">
+      <form id="start-form" action="/api/preregister.php" method="post" novalidate data-endpoint="/api/preregister.php" data-lang="${lang}"
+        data-l-step="${esc(t.st_step_of)}" data-l-sending="${esc(t.st_sending)}" data-l-submit="${esc(t.st_submit)}" data-l-fail="${esc(t.st_fail)}" data-l-dup="${esc(t.st_dup)}"
+        data-e-req="${esc(t.e_req)}" data-e-cr="${esc(t.e_cr)}" data-e-vat="${esc(t.e_vat)}" data-e-sub="${esc(t.e_sub)}" data-e-sub-reserved="${esc(t.e_sub_reserved)}" data-e-email="${esc(t.e_email)}" data-e-phone="${esc(t.e_phone)}" data-e-terms="${esc(t.e_terms)}" data-e-pw="${esc(t.e_pw)}" data-e-pw2="${esc(t.e_pw2)}"
+        data-l-yes="${esc(t.f_yes)}" data-l-no="${esc(t.f_no)}">
+        <input type="hidden" name="lang" value="${lang}">
+        <p class="step-of" data-step-of aria-live="polite"></p>
+        <fieldset class="step" data-step="1"><legend>${esc(steps[0])}</legend>
+          ${f('company', t.f_company, `<input id="s-company" name="company" autocomplete="organization" required maxlength="160" ${desc('company', false)}>`)}
+          <div class="row2">
+            ${f('sector', t.f_sector, `<select id="s-sector" name="sector" required ${desc('sector', false)}><option value="">${esc(t.r_sector_ph)}</option>${opt(t.r_sectors)}</select>`)}
+            ${f('size', t.f_size, `<select id="s-size" name="size" required ${desc('size', false)}><option value="">—</option>${opt(t.f_sizes)}</select>`)}
+          </div>
+          <div class="row2">
+            ${f('branches', t.r_branches, `<select id="s-branches" name="branches" ${desc('branches', false)}>${opt(t.r_branches_opts)}</select>`)}
+            ${f('cr', t.f_cr, `<input id="s-cr" name="cr" inputmode="numeric" dir="ltr" maxlength="10" autocomplete="off" ${desc('cr', true)}>`, t.f_cr_hint, true)}
+          </div>
+          ${f('subdomain', t.f_sub, `<div class="sub-field" dir="ltr"><input id="s-subdomain" name="subdomain" maxlength="30" autocomplete="off" spellcheck="false" placeholder="company" ${desc('subdomain', true)}><span>.tamnex.com</span></div>`, t.f_sub_hint, true)}
+        </fieldset>
+        <fieldset class="step" data-step="2"><legend>${esc(steps[1])}</legend>
+          <div class="row2">
+            ${f('first', t.f_first, `<input id="s-first" name="first" autocomplete="given-name" required maxlength="80" ${desc('first', false)}>`)}
+            ${f('last', t.f_last, `<input id="s-last" name="last" autocomplete="family-name" required maxlength="80" ${desc('last', false)}>`)}
+          </div>
+          ${f('job', t.f_job, `<select id="s-job" name="job" required ${desc('job', false)}><option value="">—</option>${opt(t.f_jobs)}</select>`)}
+          <div class="row2">
+            ${f('email', t.r_email, `<input id="s-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" required maxlength="254" ${desc('email', false)}>`)}
+            ${f('phone', t.r_phone, `<div class="phone-field" dir="ltr"><span>+966</span><input id="s-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" required maxlength="15" placeholder="5XXXXXXXX" ${desc('phone', false)}></div>`)}
+          </div>
+          <div class="row2">
+            ${f('password', t.f_pw, `<div class="pw-field" dir="ltr"><input id="s-password" name="password" type="password" autocomplete="new-password" required minlength="10" maxlength="128" ${desc('password', true)}><button type="button" class="link-btn" data-pw-toggle aria-controls="s-password" data-l-show="${esc(t.f_pw_show)}" data-l-hide="${esc(t.f_pw_hide)}">${esc(t.f_pw_show)}</button></div>`, t.f_pw_hint)}
+            ${f('password2', t.f_pw2, `<input id="s-password2" name="password2" type="password" autocomplete="new-password" required maxlength="128" dir="ltr" ${desc('password2', false)}>`)}
+          </div>
+        </fieldset>
+        <fieldset class="step" data-step="3"><legend>${esc(steps[2])}</legend>
+          <dl class="fixed"><div><dt>${esc(t.f_country)}</dt><dd>${esc(t.f_country_v)}</dd></div><div><dt>${esc(t.f_tz)}</dt><dd>${esc(t.f_tz_v)}</dd></div><div><dt>${esc(t.f_currency)}</dt><dd>${esc(t.f_currency_v)}</dd></div></dl>
+          <fieldset class="radios" aria-describedby="se-vatreg"><legend>${esc(t.f_vatreg)}</legend>
+            <label><input type="radio" name="vatreg" value="yes" required> ${esc(t.f_yes)}</label><label><input type="radio" name="vatreg" value="no"> ${esc(t.f_no)}</label>
+            <p class="err" id="se-vatreg"></p></fieldset>
+          <div class="row2">
+            ${f('vat', t.f_vat, `<input id="s-vat" name="vat" inputmode="numeric" dir="ltr" maxlength="15" autocomplete="off" ${desc('vat', true)}>`, t.f_vat_hint)}
+            ${f('fy', t.f_fy, `<select id="s-fy" name="fy" ${desc('fy', false)}>${t.f_months.map((/** @type {string} */ m, /** @type {number} */ i) => `<option value="${i + 1}"${i === 0 ? ' selected' : ''}>${esc(m)}</option>`).join('')}</select>`)}
+          </div>
+          ${f('plan', t.f_plan, `<select id="s-plan" name="plan" ${desc('plan', false)}><option value="">${esc(t.r_plan_none)}</option>${plans.map(p => `<option value="${p.id}">${esc(p.name[lang])}</option>`).join('')}</select>`)}
+          <div class="field consent"><label><input id="s-terms" name="terms" type="checkbox" required aria-describedby="se-terms"> ${esc(t.f_terms)}</label><p class="err" id="se-terms"></p></div>
+          <div class="field consent"><label><input id="s-marketing" name="marketing" type="checkbox"> ${esc(t.f_marketing)}</label></div>
+          <details class="privacy"><summary>${esc(t.r_privacy_title)}</summary><p>${esc(t.r_privacy)}</p></details>
+        </fieldset>
+        <fieldset class="step" data-step="4" data-js-step><legend>${esc(steps[3])}</legend>
+          <p class="fine">${esc(t.st_review)}</p>
+          <dl class="review" data-review></dl>
+        </fieldset>
+        <div class="hp" aria-hidden="true"><label for="s-website">Website</label><input id="s-website" name="website" tabindex="-1" autocomplete="off"></div>
+        <div class="step-nav">
+          <button type="button" class="btn btn-ghost" data-back hidden>${esc(t.st_back)}</button>
+          <button type="button" class="btn" data-next hidden>${esc(t.st_next)}</button>
+          <button type="submit" class="btn" data-submit>${esc(t.st_submit)}</button>
+        </div>
+        <p class="form-msg" id="start-msg" role="status" aria-live="polite"></p>
+      </form>
+      ${holding(lang, true)}
+    </div>
+  </div>
+</section>
+</main>
+${footer(lang)}
+</body>
+</html>
+`;
+}
+
+/** The holding state shown after a successful registration. @param {'ar'|'en'} lang @param {boolean} inline */
+function holding(lang, inline) {
+  const t = T[lang];
+  return `<div class="holding" ${inline ? 'data-holding hidden' : ''} tabindex="-1" aria-labelledby="hold-title-${inline ? 'i' : 'p'}">
+    <svg class="hold-orb" viewBox="0 0 64 64" aria-hidden="true"><circle class="orb-pulse" cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="32" cy="32" r="18" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"/><path d="M24 33l6 6 11-13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <${inline ? 'h2' : 'h1'} id="hold-title-${inline ? 'i' : 'p'}">${esc(t.hold_title)}</${inline ? 'h2' : 'h1'}>
+    <p class="lead">${esc(t.hold_body)}</p>
+    ${inline ? `<p class="ref">${esc(t.hold_ref)}: <bdi data-ref></bdi></p>` : `<p class="fine">${esc(t.hold_nojs)}</p>`}
+    <ul class="saved">${t.hold_saved.map((/** @type {string} */ s) => `<li><span class="chip chip-ok"><i></i>${esc(s)}</span></li>`).join('')}</ul>
+    ${inline ? `<form class="notify" data-notify novalidate data-l-ok="${esc(t.hold_notify_ok)}" data-l-fail="${esc(t.st_fail)}" data-e-email="${esc(t.e_email)}">
+      <div class="field"><label for="n-email">${esc(t.hold_notify)}</label><div class="row-inline"><input id="n-email" type="email" dir="ltr" autocomplete="email" aria-describedby="ne-email"><button class="btn btn-ghost" type="submit">${esc(t.hold_notify_btn)}</button></div><p class="err" id="ne-email"></p></div>
+      <p class="form-msg" data-notify-msg role="status" aria-live="polite"></p>
+    </form>` : ''}
+    <div class="actions"><a class="btn" href="${href(lang, '/')}">${esc(t.hold_home)}</a><a class="btn btn-ghost" href="${href(lang, '/')}#request">${esc(t.hold_sales)}</a></div>
+  </div>`;
+}
+
+/** @param {'ar'|'en'} lang */
+function receivedPage(lang) {
+  return `${head(lang, 'received')}
+<body>
+${header(lang, 'received')}
+<main id="main" class="start"><section class="section"><div class="wrap narrow card">${holding(lang, false)}</div></section></main>
 ${footer(lang)}
 </body>
 </html>
@@ -373,12 +495,16 @@ out('index.html', home('ar'));
 out('pricing/index.html', pricingPage('ar'));
 out('en/index.html', home('en'));
 out('en/pricing/index.html', pricingPage('en'));
+out('start/index.html', startPage('ar'));
+out('en/start/index.html', startPage('en'));
+out('start/received/index.html', receivedPage('ar'));
+out('en/start/received/index.html', receivedPage('en'));
 mkdirSync(ROOT + 'site/data', { recursive: true });
 copyFileSync(ROOT + 'data/pricing-catalog.json', ROOT + 'site/data/pricing-catalog.json');
 writeFileSync(ROOT + 'site/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Tamnex by Evexa -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${['/', '/pricing/'].map(p => ['', '/en'].map(l => `  <url><loc>${SITE}${l}${p}</loc><lastmod>${catalog.effectiveFrom}</lastmod><xhtml:link rel="alternate" hreflang="ar" href="${SITE}${p}"/><xhtml:link rel="alternate" hreflang="en" href="${SITE}/en${p}"/></url>`).join('\n')).join('\n')}
+${['/', '/pricing/', '/start/'].map(p => ['', '/en'].map(l => `  <url><loc>${SITE}${l}${p}</loc><lastmod>${catalog.effectiveFrom}</lastmod><xhtml:link rel="alternate" hreflang="ar" href="${SITE}${p}"/><xhtml:link rel="alternate" hreflang="en" href="${SITE}/en${p}"/></url>`).join('\n')).join('\n')}
 </urlset>
 `);
 console.log('built: site/index.html, site/pricing/, site/en/, site/en/pricing/, catalog', catalog.catalogVersion);

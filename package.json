@@ -3,13 +3,23 @@
   "private": true,
   "description": "Tamnex public marketing site (tamnex.com). Static HTML/CSS/JS, no build step.",
   "scripts": {
+    "build": "node scripts/build.mjs",
     "serve": "cd site && python3 -m http.server 8765",
-    "test": "node --test tests/readiness.test.mjs && node tests/claims-guard.mjs",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --test tests/catalog.test.mjs tests/readiness.test.mjs && node tests/claims-guard.mjs",
     "test:e2e": "AXE=node_modules/axe-core/axe.min.js OUT=shots node tests/e2e.cjs",
-    "zip": "cd site && zip -q -r ../tamnex-site.zip . -x '*.DS_Store'"
+    "check": "npm run build && npm run lint && npm run typecheck && npm test"
   },
   "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "@types/node": "^22.9.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
     "axe-core": "4.10.2",
-    "playwright": "1.48.2"
+    "eslint": "^9.14.0",
+    "globals": "^15.12.0",
+    "playwright": "1.48.2",
+    "typescript": "^5.6.3"
   }
 }

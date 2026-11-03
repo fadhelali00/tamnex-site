@@ -1,5 +1,5 @@
 <?php
-// Tamnex pre-launch interest endpoint. No third party, no email sending.
+// Tamnex demo-request endpoint ("اطلب عرضاً مباشراً" / "اختر باقتك"). No third party, no email sending.
 // Stores one CSV row per sign-up OUTSIDE the web root. Configure TAMNEX_DATA_DIR and TAMNEX_SALT
 // in the hosting panel (environment) or in ../tamnex-config.php; never commit real values.
 declare(strict_types=1);
@@ -27,17 +27,29 @@ $in = json_decode($raw, true);
 if (!is_array($in)) out(400, ['ok' => false, 'error' => 'json']);
 
 // Honeypot: answer like success so bots learn nothing; store nothing.
-if (!empty($in['company'])) out(200, ['ok' => true]);
+if (!empty($in['website'])) out(200, ['ok' => true]);
 
-$email  = is_string($in['email'] ?? null) ? trim($in['email']) : '';
-$sector = is_string($in['sector'] ?? null) ? $in['sector'] : '';
-$need   = is_string($in['need'] ?? null) ? $in['need'] : '';
-$SECTORS = ['trade', 'distribution', 'retail', 'services', 'accounting-office', 'other'];
-$NEEDS   = ['', 'close', 'migration', 'distribution', 'einvoice', 'ai'];
+$str = fn(string $k, int $max) => is_string($in[$k] ?? null) ? mb_substr(trim(preg_replace('/[\x00-\x1F\x7F]/u', ' ', $in[$k])), 0, $max) : '';
+$name     = $str('name', 120);
+$company  = $str('company', 160);
+$email    = $str('email', 254);
+$phone    = preg_replace('/[\s\-()]/', '', $str('phone', 25));
+$sector   = $str('sector', 40);
+$branches = $str('branches', 8);
+$plan     = $str('plan', 40);
+$lang     = $str('lang', 2);
+$SECTORS  = ['trade', 'distribution', 'retail', 'services', 'accounting-office', 'other'];
+$BRANCHES = ['1', '2-5', '6+'];
+$PLANS    = ['', 'launch', 'growth', 'scale', 'enterprise'];   // stable ids from data/pricing-catalog.json
 $errors = [];
-if ($email === '' || strlen($email) > 254 || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'email';
+if ($name === '') $errors[] = 'name';
+if ($company === '') $errors[] = 'company';
+if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'email';
+if (!preg_match('/^\+?[0-9]{9,15}$/', $phone)) $errors[] = 'phone';
 if (!in_array($sector, $SECTORS, true)) $errors[] = 'sector';
-if (!in_array($need, $NEEDS, true)) $errors[] = 'need';
+if (!in_array($branches, $BRANCHES, true)) $errors[] = 'branches';
+if (!in_array($plan, $PLANS, true)) $errors[] = 'plan';
+if (!in_array($lang, ['ar', 'en'], true)) $errors[] = 'lang';
 if (($in['consent'] ?? null) !== true) $errors[] = 'consent';
 if ($errors) out(422, ['ok' => false, 'error' => 'invalid', 'fields' => $errors]);
 
@@ -57,13 +69,13 @@ file_put_contents($rlFile, json_encode(array_values($hits)), LOCK_EX);
 
 // CSV with formula-injection guard.
 $cell = fn(string $v) => (preg_match('/^[=+\-@\t\r]/', $v) ? "'" . $v : $v);
-$row = [gmdate('c'), $cell(strtolower($email)), $sector, $need, 'consent-v1', substr($ipHash, 0, 16)];
-$file = $dataDir . '/interest.csv';
+$row = [gmdate('c'), $cell($name), $cell($company), $cell(strtolower($email)), $cell($phone), $sector, $branches, $plan, $lang, 'consent-v1', substr($ipHash, 0, 16)];
+$file = $dataDir . '/demo-requests.csv';
 $new = !is_file($file);
 $fh = fopen($file, 'ab');
 if ($fh === false) out(500, ['ok' => false, 'error' => 'storage']);
 flock($fh, LOCK_EX);
-if ($new) fputcsv($fh, ['utc_time', 'email', 'sector', 'need', 'consent', 'ip_hash'], ',', '"', '');
+if ($new) fputcsv($fh, ['utc_time', 'name', 'company', 'email', 'phone', 'sector', 'branches', 'plan', 'lang', 'consent', 'ip_hash'], ',', '"', '');
 fputcsv($fh, $row, ',', '"', '');
 flock($fh, LOCK_UN);
 fclose($fh);

@@ -1,16 +1,23 @@
-// Fails when the public page uses wording the claims register forbids (marketing/CLAIMS.md).
+// Fails when a published page uses wording that the claims register forbids (marketing/CLAIMS.md).
 import { readFileSync } from 'node:fs';
-const raw = readFileSync(new URL('../site/index.html', import.meta.url), 'utf8');
-const html = raw.replace(/<[^>]+>/g, ' ');
-// The demo shows synthetic contract amounts; it is excluded from the price rule only.
-const outsideDemo = raw.replace(/<section class="demo"[\s\S]*?<\/section>/, '').replace(/<[^>]+>/g, ' ');
+const pages = ['index.html', 'pricing/index.html', 'en/index.html', 'en/pricing/index.html'];
 const banned = [
-  [/محاسب آلي/, 'محاسب آلي'], [/إقفال بضغطة/, 'إقفال بضغطة'], [/البوت/, 'البوت'], [/يدير حساباتك/, 'يدير حساباتك'],
-  [/14 يوماً/, 'trial offer (no onboarding yet)'], [/ابدأ استخدام/, 'ابدأ استخدام'],
-  [/في يوم (عمل )?واحد/, 'one-day migration promise'], [/داخل المملكة/, 'in-Kingdom hosting claim'],
-  [/ر\.س\s*(شهرياً|سنوياً)|\/\s*شهرياً/, 'prices are hidden until approved'], [/mithqal|مثقال/i, 'old product name'],
-  [/[0-9]+\s*%\s*(توفير|دقة)/, 'invented savings/accuracy figure'], [/الأول في السوق|الأفضل/, 'superlative']
+  [/محاسب آلي|إقفال بضغطة|البوت|يدير حساباتك/, 'banned AI wording'],
+  [/auto-?(post|close|approve)|closes your books automatically/i, 'AI acting without approval'],
+  [/تجربة مجانية|ابدأ التجربة|free trial|start (your )?trial|14 (يوماً|days)/i, 'trial offered before its path works'],
+  [/ادفع الآن|pay now|checkout|اشترك الآن/i, 'payment before sale scope is ready'],
+  [/في يوم (عمل )?واحد|in (one|a single) (business )?day/i, 'one-day migration promise'],
+  [/داخل المملكة|hosted in (the )?(Kingdom|Saudi)/i, 'in-Kingdom hosting claim'],
+  [/الأكثر مبيعاً|best[- ]?sell|most popular/i, 'unsupported best-seller label'],
+  [/mithqal|مثقال/i, 'old product name'],
+  [/[0-9]+\s*%\s*(توفير|دقة)|save [0-9]+%|[0-9]+% (more )?accura/i, 'invented savings/accuracy figure'],
+  [/الأول في السوق|الأفضل|the best ERP|#1/i, 'superlative'],
+  [/رصيد (AI|الذكاء)|AI credit/i, 'AI credit amount']
 ];
-const hits = banned.filter(([re, why]) => (why.startsWith('prices') ? outsideDemo : html).search(re) > -1).map(([, why]) => why);
-if (hits.length) { console.error('Banned wording on the page:', hits.join(', ')); process.exit(1); }
-console.log('claims guard: ok');
+let bad = 0;
+for (const pg of pages) {
+  const text = readFileSync(new URL('../site/' + pg, import.meta.url), 'utf8').replace(/<[^>]+>/g, ' ');
+  for (const [re, why] of banned) if (re.test(text)) { console.error(`${pg}: ${why} (${text.match(re)[0]})`); bad++; }
+}
+if (bad) process.exit(1);
+console.log('claims guard: ok (' + pages.length + ' pages)');

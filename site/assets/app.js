@@ -1,232 +1,224 @@
-/* Tamnex page behaviour. The page reads completely without this file. */
+// @ts-check
+/* Tamnex site behaviour. Every page reads completely without this file. */
 (function () {
   'use strict';
   var doc = document.documentElement;
-  doc.classList.add('js');
-  var R = window.TamnexReadiness;
+  var rtl = doc.dir === 'rtl';
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var $ = function (sel, root) { return (root || document).querySelector(sel); };
-  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+  /** @param {string} s @param {ParentNode} [r] @returns {any} */
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  /** @param {string} s @param {ParentNode} [r] @returns {any[]} */
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  /* ---------- Privacy-safe events: no third party, no ledger content ---------- */
-  var sent = {};
+  /** Privacy-safe events: no third party, no ledger content. @param {string} name @param {object} [data] */
   function track(name, data) {
-    var ev = { name: name, data: data || {}, t: Date.now() };
-    (window.tamnexEvents = window.tamnexEvents || []).push(ev);
-    window.dispatchEvent(new CustomEvent('tamnex:event', { detail: ev }));
+    var w = /** @type {any} */ (window);
+    (w.tamnexEvents = w.tamnexEvents || []).push({ name: name, data: data || {}, t: Date.now() });
   }
-  function trackOnce(name, data) { var k = name + JSON.stringify(data || {}); if (!sent[k]) { sent[k] = 1; track(name, data); } }
 
-  /* ---------- Mobile menu ---------- */
-  var menuBtn = $('.menu-btn'), nav = $('#site-nav');
+  /* ---------- Mobile drawer: Esc closes and returns focus to the button ---------- */
+  var menuBtn = $('[data-menu-btn]'), nav = $('[data-nav]');
   if (menuBtn && nav) {
-    menuBtn.addEventListener('click', function () {
-      var open = menuBtn.getAttribute('aria-expanded') !== 'true';
+    var setOpen = function (/** @type {boolean} */ open, /** @type {boolean} */ focusBack) {
       menuBtn.setAttribute('aria-expanded', String(open));
       nav.setAttribute('data-open', String(open));
-    });
-    nav.addEventListener('click', function (e) {
-      if (e.target.closest('a')) { menuBtn.setAttribute('aria-expanded', 'false'); nav.setAttribute('data-open', 'false'); }
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && nav.getAttribute('data-open') === 'true') { menuBtn.click(); menuBtn.focus(); }
+      $('.sr', menuBtn).textContent = open ? menuBtn.dataset.lClose : menuBtn.dataset.lOpen;
+      if (open) { var first = $('a', nav); if (first) first.focus(); }
+      else if (focusBack) menuBtn.focus();
+    };
+    menuBtn.addEventListener('click', function () { setOpen(menuBtn.getAttribute('aria-expanded') !== 'true', true); });
+    nav.addEventListener('click', function (/** @type {Event} */ e) { if (/** @type {HTMLElement} */ (e.target).closest('a')) setOpen(false, false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.getAttribute('data-open') === 'true') setOpen(false, true); });
+    document.addEventListener('click', function (e) {
+      var t = /** @type {Node} */ (e.target);
+      if (nav.getAttribute('data-open') === 'true' && !nav.contains(t) && !menuBtn.contains(t)) setOpen(false, false);
     });
   }
 
-  /* ---------- Demo ---------- */
-  if (R) initDemo();
-
-  function initDemo() {
-    var state = R.initial();
-    var msgs = { 1: null, 2: null, 3: null };
-    var base = R.evaluate(state);
-    var LABEL = { pass: 'مكتمل', open: 'مفتوح', attention: 'يحتاج مراجعة', unverified: 'غير متحقق' };
-    var started = false, playing = false;
-
-    function badge(st) { return '<span class="st st-' + st + '"><i></i>' + LABEL[st] + '</span>'; }
-    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-
-    function setMsg(step, res, kind) { msgs[step] = res ? { text: res.message, kind: kind || (res.ok ? 'ok' : 'bad') } : null; }
-
-    function apply(res, step, kind) {
-      if (!started) { started = true; track('demo_start'); }
-      if (res.ok) state = res.state;
-      if (step) setMsg(step, res, kind);
-      render(res.ok ? (res.flash || null) : null);
-      return res.ok;
-    }
-
-    function render(flashIds) {
-      var ev = R.evaluate(state);
-      // rings (hero preview and board): same numbers, same source
-      $$('[data-bind="ring"]').forEach(function (ring) {
-        var pct = ev.complete / ev.total * 100;
-        ring.querySelector('.ring-arc').style.strokeDasharray = pct + ' 100';
-        ring.setAttribute('aria-label', ev.complete + ' من ' + ev.total + ' فحوص مكتملة');
-        ring.setAttribute('data-done', String(ev.verdict.kind === 'done'));
-      });
-      $$('[data-bind="ring-num"]').forEach(function (el) { el.textContent = ev.complete + '/' + ev.total; });
-      var pv = $('[data-bind="pv-list"]');
-      if (pv) {
-        var open = ev.items.filter(function (i) { return i.status !== 'pass'; });
-        pv.innerHTML = open.length
-          ? open.slice(0, 4).map(function (i) { return '<li>' + badge(i.status) + '<span>' + esc(i.title) + '</span></li>'; }).join('')
-          : '<li>' + badge('pass') + '<span>فحوص السيناريو مكتملة، بانتظار المحاسب</span></li>';
-      }
-      var v = $('[data-bind="verdict"]');
-      v.textContent = ev.verdict.text + (ev.verdict.kind === 'better' ? ' المتبقي: ' + ev.blockers.map(function (b) { return b.title; }).join('، ') + '.' : '');
-      v.className = 'verdict v-' + ev.verdict.kind;
-      $('[data-bind="checks"]').innerHTML = ev.items.map(function (i) {
-        var fl = flashIds && flashIds.indexOf(i.id) > -1 ? ' class="flash"' : '';
-        return '<tr' + fl + ' data-check="' + i.id + '"><td>' + esc(i.title) + (i.status !== 'pass' || i.id === 'inventory' ? '<small>' + esc(i.detail) + '</small>' : '') + '</td><td>' + badge(i.status) + '</td><td>' + esc(i.owner) + '</td></tr>';
-      }).join('');
-      $('[data-bind="l-bank"]').textContent = R.fmt(ev.ledger.bank);
-      $('[data-bind="l-rent"]').textContent = R.fmt(ev.ledger.expense);
-      $('[data-bind="l-accrued"]').textContent = R.fmt(ev.ledger.accrued);
-
-      // step 1
-      $$('[data-act="match"]').forEach(function (b) {
-        var li = b.closest('li'), picked = state.matchedTo === b.dataset.id;
-        li.setAttribute('data-picked', String(picked));
-        b.textContent = picked ? 'ألغِ الربط' : 'اربط';
-        b.disabled = !!state.matchedTo && !picked;
-      });
-      // step 2
-      $('[data-bind="explain"]').hidden = !state.explained;
-      $('[data-act="draft"]').disabled = state.accrual !== 'missing';
-      $('[data-act="approve"]').disabled = state.accrual !== 'draft';
-      // step 3
-      $$('input[name="evid"]').forEach(function (r) { if (r.value === state.inventoryEvidence) r.checked = true; });
-      // messages
-      [1, 2, 3].forEach(function (n) {
-        var el = $('[data-bind="msg-' + n + '"]'), m = msgs[n];
-        el.textContent = m ? m.text : '';
-        el.className = 'msg' + (m ? ' ' + m.kind : '');
-      });
-      // step states
-      var done = {
-        1: state.matchedTo === 'RV-1042',
-        2: state.accrual === 'approved',
-        3: state.inventoryEvidence === 'VAL-1031',
-        4: ev.verdict.kind === 'done'
-      };
-      var current = [1, 2, 3, 4].filter(function (n) { return !done[n]; })[0];
-      $$('.step').forEach(function (li) {
-        var n = +li.dataset.step;
-        li.setAttribute('data-state', done[n] ? 'done' : (n === current ? 'current' : 'todo'));
-      });
-      // evidence pack
-      $('[data-bind="ba"]').innerHTML = ev.items.map(function (i, k) {
-        return '<tr><td>' + esc(i.title) + '</td><td>' + badge(base.items[k].status) + '</td><td>' + badge(i.status) + '</td></tr>';
-      }).join('');
-      $('[data-bind="log"]').innerHTML = state.log.length
-        ? state.log.map(function (l) { return '<li>' + esc(l.text) + (l.kind === 'decision' ? ' (المسؤول: المحاسب)' : '') + '</li>'; }).join('')
-        : '<li>لا إجراءات بعد.</li>';
-      if (ev.verdict.kind === 'done') trackOnce('demo_complete', { runs: state.runs });
-    }
-
-    var stepOf = { match: 1, explain: 2, draft: 2, approve: 2, evidence: 3, dismiss: 3, run: 4 };
-
-    function act(name, el) {
-      var res;
-      switch (name) {
-        case 'match':
-          res = state.matchedTo === el.dataset.id ? R.unmatchBank(state) : R.matchBank(state, el.dataset.id);
-          res.flash = ['bank']; break;
-        case 'explain': res = R.explainAccrual(state); break;
-        case 'draft': res = R.saveAccrualDraft(state); res.flash = ['expected', 'hygiene']; break;
-        case 'approve': res = R.approveAccrual(state); res.flash = ['expected', 'hygiene']; break;
-        case 'evidence':
-          var picked = $('input[name="evid"]:checked');
-          res = R.useInventoryEvidence(state, picked ? picked.value : ''); res.flash = ['inventory']; break;
-        case 'dismiss':
-          res = { ok: false, state: state, message: 'لا يُغلق الفحص بإخفاء التنبيه. يلزم دليل يغطي نهاية الفترة ويطابق الأستاذ.' };
-          return apply(res, 3, 'info');
-        case 'run': res = R.runChecks(state); res.flash = R.CHECKS.map(function (c) { return c.id; }); break;
-        case 'reset':
-          state = R.initial(); msgs = { 1: null, 2: null, 3: null }; render(); announce('أُعيدت التجربة إلى بدايتها.'); return;
-        case 'example': return playExample();
-        case 'skip':
-          var on = el.getAttribute('aria-pressed') !== 'true';
-          el.setAttribute('aria-pressed', String(on));
-          $('#demo').classList.toggle('skip-guide', on); return;
-      }
-      if (!res) return;
-      var ok = apply(res, stepOf[name] === 4 ? null : stepOf[name]);
-      if (ok && stepOf[name]) track('demo_step', { step: stepOf[name], action: name });
-    }
-
-    var live = document.createElement('p'); live.className = 'sr'; live.setAttribute('role', 'status'); $('#demo').appendChild(live);
-    function announce(t) { live.textContent = t; }
-
-    $('#demo').addEventListener('click', function (e) {
-      var b = e.target.closest('[data-act]');
-      if (!b || b.disabled || playing) return;
-      act(b.dataset.act, b);
+  /* ---------- Theme: system -> light -> dark ---------- */
+  var themeBtn = $('[data-theme-btn]');
+  if (themeBtn) {
+    var label = function () {
+      var cur = doc.getAttribute('data-theme') || 'system';
+      themeBtn.setAttribute('aria-label', themeBtn.dataset.lLabel + ': ' + themeBtn.dataset['l' + cur.charAt(0).toUpperCase() + cur.slice(1)]);
+    };
+    label();
+    themeBtn.addEventListener('click', function () {
+      var cur = doc.getAttribute('data-theme') || 'system';
+      var next = cur === 'system' ? 'light' : cur === 'light' ? 'dark' : 'system';
+      if (next === 'system') doc.removeAttribute('data-theme'); else doc.setAttribute('data-theme', next);
+      try { if (next === 'system') localStorage.removeItem('tamnex-theme'); else localStorage.setItem('tamnex-theme', next); } catch { /* storage blocked */ }
+      label();
     });
+  }
 
-    function playExample() {
-      state = R.initial(); msgs = { 1: null, 2: null, 3: null }; render();
-      var seq = [
-        function () { apply(R.matchBank(state, 'RV-1047'), 1); },
-        function () { var r = R.matchBank(state, 'RV-1042'); r.flash = ['bank']; apply(r, 1); },
-        function () { apply(R.explainAccrual(state), 2); setMsg(2, null); render(); },
-        function () { var r = R.saveAccrualDraft(state); r.flash = ['expected', 'hygiene']; apply(r, 2); },
-        function () { var r = R.approveAccrual(state); r.flash = ['expected', 'hygiene']; apply(r, 2); },
-        function () { var r = R.useInventoryEvidence(state, 'VAL-1031'); r.flash = ['inventory']; apply(r, 3); },
-        function () { var r = R.runChecks(state); r.flash = R.CHECKS.map(function (c) { return c.id; }); apply(r); }
-      ];
-      track('demo_example');
-      if (reduce) { seq.forEach(function (f) { f(); }); announce('عُرض المثال كاملاً.'); return; }
-      playing = true; var i = 0;
-      (function next() {
-        if (i >= seq.length) { playing = false; announce('انتهى المثال.'); return; }
-        seq[i++](); setTimeout(next, 1100);
-      })();
-    }
+  /* ---------- Tabs (showcase and Nexa scenes): WAI-ARIA tabs, arrows follow reading direction ---------- */
+  $$('[role="tablist"]').forEach(function (tablist) {
+    var tabs = $$('[role="tab"]', tablist);
+    var select = function (/** @type {HTMLElement} */ tab, /** @type {boolean} */ focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        var p = document.getElementById(t.getAttribute('aria-controls'));
+        if (p) { if (on) p.removeAttribute('data-inactive'); else p.setAttribute('data-inactive', ''); }
+      });
+      if (focus) tab.focus();
+      track('tab', { tab: tab.id });
+      if (tab.id === 'tab-s1') typeQuestion();
+    };
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(t, false); });
+      t.addEventListener('keydown', function (/** @type {KeyboardEvent} */ e) {
+        var next = { ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1 }[e.key];
+        if (next) { e.preventDefault(); select(tabs[(i + next + tabs.length) % tabs.length], true); }
+        if (e.key === 'Home') { e.preventDefault(); select(tabs[0], true); }
+        if (e.key === 'End') { e.preventDefault(); select(tabs[tabs.length - 1], true); }
+      });
+    });
+  });
 
+  /* ---------- Nexa scenes: the question types itself once; buttons give an honest demo result ---------- */
+  var typed = false;
+  function typeQuestion() {
+    var q = $('.cmd-q[data-type]');
+    if (!q || typed || reduce) return;
+    typed = true;
+    var full = q.getAttribute('data-type'), n = 0;
+    q.classList.add('typing'); q.textContent = '';
+    var id = window.setInterval(function () {
+      n += 2; q.textContent = full.slice(0, n);
+      if (n >= full.length) { clearInterval(id); q.classList.remove('typing'); q.textContent = full; }
+    }, 28);
+  }
+  var stage = $('.nx-stage');
+  if (stage && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting) { io.disconnect(); var s1 = $('#tab-s1'); if (s1 && s1.getAttribute('aria-selected') === 'true') typeQuestion(); }
+    }, { threshold: 0.4 });
+    io.observe(stage);
+  }
+  $$('[data-nx-act]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var id = b.getAttribute('data-nx-act');
+      var done = $('[data-nx-done="' + id + '"]'); if (done) done.hidden = false;
+      b.disabled = true; track('nexa_scene', { scene: id });
+    });
+  });
+
+  /* ---------- Monthly / annual: swaps text already rendered from the catalog ---------- */
+  var cycle = $('[data-cycle]');
+  if (cycle) {
+    var radios = $$('[role="radio"]', cycle);
+    var setCycle = function (/** @type {HTMLElement} */ r, /** @type {boolean} */ focus) {
+      var c = r.dataset.c;
+      radios.forEach(function (x) { var on = x === r; x.setAttribute('aria-checked', String(on)); x.tabIndex = on ? 0 : -1; });
+      $$('[data-monthly][data-annual]').forEach(function (el) {
+        var v = el.getAttribute(c === 'monthly' ? 'data-monthly' : 'data-annual');
+        var b = $('bdi', el); if (b) b.textContent = v; else el.textContent = v;
+      });
+      if (focus) r.focus();
+      track('pricing_cycle', { cycle: c });
+    };
+    radios.forEach(function (r, i) {
+      r.addEventListener('click', function () { setCycle(r, false); });
+      r.addEventListener('keydown', function (/** @type {KeyboardEvent} */ e) {
+        if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(e.key) < 0) return;
+        e.preventDefault(); setCycle(radios[(i + 1) % radios.length], true);
+      });
+    });
+  }
+
+  /* ---------- Document-cycle card: one step lit at a time while visible ---------- */
+  var flow = $('.c-cycle .flow');
+  if (flow && !reduce && 'IntersectionObserver' in window) {
+    var steps = $$('li', flow), k = 0, timer = 0;
+    var tick = function () { steps.forEach(function (s, i) { s.classList.toggle('on', i === k); }); k = (k + 1) % steps.length; };
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting && !timer) { tick(); timer = window.setInterval(tick, 1600); } else if (!e.isIntersecting && timer) { clearInterval(timer); timer = 0; } });
+    }).observe(flow);
+  }
+
+  /* ---------- Continuous-close demo: short, sample data, one state machine ---------- */
+  var R = /** @type {any} */ (window).TamnexReadiness;
+  var demo = $('[data-demo]');
+  if (R && demo) {
+    var state = R.initial(), started = false;
+    var verdict = $('[data-verdict]', demo);
+    var render = function () {
+      var ev = R.evaluate(state);
+      var arc = $('[data-arc]', demo);
+      arc.setAttribute('class', 'r-arc r-' + ev.complete);
+      $('[data-ring-n]', demo).textContent = ev.complete + '/' + ev.total;
+      $('[data-ring="after"]', demo).setAttribute('aria-label', demo.dataset.lDone.replace('{n}', ev.complete).replace('{t}', ev.total));
+      var done = { bank: state.matchedTo === 'RV-1042', accrual: state.accrual === 'approved', inventory: state.inventoryEvidence === 'VAL-1031' };
+      $$('[data-ex]', demo).forEach(function (li) {
+        var d = /** @type {any} */ (done)[li.dataset.ex];
+        li.setAttribute('data-state', d ? 'done' : 'open');
+        $('[data-done-text]', li).hidden = !d;
+        $('[data-ex-act]', li).disabled = d;
+      });
+      var kind = ev.verdict.kind === 'done' ? 'complete' : ev.verdict.kind;
+      verdict.className = 'verdict v-' + kind;
+      verdict.textContent = demo.dataset['l' + kind.charAt(0).toUpperCase() + kind.slice(1)];
+      if (kind === 'complete') track('demo_complete');
+    };
+    var start = function () { if (!started) { started = true; track('demo_start'); } };
+    demo.addEventListener('click', function (/** @type {Event} */ e) {
+      var b = /** @type {HTMLButtonElement|null} */ (/** @type {HTMLElement} */ (e.target).closest('button'));
+      if (!b || b.disabled) return;
+      start();
+      var act = b.dataset.exAct;
+      if (act === 'bank') state = R.matchBank(state, 'RV-1042').state;
+      if (act === 'accrual') { state = R.saveAccrualDraft(state).state; state = R.approveAccrual(state).state; }
+      if (act === 'inventory') state = R.useInventoryEvidence(state, 'VAL-1031').state;
+      if (b.hasAttribute('data-demo-run')) state = R.runChecks(state).state;
+      if (b.hasAttribute('data-demo-reset')) state = R.initial();
+      if (act) track('demo_step', { step: act });
+      render();
+    });
     render();
   }
 
-  /* ---------- Interest form ---------- */
-  var form = $('#lead-form');
+  /* ---------- Request form ---------- */
+  var form = /** @type {HTMLFormElement|null} */ ($('#lead-form'));
   if (form) {
-    var out = $('#form-msg');
-    var setErr = function (input, id, text) {
-      $('#' + id).textContent = text || '';
+    var f = form;
+    var plan = new URLSearchParams(location.search).get('plan');
+    var planSel = /** @type {HTMLSelectElement} */ ($('#f-plan', f));
+    var pick = function (/** @type {string|null} */ id) { if (id && $('option[value="' + CSS.escape(id) + '"]', planSel)) planSel.value = id; };
+    pick(plan);
+    $$('[data-choose]').forEach(function (a) { a.addEventListener('click', function () { pick(a.dataset.choose); track('plan_choose', { plan: a.dataset.choose }); }); });
+    var msg = $('#form-msg', f);
+    var err = function (/** @type {string} */ id, /** @type {string} */ text) {
+      var input = $('#f-' + id, f);
+      $('#e-' + id, f).textContent = text || '';
       input.setAttribute('aria-invalid', text ? 'true' : 'false');
       return !text;
     };
-    form.addEventListener('submit', function (e) {
+    f.addEventListener('submit', function (e) {
       e.preventDefault();
-      var email = $('#f-email'), sector = $('#f-sector'), consent = $('#f-consent');
-      var v = email.value.trim();
-      var ok = setErr(email, 'e-email', !v ? 'اكتب بريدك الإلكتروني.' : (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? 'اكتب بريداً بالشكل name@company.com.' : ''));
-      ok = setErr(sector, 'e-sector', sector.value ? '' : 'اختر القطاع.') && ok;
-      ok = setErr(consent, 'e-consent', consent.checked ? '' : 'نحتاج موافقتك لنتواصل معك.') && ok;
-      out.className = 'form-msg'; out.textContent = '';
-      if (!ok) { var first = form.querySelector('[aria-invalid="true"]'); if (first) first.focus(); return; }
-      if ($('#f-company').value) return; // honeypot
-      var endpoint = form.getAttribute('data-endpoint');
-      if (!endpoint) {
-        out.className = 'form-msg bad';
-        out.textContent = 'استقبال التسجيلات غير مفعّل في هذه النسخة بعد، فلم يُرسل شيء. سيُفعَّل قبل النشر العام.';
-        return;
-      }
-      var btn = form.querySelector('[type=submit]'); btn.disabled = true; btn.textContent = 'جارٍ الإرسال…';
-      fetch(endpoint, {
+      var v = function (/** @type {string} */ id) { return /** @type {HTMLInputElement} */ ($('#f-' + id, f)).value.trim(); };
+      var ok = true;
+      ok = err('name', v('name') ? '' : f.dataset.eName) && ok;
+      ok = err('company', v('company') ? '' : f.dataset.eCompany) && ok;
+      ok = err('email', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email')) ? '' : f.dataset.eEmail) && ok;
+      ok = err('phone', /^\+?[0-9 ]{9,15}$/.test(v('phone').replace(/[-()]/g, '')) ? '' : f.dataset.ePhone) && ok;
+      ok = err('sector', v('sector') ? '' : f.dataset.eSector) && ok;
+      ok = err('consent', /** @type {HTMLInputElement} */ ($('#f-consent', f)).checked ? '' : f.dataset.eConsent) && ok;
+      msg.className = 'form-msg'; msg.textContent = '';
+      if (!ok) { var first = $('[aria-invalid="true"]', f); if (first) first.focus(); return; }
+      if (v('website')) return; // honeypot
+      var btn = $('[type=submit]', f); btn.disabled = true; btn.textContent = f.dataset.lSending;
+      fetch(f.dataset.endpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: v, sector: sector.value, need: $('#f-need').value, consent: true, company: '' })
+        body: JSON.stringify({ name: v('name'), company: v('company'), email: v('email'), phone: v('phone'), sector: v('sector'), branches: v('branches'), plan: v('plan'), lang: f.dataset.lang, consent: true, website: '' })
       }).then(function (r) {
+        if (r.status === 429) { msg.className = 'form-msg bad'; msg.textContent = f.dataset.lRate; return; }
         if (!r.ok) throw new Error(String(r.status));
-        out.className = 'form-msg ok'; out.textContent = 'وصل تسجيلك. نبلغك على بريدك عند الإطلاق.';
-        form.reset(); track('lead_submit', { sector: sector.value });
-      }).catch(function () {
-        out.className = 'form-msg bad'; out.textContent = 'تعذّر الإرسال. تحقق من الاتصال وحاول مرة أخرى.';
-      }).then(function () { btn.disabled = false; btn.textContent = 'سجّل اهتمامي'; });
+        msg.className = 'form-msg ok'; msg.textContent = f.dataset.lOk; f.reset(); track('lead_submit', { plan: planSel.value || 'none' });
+      }).catch(function () { msg.className = 'form-msg bad'; msg.textContent = f.dataset.lFail; })
+        .then(function () { btn.disabled = false; btn.textContent = f.dataset.lSubmit; });
     });
   }
-
-  $$('[data-track]').forEach(function (a) { a.addEventListener('click', function () { track(a.dataset.track); }); });
-
 })();

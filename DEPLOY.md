@@ -17,7 +17,7 @@ hPanel ← **Websites** ← tamnex.com ← **Advanced ← Git**: المستود�
    ```php
    <?php return ['salt' => 'ضع-هنا-40-حرفاً-عشوائياً-على-الأقل', 'origins' => ['https://tamnex.com', 'https://www.tamnex.com']];
    ```
-   التسجيلات تُحفظ في `tamnex-data/interest.csv` بجانبه، خارج الموقع العام.
+   التسجيلات تُحفظ في `tamnex-data/demo-requests.csv` بجانبه، خارج الموقع العام.
 4. **Security ← SSL**: فعّل الشهادة المجانية لـ `tamnex.com` و`www.tamnex.com`، ثم **Force HTTPS**.
 5. لا تغيّر سجلات DNS الأخرى، ولا تضف wildcard (`*.tamnex.com`)، ولا تربط `admin.tamnex.com` بهذا الموقع (D-SA-22 له خادم مستقل).
 
@@ -32,9 +32,9 @@ curl -sI https://tamnex.com/ | grep -i -E "HTTP/|strict-transport|content-securi
 curl -sI http://www.tamnex.com/ | grep -i -E "HTTP/|location"
 ```
 ```bash
-curl -s -X POST https://tamnex.com/api/interest.php -H "Origin: https://tamnex.com" -H "Content-Type: application/json" -d '{"email":"test@example.com","sector":"other","need":"","consent":true,"company":""}'
+curl -s -X POST https://tamnex.com/api/interest.php -H "Origin: https://tamnex.com" -H "Content-Type: application/json" -d '{"name":"test","company":"test","email":"test@example.com","phone":"0550000000","sector":"other","branches":"1","plan":"","lang":"ar","consent":true,"website":""}'
 ```
-المتوقع: `200` مع HSTS وCSP؛ تحويل `301` إلى `https://tamnex.com/`؛ `{"ok":true}` ثم احذف صف الاختبار من `interest.csv`. ثم افتح الصفحة من الجوال، وجرّب العرض والنموذج.
+المتوقع: `200` مع HSTS وCSP؛ تحويل `301` إلى `https://tamnex.com/`؛ `{"ok":true}` ثم احذف صف الاختبار من `demo-requests.csv`. ثم افتح الصفحة من الجوال، وجرّب العرض والنموذج.
 
 ## الرجوع
 احتفظ بنسخة `public_html` الحالية (صفحة الركن) قبل الرفع. للرجوع: احذف الملفات المرفوعة وأعد النسخة، أو استعد نسخة hPanel الاحتياطية.

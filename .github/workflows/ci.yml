@@ -9,7 +9,7 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 25
     permissions:
       contents: read
     steps:
@@ -17,27 +17,32 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install test tools (pinned)
-        run: npm ci
-      - name: Install Chromium
-        run: npx playwright install --with-deps chromium
-      - name: Engine unit tests
-        run: node --test tests/readiness.test.mjs
+      - run: npm ci
+      - name: Build pages from catalog and i18n
+        run: node scripts/build.mjs
+      - name: Built pages are committed and current
+        run: git diff --exit-code -- site/
+      - name: ESLint
+        run: npx eslint .
+      - name: Type check (tsc --noEmit, checkJs)
+        run: npx tsc --noEmit -p tsconfig.json
+      - name: Catalog contract, engine and claims guard
+        run: npm test
       - name: PHP endpoint lint
         run: php -l site/api/interest.php
-      - name: Claims guard (no banned public wording)
-        run: node tests/claims-guard.mjs
-      - name: Browser tests (layout, a11y, demo, form, no-JS)
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser tests (6 widths, light/dark, ar/en, axe WCAG 2.2 AA, prices, keyboard, no-JS)
         run: |
           (cd site && python3 -m http.server 8765 >/dev/null 2>&1 &)
           sleep 1
-          AXE=node_modules/axe-core/axe.min.js OUT=shots node tests/e2e.cjs
+          SHOTS=1 AXE=node_modules/axe-core/axe.min.js OUT=shots node tests/e2e.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: screenshots
           path: shots/
-          retention-days: 7
+          retention-days: 14
 
   # Publishes only site/ to the `deploy` branch. Hostinger's Git deployment pulls that branch into public_html.
   publish:
@@ -53,7 +58,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          rm -rf /tmp/out && cp -r site /tmp/out
+          cp -r site /tmp/out
           cd /tmp/out
           git init -q -b deploy
           git add -A

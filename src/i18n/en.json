@@ -1,0 +1,456 @@
+{
+ "lang": "en",
+ "dir": "ltr",
+ "ogLocale": "en_US",
+ "otherLang": "ar",
+ "otherLangName": "العربية",
+ "title_home": "Tamnex | The AI-native ERP for Saudi businesses",
+ "desc_home": "Tamnex brings accounting, inventory, purchasing and e-invoicing into one system, and shows what blocks your month-end close before the month ends. Monthly and annual plans in SAR.",
+ "title_pricing": "Plans and pricing | Tamnex",
+ "desc_pricing": "Tamnex monthly and annual plans: Launch, Growth, Scale and Enterprise, with prices before and after VAT and a full comparison of features and limits.",
+ "og_title": "Tamnex: the AI-native ERP for your accounting, inventory and invoicing",
+ "skip": "Skip to content",
+ "brand_alt": "Tamnex",
+ "nav_label": "Main navigation",
+ "nav_product": "Product",
+ "nav_features": "Features",
+ "nav_pricing": "Pricing",
+ "nav_faq": "FAQ",
+ "nav_request": "Book a live demo",
+ "menu_open": "Menu",
+ "menu_close": "Close menu",
+ "theme_label": "Theme",
+ "theme_light": "Light",
+ "theme_dark": "Dark",
+ "theme_system": "System",
+ "hero_h1": "The AI-native ERP for your accounting, inventory and invoicing",
+ "hero_sub": "Tamnex posts sales, purchases and inventory to the general ledger the moment they are approved, and shows what blocks your close before month end. AI prepares drafts and insights; you approve.",
+ "cta_choose": "Choose your plan",
+ "cta_demo": "Book a live demo",
+ "hero_points": [
+  "E-invoicing controls on every invoice",
+  "Balanced double entry enforced by the database",
+  "Arabic first, full English"
+ ],
+ "sc_label": "Preview of the product interface · sample data",
+ "sc_tabs_label": "Preview sections",
+ "tab_acc": "Accounting",
+ "tab_inv": "Inventory",
+ "tab_pur": "Purchasing",
+ "tab_ai": "Nexa",
+ "sc_company": "Al Wadi Trading Co.",
+ "sc_acc_title": "Journal entry for sales invoice INV-184",
+ "sc_acc_state": "Posted · Balanced",
+ "sc_cols_entry": [
+  "Account",
+  "Debit",
+  "Credit"
+ ],
+ "sc_acc_rows": [
+  [
+   "Accounts receivable",
+   "920.00",
+   ""
+  ],
+  [
+   "Sales",
+   "",
+   "800.00"
+  ],
+  [
+   "Output VAT",
+   "",
+   "120.00"
+  ],
+  [
+   "Cost of sales",
+   "470.00",
+   ""
+  ],
+  [
+   "Inventory",
+   "",
+   "470.00"
+  ]
+ ],
+ "sc_total": "Total",
+ "sc_acc_totals": [
+  "1,390.00",
+  "1,390.00"
+ ],
+ "sc_acc_note": "The entry is created when the invoice is approved, and cannot be edited once posted.",
+ "sc_inv_title": "Warehouse balances",
+ "sc_cols_inv": [
+  "Warehouse",
+  "Qty",
+  "Avg cost",
+  "Value"
+ ],
+ "sc_inv_rows": [
+  [
+   "Riyadh warehouse",
+   "1,240",
+   "117.50",
+   "145,700.00"
+  ],
+  [
+   "Jeddah warehouse",
+   "860",
+   "117.50",
+   "101,050.00"
+  ],
+  [
+   "In transit",
+   "120",
+   "117.50",
+   "14,100.00"
+  ]
+ ],
+ "sc_inv_note": "One moving weighted average per item, and warehouse transfers with their entries.",
+ "sc_pur_title": "Purchase cycle PO-77",
+ "sc_pur_steps": [
+  [
+   "Purchase order",
+   "PO-77"
+  ],
+  [
+   "Receipt and landed cost",
+   "GRN-41 · freight 600.00"
+  ],
+  [
+   "Purchase invoice",
+   "PI-2207"
+  ],
+  [
+   "Entry and stock",
+   "Posted"
+  ]
+ ],
+ "sc_pur_note": "Freight is allocated to the received items before the average cost is updated.",
+ "sc_ai_title": "Nexa insights",
+ "sc_ai_items": [
+  [
+   "3 exceptions block the October close",
+   "An unmatched bank line, an unrecorded service expense and an out-of-date stock report."
+  ],
+  [
+   "Accrual draft ready",
+   "4,000.00 for warehouse security and cleaning, waiting for your approval."
+  ],
+  [
+   "Collections expected this week",
+   "18 invoices due from 11 customers."
+  ]
+ ],
+ "sc_ai_note": "Nexa suggests and explains. It never posts, approves or closes.",
+ "trust_label": "Trust and control",
+ "trust_items": [
+  [
+   "E-invoicing",
+   "Gapless numbering, the authority's QR format, and no deleting an approved invoice."
+  ],
+  [
+   "Tamper-proof books",
+   "A posted entry is never edited; corrections are reversing entries linked to the original."
+  ],
+  [
+   "Your data, isolated",
+   "Every company is isolated at the database level, on its own address."
+  ],
+  [
+   "Encrypted connection",
+   "All traffic over HTTPS, with step-up verification for sensitive actions."
+  ]
+ ],
+ "f_title": "Your whole business cycle in one system",
+ "f_sub": "From purchase order to financial statements, every document posts its entry the moment it is approved, with branches and warehouses built in.",
+ "soon": "After launch",
+ "close_title": "Continuous close",
+ "close_body": "Accounting checks that run all month, each exception with an owner and evidence. Try it: clear the three exceptions, then re-run the checks.",
+ "cycle_title": "Connected document cycle",
+ "cycle_body": "Each step builds on the last: no double entry, no manual posting at month end.",
+ "cycle_steps": [
+  "Purchase request",
+  "Receipt and landed cost",
+  "Invoice",
+  "Entry and stock"
+ ],
+ "ai_title": "Tamnex Nexa: proactive insights",
+ "ai_body": "Reads supplier invoices, suggests bank matches, and answers questions about your numbers in Arabic with sources. Everything Nexa suggests is a draft you approve.",
+ "ai_points": [
+  "Supplier invoice to draft",
+  "Bank matching from statement files",
+  "Error guard before approval",
+  "Ask your numbers in Arabic"
+ ],
+ "sec_title": "Enterprise-grade security and isolation",
+ "sec_points": [
+  "Every company isolated in the database",
+  "Tamper-proof audit trail for every action",
+  "Step-up verification for sensitive actions",
+  "Permissions you grant to any role you create"
+ ],
+ "mig_title": "Move from your current system",
+ "mig_body": "Import master data, the trial balance, open invoices and stock, with a mapping you review and approve, then a balance reconciliation.",
+ "dist_title": "Field distribution",
+ "dist_body": "Sales reps, visits and routes, orders and collections in the field, credit limits, and van stock transfers.",
+ "demo_label": "Interactive demo with sample data",
+ "demo_period": "October · Riyadh branch",
+ "demo_before": "Before",
+ "demo_after": "After",
+ "demo_checks_done": "{n} of {t} checks complete",
+ "demo_ex_bank": "Bank line of 11,500.00 unmatched",
+ "demo_ex_accrual": "October service expense not recorded",
+ "demo_ex_inventory": "Stock report does not cover 31 October",
+ "demo_act_bank": "Match with receipt RV-1042",
+ "demo_act_accrual": "Approve the accrual draft (demo)",
+ "demo_act_inventory": "Link the 31 October report",
+ "demo_done_bank": "Matched. No entry created.",
+ "demo_done_accrual": "Balanced 4,000.00 entry in the demo ledger.",
+ "demo_done_inventory": "Report agrees with the ledger.",
+ "demo_run": "Re-run checks",
+ "demo_reset": "Restart demo",
+ "demo_stale": "Data changed. Re-run the checks to read the result.",
+ "demo_open": "3 exceptions block the close.",
+ "demo_better": "Readiness improved; an exception is still open.",
+ "demo_complete": "This scenario's checks are complete, awaiting accountant review.",
+ "p_title": "Clear plans for every stage",
+ "p_sub": "Every plan includes full accounting and e-invoicing, with no monthly cap on invoices.",
+ "cycle_label": "Billing cycle",
+ "cycle_monthly": "Monthly",
+ "cycle_annual": "Annual",
+ "currency": "SAR",
+ "per_month": "per month",
+ "before_vat": "before VAT",
+ "billed_monthly": "SAR {total} per month including 15% VAT",
+ "billed_annual": "SAR {net} billed yearly in advance, SAR {total} including 15% VAT",
+ "on_request": "Custom",
+ "on_request_sub": "Written contract with limits and service terms",
+ "choose_plan": "Choose your plan",
+ "contact_sales": "Contact sales",
+ "card_more": "Includes",
+ "prelaunch": "Subscriptions open at commercial launch. Choosing a plan sends us your request, and we contact you to confirm the price and the features available at activation. No payment is taken now.",
+ "compare_link": "Compare all features and limits",
+ "compare_title": "Plan comparison",
+ "compare_feature": "Feature",
+ "soon_note": "“After launch”: included in the plan and available after commercial launch.",
+ "group_core": "Core",
+ "group_limits": "Limits",
+ "group_advanced": "Advanced",
+ "group_ai": "AI",
+ "group_enterprise": "Enterprise",
+ "v_included": "Included",
+ "v_not_included": "Not included",
+ "v_unlimited": "Unlimited",
+ "v_upto": "Up to {n}",
+ "v_contract": "Per contract",
+ "v_addon_more": "extra at a cost",
+ "price_version": "Price list {v}",
+ "pricing_faq": [
+  [
+   "Do prices include VAT?",
+   "Prices are shown before 15% VAT, with the VAT-inclusive amount under each price."
+  ],
+  [
+   "How does annual billing work?",
+   "The full year is paid in advance; its monthly equivalent is shown next to it."
+  ],
+  [
+   "What does “After launch” mean?",
+   "The feature is part of the plan and becomes available to the plan's subscribers when it launches, with no change to the agreed price."
+  ],
+  [
+   "What happens if I choose a plan now?",
+   "We receive your request and contact you before launch to confirm price and features. No payment is taken before activation."
+  ]
+ ],
+ "faq_title": "Frequently asked questions",
+ "faq": [
+  [
+   "Does AI post entries or close the period for me?",
+   "No. It reads, explains and prepares drafts. Approval, posting and closing stay with a user who has the permission, and every suggestion is logged."
+  ],
+  [
+   "Does it support e-invoicing?",
+   "Yes: gapless numbering, the authority's QR format, no deleting an approved invoice, and cancellation by credit note. Fatoora platform integration (phase 2) is available after launch."
+  ],
+  [
+   "Does my company get its own address?",
+   "Yes. You choose your company's address when you subscribe, and each company has its own isolated users and data."
+  ],
+  [
+   "How do I move from my current system?",
+   "We import master data and balances and reconcile them with you before approval. Enterprise onboarding is run by our team."
+  ],
+  [
+   "Can I delete a wrong invoice or entry?",
+   "Not after approval. An invoice is cancelled by a linked credit note and an entry by a reversing entry, so every correction stays visible to your auditor."
+  ]
+ ],
+ "r_title": "Book a live demo",
+ "r_sub": "We walk you through the system on your own cycle, from purchasing to sales to financial statements, with the entry each step creates.",
+ "r_name": "Name",
+ "r_email": "Work email",
+ "r_phone": "Mobile number",
+ "r_company": "Company name",
+ "r_sector": "Industry",
+ "r_sector_ph": "Choose an industry",
+ "r_sectors": [
+  [
+   "trade",
+   "Trade and wholesale"
+  ],
+  [
+   "distribution",
+   "Distribution"
+  ],
+  [
+   "retail",
+   "Retail"
+  ],
+  [
+   "services",
+   "Services"
+  ],
+  [
+   "accounting-office",
+   "Accounting firm"
+  ],
+  [
+   "other",
+   "Other"
+  ]
+ ],
+ "r_branches": "Number of branches",
+ "r_branches_opts": [
+  [
+   "1",
+   "One branch"
+  ],
+  [
+   "2-5",
+   "2 to 5"
+  ],
+  [
+   "6+",
+   "More than 5"
+  ]
+ ],
+ "r_plan": "Plan of interest",
+ "r_plan_none": "Not decided yet",
+ "r_consent": "I agree that this data is used only to contact me about my request.",
+ "r_privacy_title": "How we use your data",
+ "r_privacy": "We keep your request only to contact you about it. We never sell it or share it with marketers, and you can ask us to delete it by replying to any of our messages. The interactive demo collects nothing, and we use no advertising trackers.",
+ "r_submit": "Send request",
+ "r_sending": "Sending…",
+ "r_ok": "Request received. We will email you to book the demo.",
+ "r_fail": "Could not send. Check your connection and try again.",
+ "r_rate": "Too many requests from this connection. Please try again in an hour.",
+ "e_name": "Enter your name.",
+ "e_email": "Enter an email like name@company.com.",
+ "e_phone": "Enter a valid mobile number, e.g. 05xxxxxxxx.",
+ "e_company": "Enter your company name.",
+ "e_sector": "Choose an industry.",
+ "e_consent": "We need your consent to contact you.",
+ "required": "required",
+ "footer_tag": "The AI-native ERP for Saudi businesses.",
+ "footer_nav": "Site links",
+ "rights": "© 2026 Evexa AI Systems",
+ "nav_nexa": "Nexa",
+ "nexa_full": "Tamnex Nexa",
+ "nexa_short": "Nexa",
+ "nexa_badge": "✦ Nexa AI",
+ "nexa_ask": "✦ Ask Nexa",
+ "nx_title": "The Nexa AI Show",
+ "nx_sub": "Nexa is the AI engine inside Tamnex. It ties every alert to an entry or invoice number, prepares the draft, and leaves approval to you.",
+ "nx_label": "Interactive demo with sample data",
+ "nx_scenes_label": "Nexa scenes",
+ "nx_s1_tab": "Ask Nexa",
+ "nx_s2_tab": "Continuous close radar",
+ "nx_s3_tab": "Alert inside the document cycle",
+ "nx_s1_kbd": "Ctrl K",
+ "nx_s1_q": "Nexa, analyse how freight and customs affect this quarter's item margins",
+ "nx_s1_a": "Freight and customs impact on margin, Q4. Source: purchase invoices PI-2190 to PI-2207.",
+ "nx_s1_cols": [
+  "Item",
+  "Margin before",
+  "Freight and customs per unit",
+  "Margin after"
+ ],
+ "nx_s1_rows": [
+  [
+   "Industrial meters",
+   "32.0%",
+   "9.20",
+   "27.4%"
+  ],
+  [
+   "Nitrile gloves (box)",
+   "30.0%",
+   "4.25",
+   "25.0%"
+  ],
+  [
+   "Circulation pumps",
+   "25.0%",
+   "23.80",
+   "18.0%"
+  ]
+ ],
+ "nx_s1_btn": "Review item pricing",
+ "nx_s1_done": "The three items are flagged for review. A price change needs your approval.",
+ "nx_s2_head": "November close readiness",
+ "nx_s2_pct": "99.4%",
+ "nx_s2_ready": "ready for real-time close",
+ "nx_s2_den": "1,247 of 1,254 checks complete. The figure counts completed checks, not book quality.",
+ "nx_s2_items": [
+  [
+   "Bank reconciliation",
+   "Matched"
+  ],
+  [
+   "Receivables subledger",
+   "Matched"
+  ],
+  [
+   "Output VAT",
+   "Matched"
+  ],
+  [
+   "Unrecorded bank fees",
+   "42.50"
+  ]
+ ],
+ "nx_s2_sugg": "The bank statement shows 42.50 in card fees not yet recorded. Suggested:",
+ "nx_s2_cols": [
+  "Account",
+  "Debit",
+  "Credit"
+ ],
+ "nx_s2_rows": [
+  [
+   "Bank charges expense",
+   "42.50",
+   ""
+  ],
+  [
+   "Al Ahli Bank · current account",
+   "",
+   "42.50"
+  ]
+ ],
+ "nx_s2_btn": "Create adjustment draft",
+ "nx_s2_done": "Draft created and waiting for your approval. Nothing was posted.",
+ "nx_s3_head": "Purchase order PO-81",
+ "nx_s3_vendor": "Vendor: Al Mada Supplies",
+ "nx_s3_price": "Unit price 46.20, 12% above the 90-day average (41.25).",
+ "nx_s3_stock": "Nitrile gloves: 340 boxes on hand at 68 a day, out of stock in 5 days.",
+ "nx_s3_prop": "Suggested: purchase request for 600 boxes from a vendor at 41.10.",
+ "nx_s3_btn": "Approve suggested purchase request",
+ "nx_s3_done": "You approved the request in the demo. It is logged under your name.",
+ "nx_rules": [
+  "Nexa suggests and explains. It never posts, approves or closes.",
+  "Every suggestion links to a document number you can open.",
+  "It works with your permissions, inside your company only."
+ ]
+}

@@ -159,11 +159,11 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   check('review never shows the password', !/Secure-pass/.test(await p.textContent('[data-review]')));
   await p.click('[data-submit]');
   await p.waitForSelector('[data-holding]:not([hidden])');
-  check('holding screen: finishing touches, reference number, focus moved', /نضع اللمسات الأخيرة/.test(await p.textContent('[data-holding]')) && /^TMX-[0-9A-F]{8}$/.test(await p.textContent('[data-ref]')) && (await p.evaluate(() => document.activeElement.hasAttribute('data-holding'))));
+  check('holding screen: welcome title, request received, focus moved', /أهلاً بك في تامنكس/.test(await p.textContent('[data-holding]')) && /استلمنا طلب انضمام/.test(await p.textContent('[data-holding]')) && (await p.evaluate(() => document.activeElement.hasAttribute('data-holding'))));
   await p.fill('#n-email', 'notify@example.com'); await p.click('[data-notify] [type=submit]');
   await p.waitForSelector('[data-notify-msg]:not(:empty)');
   check('launch-notification email can be updated', /سنرسل/.test(await p.textContent('[data-notify-msg]')));
-  check('holding offers home and sales', (await p.$$('[data-holding] .actions a')).length === 2);
+  check('holding offers exactly sales and home', (await p.$$('[data-holding] .actions a')).length === 2 && /المبيعات/.test(await p.textContent('[data-holding] .actions a')));
   await p.screenshot({ path: `${OUT}/start-holding-ar.png`, fullPage: false });
   check('page made no third-party request', net.length === 0, net.join(' '));
   await ctx.close();

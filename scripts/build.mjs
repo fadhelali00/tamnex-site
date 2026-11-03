@@ -194,7 +194,6 @@ function features(lang) {
       <article class="card c-close"><div class="card-head"><h3>${esc(t.close_title)}</h3>${soon}</div><p>${esc(t.close_body)}</p>${demo(lang)}</article>
       <article class="card c-cycle"><h3>${esc(t.cycle_title)}</h3><p>${esc(t.cycle_body)}</p><ol class="flow">${t.cycle_steps.map((/** @type {string} */ s) => `<li>${esc(s)}</li>`).join('')}</ol></article>
       <article class="card c-ai"><div class="card-head"><h3>${esc(t.ai_title)}</h3>${soon}</div><p>${esc(t.ai_body)}</p><ul class="ticks">${t.ai_points.map((/** @type {string} */ s) => `<li>${esc(s)}</li>`).join('')}</ul><a class="btn btn-ghost btn-sm nx-ask" href="#nexa">${esc(t.nexa_ask)}</a></article>
-      <article class="card c-sec"><h3>${esc(t.sec_title)}</h3><ul class="ticks">${t.sec_points.map((/** @type {string} */ s) => `<li>${esc(s)}</li>`).join('')}</ul></article>
       <article class="card c-mig"><div class="card-head"><h3>${esc(t.mig_title)}</h3>${soon}</div><p>${esc(t.mig_body)}</p></article>
       <article class="card c-dist"><div class="card-head"><h3>${esc(t.dist_title)}</h3>${soon}</div><p>${esc(t.dist_body)}</p></article>
     </div>
@@ -452,13 +451,12 @@ function holding(lang, inline) {
     <svg class="hold-orb" viewBox="0 0 64 64" aria-hidden="true"><circle class="orb-pulse" cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="32" cy="32" r="18" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"/><path d="M24 33l6 6 11-13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <${inline ? 'h2' : 'h1'} id="hold-title-${inline ? 'i' : 'p'}">${esc(t.hold_title)}</${inline ? 'h2' : 'h1'}>
     <p class="lead">${esc(t.hold_body)}</p>
-    ${inline ? `<p class="ref">${esc(t.hold_ref)}: <bdi data-ref></bdi></p>` : `<p class="fine">${esc(t.hold_nojs)}</p>`}
-    <ul class="saved">${t.hold_saved.map((/** @type {string} */ s) => `<li><span class="chip chip-ok"><i></i>${esc(s)}</span></li>`).join('')}</ul>
+    ${inline ? '<span hidden data-ref></span>' : ''}
     ${inline ? `<form class="notify" data-notify novalidate data-l-ok="${esc(t.hold_notify_ok)}" data-l-fail="${esc(t.st_fail)}" data-e-email="${esc(t.e_email)}">
       <div class="field"><label for="n-email">${esc(t.hold_notify)}</label><div class="row-inline"><input id="n-email" type="email" dir="ltr" autocomplete="email" aria-describedby="ne-email"><button class="btn btn-ghost" type="submit">${esc(t.hold_notify_btn)}</button></div><p class="err" id="ne-email"></p></div>
       <p class="form-msg" data-notify-msg role="status" aria-live="polite"></p>
     </form>` : ''}
-    <div class="actions"><a class="btn" href="${href(lang, '/')}">${esc(t.hold_home)}</a><a class="btn btn-ghost" href="${href(lang, '/')}#request">${esc(t.hold_sales)}</a></div>
+    <div class="actions"><a class="btn" href="${href(lang, '/')}#request">${esc(t.hold_sales)}</a><a class="btn btn-ghost" href="${href(lang, '/')}">${esc(t.hold_home)}</a></div>
   </div>`;
 }
 

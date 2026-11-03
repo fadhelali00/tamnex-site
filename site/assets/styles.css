@@ -202,7 +202,7 @@ bdi { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 /* ---------- Bento ---------- */
 .bento { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
 .c-close { grid-column: span 2; grid-row: span 2; }
-.c-dist { grid-column: span 1; }
+.c-dist { grid-column: span 2; }
 .card h3 { font-size: 19px; font-weight: 700; }
 .card > p { margin-top: 8px; color: var(--fg-soft); }
 .card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }

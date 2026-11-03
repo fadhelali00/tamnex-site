@@ -23,14 +23,14 @@
  "theme_light": "Light",
  "theme_dark": "Dark",
  "theme_system": "System",
- "hero_h1": "The AI-native ERP for your accounting, inventory and invoicing",
- "hero_sub": "Tamnex posts sales, purchases and inventory to the general ledger the moment they are approved, and shows what blocks your close before month end. AI prepares drafts and insights; you approve.",
+ "hero_h1": "The AI-powered ERP: automated accounting, controlled inventory, instant invoicing",
+ "hero_sub": "See your margins and cash in real time, shorten your operating and month-end cycles, and let operational intelligence spot opportunities and catch errors before they happen.",
  "cta_choose": "Choose your plan",
  "cta_demo": "Book a live demo",
  "hero_points": [
-  "Continuous close: subledgers reconciled to the general ledger as you go",
-  "Landed costs calculated automatically, with weighted average cost (WAC) updated on receipt",
-  "E-invoicing in both phases: generation and storage, and Fatoora integration"
+  "Continuous, real-time close: every transaction reconciled and matched as it happens, giving you up-to-date financial statements on any day, not just at month end.",
+  "Proactive margin protection (Nexa): live detection of supply-cost and selling-price deviations, stopping margin erosion before transactions are approved.",
+  "Fully automated invoicing and operations: phase 1 compliant e-invoicing, and Fatoora integration for your company before its wave date."
  ],
  "sc_label": "Preview of the product interface · sample data",
  "sc_tabs_label": "Preview sections",
@@ -143,23 +143,23 @@
   ]
  ],
  "sc_ai_note": "Nexa suggests and explains. It never posts, approves or closes.",
- "trust_label": "Trust and control",
+ "trust_label": "Why Tamnex",
  "trust_items": [
   [
-   "Strict financial integrity",
-   "Tamper-proof books: a posted entry is never edited, and every correction is a reversing entry recorded in the audit trail."
+   "Real-time financial clarity",
+   "Live performance and margin reports that update with every transaction, so you decide on today's reality."
   ],
   [
-   "E-invoicing (Fatoora)",
-   "Phase 1, generation and storage: sequential numbering that cannot be edited or deleted, and the authority's QR format. Phase 2, integration: we connect your company to the Fatoora platform before its mandated wave date."
+   "Automated document cycle",
+   "One connected flow across purchasing, sales and inventory that removes wasted manual entry."
   ],
   [
-   "Step-up controls",
-   "Fine-grained access policies per role, and step-up verification before sensitive financial actions such as reopening a period or opening balances."
+   "Built-in executive intelligence",
+   "Nexa watches your working-capital cycle, warns you of stock-out risk, and suggests purchasing and pricing decisions."
   ],
   [
-   "Protected audit trail",
-   "A complete timeline of every transaction and change: who, when and why, protected from deletion and editing."
+   "Speed and a modern experience",
+   "High-performance cloud interfaces that free your team from the slowness and complexity of legacy systems."
   ]
  ],
  "f_title": "Your whole business cycle in one system",
@@ -561,20 +561,20 @@
  "e_terms": "We need your consent to keep your details.",
  "st_fail": "Could not save. Your details are still in the form; please try again.",
  "st_dup": "This email is already registered with us. For another company, use a different email or contact us.",
- "hold_title": "Putting on the finishing touches… your company environment is being prepared",
- "hold_body": "We saved your company and administrator account. When the live environment is ready, we email you an activation link to sign in with the password you chose.",
+ "hold_title": "Welcome to Tamnex — we are preparing your workspace",
+ "hold_body": "We have received your company's request to join. We are setting up your dedicated workspace and will email you the activation and sign-in link as soon as it is ready.",
  "hold_ref": "Registration number",
  "hold_notify": "Launch notification email",
  "hold_notify_btn": "Update notification email",
  "hold_notify_ok": "We will send the launch notice to this email.",
  "hold_home": "Back to home",
- "hold_sales": "Ask sales for a private demo",
+ "hold_sales": "Request a live demo from sales",
  "hold_saved": [
   "Company details",
   "Administrator details",
   "Financial and tax setup"
  ],
- "hold_nojs": "If no registration number appears, your details are still saved and we will email the address you entered.",
+ "hold_nojs": "",
  "f_pw": "Password",
  "f_pw2": "Confirm password",
  "f_pw_hint": "At least 10 characters, with a letter and a digit.",

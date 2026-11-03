@@ -127,7 +127,7 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   await p.fill('#f-name', 'اختبار'); await p.fill('#f-company', 'منشأة'); await p.fill('#f-email', 'name@company.com'); await p.fill('#f-phone', '0551234567');
   await p.selectOption('#f-sector', 'trade'); await p.check('#f-consent');
   await p.click('#lead-form [type=submit]');
-  await p.waitForFunction(() => document.querySelector('#form-msg').textContent.length > 0);
+  await p.waitForSelector('#form-msg:not(:empty)');
   const fm = await p.textContent('#form-msg');
   check('quote request is saved and confirmed', /وصلنا طلبك/.test(fm), fm);
   // choose plan starts registration with that plan
@@ -156,11 +156,12 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   check('bad VAT number blocks step 3', /15/.test(await p.textContent('#se-vat')));
   await p.fill('#s-vat', '310123456700003'); await p.click('[data-next]');
   check('review lists the entered details', /شركة الاختبار/.test(await p.textContent('[data-review]')) && /test-co\.tamnex\.com/.test(await p.textContent('[data-review]')));
+  check('review never shows the password', !/Secure-pass/.test(await p.textContent('[data-review]')));
   await p.click('[data-submit]');
   await p.waitForSelector('[data-holding]:not([hidden])');
   check('holding screen: finishing touches, reference number, focus moved', /نضع اللمسات الأخيرة/.test(await p.textContent('[data-holding]')) && /^TMX-[0-9A-F]{8}$/.test(await p.textContent('[data-ref]')) && (await p.evaluate(() => document.activeElement.hasAttribute('data-holding'))));
   await p.fill('#n-email', 'notify@example.com'); await p.click('[data-notify] [type=submit]');
-  await p.waitForFunction(() => document.querySelector('[data-notify-msg]').textContent.length > 0);
+  await p.waitForSelector('[data-notify-msg]:not(:empty)');
   check('launch-notification email can be updated', /سنرسل/.test(await p.textContent('[data-notify-msg]')));
   check('holding offers home and sales', (await p.$$('[data-holding] .actions a')).length === 2);
   await p.screenshot({ path: `${OUT}/start-holding-ar.png`, fullPage: false });

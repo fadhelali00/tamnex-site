@@ -1,0 +1,61 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install test tools (pinned)
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Engine unit tests
+        run: node --test tests/readiness.test.mjs
+      - name: PHP endpoint lint
+        run: php -l site/api/interest.php
+      - name: Claims guard (no banned public wording)
+        run: node tests/claims-guard.mjs
+      - name: Browser tests (layout, a11y, demo, form, no-JS)
+        run: |
+          (cd site && python3 -m http.server 8765 >/dev/null 2>&1 &)
+          sleep 1
+          AXE=node_modules/axe-core/axe.min.js OUT=shots node tests/e2e.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: shots/
+          retention-days: 7
+
+  # Publishes only site/ to the `deploy` branch. Hostinger's Git deployment pulls that branch into public_html.
+  publish:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Push site/ to the deploy branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -rf /tmp/out && cp -r site /tmp/out
+          cd /tmp/out
+          git init -q -b deploy
+          git add -A
+          git commit -q -m "Deploy ${GITHUB_SHA::7} from main"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" deploy:deploy

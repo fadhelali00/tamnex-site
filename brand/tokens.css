@@ -1,0 +1,186 @@
+/*
+ * Tamnex design tokens (single source of truth), D90 "next-generation FinTech" skin.
+ * Spec: .edsr-sync/UI_DESIGN_SYSTEM_SPEC.md §2. This is the ONLY file in the UI where raw hex colours
+ * are allowed (VF-01); components and app CSS reference these tokens.
+ * Every text pair is checked for WCAG AA (>= 4.5:1) and every UI-component pair for >= 3:1 by
+ * src/styles/tokens.test.ts, in light and dark (Obsidian).
+ * Light values live on :root, dark values on .dark (set by next-themes on <html>).
+ */
+:root {
+  /* Spec tokens (§2.1): canvas, surface, dense glass, hairline, brand */
+  --canvas: #f8fafc;
+  --surface: #ffffff;
+  --glass-base: #ffffff; /* sticky bars = glass-base at glass-dense-alpha + light blur (see `glass-dense` utility) */
+  --glass-dense-alpha: 0.94; /* D-SA-18: high-opacity glass, never below 0.92 */
+  --glass-dense-blur: 6px;
+  --hairline: #e2e8f0; /* decorative 1px border (1.23:1 by design) */
+  /* Interactive border (codex-018): where the border identifies a control or its state it is >= 3:1
+     (3.46 on white, 3.31 on canvas). Fields, outline buttons, the search trigger and selected states use it. */
+  --interactive-border: #7c8ba1;
+  --input-border: var(--interactive-border);
+  --brand-structural: #0f172a;
+  --brand-interactive: #2563eb;
+
+  /* AI / MCP aura (§2.2): the gradient is for decoration and borders only, never for text */
+  --ai-from: #6366f1;
+  --ai-to: #8b5cf6;
+  --ai-bg: #f5f3ff;
+  --ai-text: #4f46e5;
+
+  /* Dry-run (§2.2) */
+  --dry-border: #f59e0b;
+  --dry-bg: #fffbeb;
+  --dry-text: #b45309;
+
+  /* Accounting status families (§2.3, §2.5): border / background / identity (dot, icon) / text (AA) */
+  --emerald-border: #a7f3d0;
+  --emerald-bg: #ecfdf5;
+  --emerald-identity: #059669;
+  --emerald-text: #047857;
+  --amber-border: #fde68a;
+  --amber-bg: #fffbeb;
+  --amber-identity: #d97706;
+  --amber-text: #b45309;
+  --crimson-border: #fecdd3;
+  --crimson-bg: #fff1f2;
+  --crimson-identity: #e11d48;
+  --crimson-text: #be123c;
+  /* Neutral grey (D101): cancelled documents, no accounting effect. Same four roles as the families above. */
+  --neutral-border: #cbd5e1;
+  --neutral-bg: #f1f5f9;
+  --neutral-identity: #64748b;
+  --neutral-text: #475569;
+
+  /* Semantic tokens (shadcn names) mapped onto the palette: existing screens re-skin automatically */
+  --background: var(--canvas);
+  --foreground: #0f172a;
+  --card: var(--surface);
+  --card-foreground: #0f172a;
+  --popover: var(--surface);
+  --popover-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #475569;
+  --border: var(--hairline);
+  --focus-ring: #2563eb;
+  --input: var(--input-border);
+  --ring: var(--focus-ring);
+
+  --primary: var(--brand-interactive);
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --accent: var(--dry-bg);
+  --accent-foreground: var(--dry-text);
+  --destructive: var(--crimson-text);
+  --destructive-foreground: #ffffff;
+
+  /* Sidebar: navy structural frame in both modes */
+  --sidebar: var(--brand-structural);
+  --sidebar-foreground: #e2e8f0;
+  --sidebar-muted-foreground: #94a3b8;
+  --sidebar-active: #1e293b;
+  --sidebar-active-foreground: #ffffff;
+  --sidebar-indicator: #60a5fa;
+  --sidebar-border: #1e293b;
+
+  /* Legacy document states, now aliases of the three families (colour + text, WCAG 1.4.1) */
+  --status-draft: var(--amber-bg);
+  --status-draft-foreground: var(--amber-text);
+  --status-approved: var(--emerald-bg);
+  --status-approved-foreground: var(--emerald-text);
+  --status-posted: var(--emerald-bg);
+  --status-posted-foreground: var(--emerald-text);
+  --status-cancelled: var(--neutral-bg);
+  --status-cancelled-foreground: var(--neutral-text);
+  --status-reversed: var(--crimson-bg);
+  --status-reversed-foreground: var(--crimson-text);
+
+  /* Shape and depth: soft ambient shadows, 1px hairlines */
+  --radius: 0.75rem;
+  --shadow-color: 215 28% 17%;
+  --shadow-xs:
+    0 1px 2px hsl(var(--shadow-color) / 0.04), 0 0 0 0.5px hsl(var(--shadow-color) / 0.02);
+  --shadow-sm: 0 1px 3px hsl(var(--shadow-color) / 0.06), 0 1px 2px hsl(var(--shadow-color) / 0.04);
+  --shadow-md:
+    0 8px 24px -8px hsl(var(--shadow-color) / 0.1), 0 2px 6px -2px hsl(var(--shadow-color) / 0.05);
+  --shadow-lg:
+    0 24px 48px -12px hsl(var(--shadow-color) / 0.18),
+    0 4px 12px -4px hsl(var(--shadow-color) / 0.08);
+
+  /* Layout */
+  --sidebar-width: 17rem;
+  --topbar-height: 4.25rem;
+
+  /* Chart series (SA panel visual polish): marks >= 3:1 on surface and canvas, and each series >= 3:1 against the next one (alternating deep and light), so adjacent marks stay distinguishable without a legend.
+     Order is fixed; the last also borders the first in a donut. Checked by tokens.test.ts. Text on charts uses foreground and muted-foreground, never these. */
+  --chart-1: #0b2373;
+  --chart-2: #0e9488;
+  --chart-3: #4c1180;
+  --chart-4: #c26a00;
+  --chart-5: #022c16;
+  --chart-6: #d6336c;
+}
+
+.dark {
+  --canvas: #090d16;
+  --surface: #111827;
+  --glass-base: #0f172a; /* slate-900 */
+  --hairline: #1e293b;
+  --interactive-border: #64748b; /* 3.73 on surface, 4.08 on canvas */
+  --brand-structural: #0f172a;
+  --brand-interactive: #60a5fa; /* #2563eb is 3.43:1 on surface, so the dark mode uses the lighter blue */
+
+  --ai-bg: #1b1840;
+  --ai-text: #a5b4fc;
+
+  --dry-border: #f59e0b;
+  --dry-bg: #271c07;
+  --dry-text: #fbbf24;
+
+  --emerald-border: #065f46;
+  --emerald-bg: #07241b;
+  --emerald-identity: #10b981;
+  --emerald-text: #34d399;
+  --amber-border: #92400e;
+  --amber-bg: #271c07;
+  --amber-identity: #f59e0b;
+  --amber-text: #fbbf24;
+  --crimson-border: #9f1239;
+  --crimson-bg: #2a0d16;
+  --crimson-identity: #f43f5e;
+  --crimson-text: #fb7185;
+  --neutral-border: #334155;
+  --neutral-bg: #1e293b;
+  --neutral-identity: #94a3b8;
+  --neutral-text: #cbd5e1;
+
+  --foreground: #f1f5f9;
+  --card-foreground: #f1f5f9;
+  --popover-foreground: #f1f5f9;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --focus-ring: #60a5fa;
+
+  --primary-foreground: #0b1220;
+  --secondary: #1e293b;
+  --secondary-foreground: #e2e8f0;
+  --destructive-foreground: #2a0710;
+
+  --sidebar: #0c1220;
+  --sidebar-indicator: #60a5fa;
+
+  --shadow-color: 222 47% 2%;
+  --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / 0.4);
+  --shadow-sm: 0 1px 3px hsl(var(--shadow-color) / 0.5);
+  --shadow-md: 0 8px 24px -8px hsl(var(--shadow-color) / 0.6);
+  --shadow-lg: 0 24px 48px -12px hsl(var(--shadow-color) / 0.7);
+
+  /* Chart series (SA panel visual polish): marks >= 3:1 on surface and canvas, and each series >= 3:1 against the next one (alternating deep and light), so adjacent marks stay distinguishable without a legend.
+     Order is fixed; the last also borders the first in a donut. Checked by tokens.test.ts. Text on charts uses foreground and muted-foreground, never these. */
+  --chart-1: #1d63e6;
+  --chart-2: #67e8f9;
+  --chart-3: #8648f5;
+  --chart-4: #fcd34d;
+  --chart-5: #00793f;
+  --chart-6: #fbb6ce;
+}

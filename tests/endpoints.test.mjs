@@ -5,6 +5,7 @@ import { spawn } from 'node:child_process';
 import { mkdtempSync, readFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { verify } from '@node-rs/argon2';
 
 const PORT = 8790 + Math.floor(Math.random() * 100);
 const ORIGIN = `http://127.0.0.1:${PORT}`;
@@ -31,7 +32,11 @@ test('valid pre-registration returns a reference and is stored outside the web r
   const csv = readFileSync(join(DATA, 'preregistrations.csv'), 'utf8');
   assert.match(csv, /cfo@example\.com/);
   assert.doesNotMatch(csv, /Secure-pass-2026/, 'plain password must never be stored');
-  assert.match(csv, /\$(argon2id|2y)\$/, 'a one-way hash is stored');
+  const hash = csv.split('\n').find(l => l.includes('cfo@example.com')).match(/\$argon2id\$v=19\$m=19456,t=2,p=1\$[A-Za-z0-9+/]+\$[A-Za-z0-9+/]+/)?.[0];
+  assert.ok(hash, 'an Argon2id hash with the ERP parameters is stored');
+  // The ERP verifies with @node-rs/argon2 (apps/api/src/auth/password.ts): the imported hash must accept the same password.
+  assert.equal(await verify(hash, 'Secure-pass-2026'), true);
+  assert.equal(await verify(hash, 'Secure-pass-2027'), false);
   assert.ok(!existsSync(join(SITE, 'tamnex-data')));
 });
 
@@ -47,8 +52,16 @@ test('invalid fields are named; reserved subdomain and bad VAT/CR rejected', asy
   for (const f of ['email', 'cr', 'vat', 'subdomain', 'terms', 'password']) assert.ok(j.fields.includes(f), f);
 });
 
-test('VAT number not required when not VAT-registered', async () => {
-  const r = await post('/api/preregister.php', good({ email: 'novat@example.com', vatreg: 'no', vat: '', subdomain: '' }));
+test('password policy mirrors ERP BR-SEC-006: length, common list, email', async () => {
+  for (const [password, why] of [['Short-pass1', '11 characters'], ['123456789012', 'common leaked password'], ['x'.repeat(129), 'over 128'], ['my-cfoteam-2026', 'contains the email local part']]) {
+    const r = await post('/api/preregister.php', good({ email: 'cfoteam@example.com', subdomain: '', password }));
+    const j = await r.json();
+    assert.equal(r.status, 422, why); assert.ok(j.fields.includes('password'), why);
+  }
+});
+
+test('VAT number not required when not VAT-registered; a long Arabic passphrase passes (no composition rules)', async () => {
+  const r = await post('/api/preregister.php', good({ email: 'novat@example.com', vatreg: 'no', vat: '', subdomain: '', password: 'كلمة مرور عربية طويلة' }));
   assert.equal(r.status, 200);
 });
 

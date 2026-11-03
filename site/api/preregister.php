@@ -1,7 +1,8 @@
 <?php
-// Tamnex company pre-registration ("أنشئ حسابك"). Saves the request; the live environment and the password are
-// activated later through an emailed link. The password is stored only as a one-way hash (Argon2id, else bcrypt);
-// the plain password is never written anywhere. No payment, no subdomain reservation here.
+// Tamnex company pre-registration ("أنشئ حسابك"). Saves the request. The owner's password is chosen here and stored
+// only as an Argon2id PHC hash with the ERP's own parameters (apps/api/src/auth/password.ts: m=19456, t=2, p=1), so
+// the ERP imports the hash as-is when it provisions the company and the owner signs in with the same password. The
+// policy mirrors ERP BR-SEC-006. No bcrypt fallback: the ERP cannot verify it, so we refuse instead. No payment here.
 declare(strict_types=1);
 require __DIR__ . '/_lib.php';
 tx_headers();
@@ -58,7 +59,7 @@ if ($v['last'] === '') $e[] = 'last';
 if (!in_array($v['job'], ['owner', 'cfo', 'accountant', 'ops', 'other'], true)) $e[] = 'job';
 if (!filter_var($v['email'], FILTER_VALIDATE_EMAIL)) $e[] = 'email';
 if (!preg_match('/^\+?\d{9,15}$/', $v['phone'])) $e[] = 'phone';
-if (mb_strlen($password) < 10 || strlen($password) > 128 || !preg_match('/\p{L}/u', $password) || !preg_match('/\d/', $password)) $e[] = 'password';
+if (!tx_password_ok($password, $v['email'])) $e[] = 'password';
 if (!in_array($v['vatreg'], ['yes', 'no'], true)) $e[] = 'vatreg';
 if ($v['vatreg'] === 'yes' && !preg_match('/^3\d{13}3$/', $v['vat'])) $e[] = 'vat';
 if ($v['vatreg'] === 'no') $v['vat'] = '';
@@ -71,7 +72,8 @@ tx_rate($cfg, 'prereg', 5);
 if (tx_email_known($cfg, 'preregistrations.csv', $v['email'])) tx_out(409, ['ok' => false, 'error' => 'duplicate'], $prefix . '/start/?error=duplicate');
 
 $ref = 'TMX-' . strtoupper(bin2hex(random_bytes(4)));
-$hash = password_hash($password, defined('PASSWORD_ARGON2ID') ? PASSWORD_ARGON2ID : PASSWORD_BCRYPT);
+if (!defined('PASSWORD_ARGON2ID')) tx_out(503, ['ok' => false, 'error' => 'unavailable'], $prefix . '/start/?error=unavailable');
+$hash = password_hash($password, PASSWORD_ARGON2ID, ['memory_cost' => 19456, 'time_cost' => 2, 'threads' => 1]);
 unset($password);
 tx_append($cfg, 'preregistrations.csv',
     ['utc_time', 'ref', 'company', 'sector', 'size', 'branches', 'cr', 'subdomain_pref', 'first', 'last', 'job', 'email', 'phone', 'password_hash', 'vat_registered', 'vat', 'fy_start_month', 'plan', 'lang', 'terms', 'marketing', 'ip_hash'],

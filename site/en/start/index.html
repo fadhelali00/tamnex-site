@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Create your company account | Tamnex</title>
-<meta name="description" content="Register your company with Tamnex: company, administrator, and financial and tax setup. We prepare your environment and email your activation link at launch.">
+<meta name="description" content="Register your company with Tamnex: company, administrator, password, and financial and tax setup. We prepare your environment and you sign in with the password you chose.">
 <link rel="canonical" href="https://tamnex.com/en/start/">
 <link rel="alternate" hreflang="ar" href="https://tamnex.com/start/">
 <link rel="alternate" hreflang="en" href="https://tamnex.com/en/start/">
@@ -19,7 +19,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://tamnex.com/en/start/">
 <meta property="og:title" content="Tamnex: the AI-native ERP for your accounting, inventory and invoicing">
-<meta property="og:description" content="Register your company with Tamnex: company, administrator, and financial and tax setup. We prepare your environment and email your activation link at launch.">
+<meta property="og:description" content="Register your company with Tamnex: company, administrator, password, and financial and tax setup. We prepare your environment and you sign in with the password you chose.">
 <meta property="og:image" content="https://tamnex.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -61,13 +61,13 @@
     <aside class="start-side">
       <h1 id="st-title">Create your company account</h1>
       <p class="lead">Three short steps, then we prepare your company's environment.</p>
-      <p class="prelaunch">Pre-registration: we create your company account and prepare its environment, then email you the activation link as soon as it is ready. No payment is taken.</p>
+      <p class="prelaunch">Pre-registration: we create your company account and prepare its environment, then email you an activation notice and sign-in link as soon as it is ready. You sign in with the password you choose here. No payment is taken.</p>
       <ol class="progress" data-progress aria-label="Create your company account"><li data-p="1" aria-current="step"><span class="pn">1</span><span>Company</span></li><li data-p="2"><span class="pn">2</span><span>Administrator</span></li><li data-p="3"><span class="pn">3</span><span>Financial and tax setup</span></li><li data-p="4"><span class="pn">4</span><span>Review</span></li></ol>
     </aside>
     <div class="card start-card">
       <form id="start-form" action="/api/preregister.php" method="post" novalidate data-endpoint="/api/preregister.php" data-lang="en"
         data-l-step="Step {n} of {t}" data-l-sending="Saving…" data-l-submit="Create account" data-l-fail="Could not save. Your details are still in the form; please try again." data-l-dup="This email is already registered with us. For another company, use a different email or contact us."
-        data-e-req="This field is required." data-e-cr="Enter 10 digits." data-e-vat="Enter 15 digits starting and ending with 3." data-e-sub="Use 3 to 30 lowercase letters, digits or hyphens, not starting or ending with a hyphen." data-e-sub-reserved="This address is reserved. Choose another." data-e-email="Enter an email like name@company.com." data-e-phone="Enter a valid mobile number, e.g. 05xxxxxxxx." data-e-terms="We need your consent to keep your details." data-e-pw="Use at least 10 characters, with a letter and a digit." data-e-pw2="The passwords do not match."
+        data-e-req="This field is required." data-e-cr="Enter 10 digits." data-e-vat="Enter 15 digits starting and ending with 3." data-e-sub="Use 3 to 30 lowercase letters, digits or hyphens, not starting or ending with a hyphen." data-e-sub-reserved="This address is reserved. Choose another." data-e-email="Enter an email like name@company.com." data-e-phone="Enter a valid mobile number, e.g. 05xxxxxxxx." data-e-terms="We need your consent to keep your details." data-e-pw="Use at least 12 characters, without your email or a common password." data-e-pw2="The passwords do not match."
         data-l-yes="Yes" data-l-no="No">
         <input type="hidden" name="lang" value="en">
         <p class="step-of" data-step-of aria-live="polite"></p>
@@ -94,7 +94,7 @@
             <div class="field"><label for="s-phone">Mobile number</label><div class="phone-field" dir="ltr"><span>+966</span><input id="s-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" required maxlength="15" placeholder="5XXXXXXXX" aria-describedby="se-phone"></div><p class="err" id="se-phone"></p></div>
           </div>
           <div class="row2">
-            <div class="field"><label for="s-password">Password</label><div class="pw-field" dir="ltr"><input id="s-password" name="password" type="password" autocomplete="new-password" required minlength="10" maxlength="128" aria-describedby="h-password se-password"><button type="button" class="link-btn" data-pw-toggle aria-controls="s-password" data-l-show="Show" data-l-hide="Hide">Show</button></div><p class="hint" id="h-password">At least 10 characters, with a letter and a digit.</p><p class="err" id="se-password"></p></div>
+            <div class="field"><label for="s-password">Password</label><div class="pw-field" dir="ltr"><input id="s-password" name="password" type="password" autocomplete="new-password" required minlength="10" maxlength="128" aria-describedby="h-password se-password"><button type="button" class="link-btn" data-pw-toggle aria-controls="s-password" data-l-show="Show" data-l-hide="Hide">Show</button></div><p class="hint" id="h-password">At least 12 characters. Pick a phrase that is hard to guess, without your email or a common password.</p><p class="err" id="se-password"></p></div>
             <div class="field"><label for="s-password2">Confirm password</label><input id="s-password2" name="password2" type="password" autocomplete="new-password" required maxlength="128" dir="ltr" aria-describedby="se-password2"><p class="err" id="se-password2"></p></div>
           </div>
         </fieldset>
@@ -127,7 +127,7 @@
       <div class="holding" data-holding hidden tabindex="-1" aria-labelledby="hold-title-i">
     <svg class="hold-orb" viewBox="0 0 64 64" aria-hidden="true"><circle class="orb-pulse" cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="32" cy="32" r="18" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"/><path d="M24 33l6 6 11-13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <h2 id="hold-title-i">Welcome to Tamnex — we are preparing your workspace</h2>
-    <p class="lead">We have received your company's request to join. We are setting up your dedicated workspace and will email you the activation and sign-in link as soon as it is ready.</p>
+    <p class="lead">We have received your company's request to join. We are setting up your dedicated workspace and will email you an activation notice and direct sign-in link as soon as it is ready; you sign in with the password you chose.</p>
     <span hidden data-ref></span>
     <form class="notify" data-notify novalidate data-l-ok="We will send the launch notice to this email." data-l-fail="Could not save. Your details are still in the form; please try again." data-e-email="Enter an email like name@company.com.">
       <div class="field"><label for="n-email">Launch notification email</label><div class="row-inline"><input id="n-email" type="email" dir="ltr" autocomplete="email" aria-describedby="ne-email"><button class="btn btn-ghost" type="submit">Update notification email</button></div><p class="err" id="ne-email"></p></div>

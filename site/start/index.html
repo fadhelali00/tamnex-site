@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>أنشئ حساب منشأتك | تامنكس</title>
-<meta name="description" content="سجّل منشأتك في تامنكس: بيانات المنشأة والمسؤول والإعداد المالي والضريبي، ونجهّز بيئتك ونرسل لك رابط التفعيل عند الإطلاق.">
+<meta name="description" content="سجّل منشأتك في تامنكس: بيانات المنشأة والمسؤول وكلمة المرور والإعداد المالي والضريبي. نجهّز بيئتك، وتدخل بكلمة المرور التي اخترتها.">
 <link rel="canonical" href="https://tamnex.com/start/">
 <link rel="alternate" hreflang="ar" href="https://tamnex.com/start/">
 <link rel="alternate" hreflang="en" href="https://tamnex.com/en/start/">
@@ -19,7 +19,7 @@
 <meta property="og:locale" content="ar_SA">
 <meta property="og:url" content="https://tamnex.com/start/">
 <meta property="og:title" content="تامنكس: نظام ERP ذكي يجمع محاسبتك ومخزونك وفواتيرك">
-<meta property="og:description" content="سجّل منشأتك في تامنكس: بيانات المنشأة والمسؤول والإعداد المالي والضريبي، ونجهّز بيئتك ونرسل لك رابط التفعيل عند الإطلاق.">
+<meta property="og:description" content="سجّل منشأتك في تامنكس: بيانات المنشأة والمسؤول وكلمة المرور والإعداد المالي والضريبي. نجهّز بيئتك، وتدخل بكلمة المرور التي اخترتها.">
 <meta property="og:image" content="https://tamnex.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -61,13 +61,13 @@
     <aside class="start-side">
       <h1 id="st-title">أنشئ حساب منشأتك</h1>
       <p class="lead">ثلاث خطوات قصيرة، ثم نجهّز بيئة منشأتك.</p>
-      <p class="prelaunch">تسجيل مسبق: ننشئ حساب منشأتك ونجهّز بيئتها، ونرسل رابط التفعيل إلى بريدك فور جاهزيتها. لا يُطلب دفع.</p>
+      <p class="prelaunch">تسجيل مسبق: ننشئ حساب منشأتك ونجهّز بيئتها، ونرسل إلى بريدك إشعار التفعيل ورابط الدخول فور جاهزيتها، وتدخل بكلمة المرور التي تختارها هنا. لا يُطلب دفع.</p>
       <ol class="progress" data-progress aria-label="أنشئ حساب منشأتك"><li data-p="1" aria-current="step"><span class="pn">1</span><span>المنشأة</span></li><li data-p="2"><span class="pn">2</span><span>المسؤول</span></li><li data-p="3"><span class="pn">3</span><span>الإعداد المالي والضريبي</span></li><li data-p="4"><span class="pn">4</span><span>المراجعة</span></li></ol>
     </aside>
     <div class="card start-card">
       <form id="start-form" action="/api/preregister.php" method="post" novalidate data-endpoint="/api/preregister.php" data-lang="ar"
         data-l-step="الخطوة {n} من {t}" data-l-sending="جارٍ الحفظ…" data-l-submit="أنشئ الحساب" data-l-fail="تعذّر حفظ البيانات. بياناتك ما زالت في النموذج، حاول مرة أخرى." data-l-dup="هذا البريد مسجّل لدينا من قبل. إن كانت منشأة أخرى فاستخدم بريداً آخر، أو تواصل معنا."
-        data-e-req="هذا الحقل مطلوب." data-e-cr="اكتب 10 أرقام." data-e-vat="اكتب 15 رقماً يبدأ بـ 3 وينتهي بـ 3." data-e-sub="استخدم 3 إلى 30 حرفاً: إنجليزية صغيرة وأرقام وشرطة، دون شرطة في البداية أو النهاية." data-e-sub-reserved="هذا العنوان محجوز. اختر غيره." data-e-email="اكتب بريداً بالشكل name@company.com." data-e-phone="اكتب رقم جوال صحيحاً، مثل 05xxxxxxxx." data-e-terms="نحتاج موافقتك لحفظ البيانات." data-e-pw="استخدم 10 أحرف على الأقل، فيها حرف ورقم." data-e-pw2="كلمتا المرور غير متطابقتين."
+        data-e-req="هذا الحقل مطلوب." data-e-cr="اكتب 10 أرقام." data-e-vat="اكتب 15 رقماً يبدأ بـ 3 وينتهي بـ 3." data-e-sub="استخدم 3 إلى 30 حرفاً: إنجليزية صغيرة وأرقام وشرطة، دون شرطة في البداية أو النهاية." data-e-sub-reserved="هذا العنوان محجوز. اختر غيره." data-e-email="اكتب بريداً بالشكل name@company.com." data-e-phone="اكتب رقم جوال صحيحاً، مثل 05xxxxxxxx." data-e-terms="نحتاج موافقتك لحفظ البيانات." data-e-pw="استخدم 12 حرفاً على الأقل، دون بريدك أو كلمة مرور شائعة." data-e-pw2="كلمتا المرور غير متطابقتين."
         data-l-yes="نعم" data-l-no="لا">
         <input type="hidden" name="lang" value="ar">
         <p class="step-of" data-step-of aria-live="polite"></p>
@@ -94,7 +94,7 @@
             <div class="field"><label for="s-phone">رقم الجوال</label><div class="phone-field" dir="ltr"><span>+966</span><input id="s-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" required maxlength="15" placeholder="5XXXXXXXX" aria-describedby="se-phone"></div><p class="err" id="se-phone"></p></div>
           </div>
           <div class="row2">
-            <div class="field"><label for="s-password">كلمة المرور</label><div class="pw-field" dir="ltr"><input id="s-password" name="password" type="password" autocomplete="new-password" required minlength="10" maxlength="128" aria-describedby="h-password se-password"><button type="button" class="link-btn" data-pw-toggle aria-controls="s-password" data-l-show="إظهار" data-l-hide="إخفاء">إظهار</button></div><p class="hint" id="h-password">10 أحرف على الأقل، فيها حرف ورقم.</p><p class="err" id="se-password"></p></div>
+            <div class="field"><label for="s-password">كلمة المرور</label><div class="pw-field" dir="ltr"><input id="s-password" name="password" type="password" autocomplete="new-password" required minlength="10" maxlength="128" aria-describedby="h-password se-password"><button type="button" class="link-btn" data-pw-toggle aria-controls="s-password" data-l-show="إظهار" data-l-hide="إخفاء">إظهار</button></div><p class="hint" id="h-password">12 حرفاً على الأقل. اختر عبارة يصعب تخمينها، ولا تستخدم بريدك أو كلمة مرور شائعة.</p><p class="err" id="se-password"></p></div>
             <div class="field"><label for="s-password2">تأكيد كلمة المرور</label><input id="s-password2" name="password2" type="password" autocomplete="new-password" required maxlength="128" dir="ltr" aria-describedby="se-password2"><p class="err" id="se-password2"></p></div>
           </div>
         </fieldset>
@@ -127,7 +127,7 @@
       <div class="holding" data-holding hidden tabindex="-1" aria-labelledby="hold-title-i">
     <svg class="hold-orb" viewBox="0 0 64 64" aria-hidden="true"><circle class="orb-pulse" cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="32" cy="32" r="18" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"/><path d="M24 33l6 6 11-13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <h2 id="hold-title-i">أهلاً بك في تامنكس — نجهّز مساحتك الخاصة</h2>
-    <p class="lead">استلمنا طلب انضمام منشأتك بنجاح. نعمل حالياً على تهيئة بيئة عملك المخصصة. سنرسل لك رابط التفعيل والدخول المباشر فور الانتهاء.</p>
+    <p class="lead">استلمنا طلب انضمام منشأتك بنجاح. نعمل حالياً على تهيئة بيئة عملك المخصصة، وسنرسل لك إشعار التفعيل ورابط الدخول المباشر فور الانتهاء، لتدخل بكلمة المرور التي اخترتها.</p>
     <span hidden data-ref></span>
     <form class="notify" data-notify novalidate data-l-ok="سنرسل إشعار الإطلاق إلى هذا البريد." data-l-fail="تعذّر حفظ البيانات. بياناتك ما زالت في النموذج، حاول مرة أخرى." data-e-email="اكتب بريداً بالشكل name@company.com.">
       <div class="field"><label for="n-email">بريد إشعار الإطلاق</label><div class="row-inline"><input id="n-email" type="email" dir="ltr" autocomplete="email" aria-describedby="ne-email"><button class="btn btn-ghost" type="submit">حدّث بريد الإشعار</button></div><p class="err" id="ne-email"></p></div>

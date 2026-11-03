@@ -98,3 +98,18 @@ function tx_email_known(array $cfg, string $name, string $email): bool {
     fclose($fh);
     return $found;
 }
+
+/** ERP BR-SEC-006: 12..128 characters, no composition rules, not a common leaked password, not built from the email. */
+function tx_password_ok(string $pw, string $email): bool
+{
+    if (!mb_check_encoding($pw, 'UTF-8')) return false;
+    $len = mb_strlen($pw, 'UTF-8');
+    if ($len < 12 || $len > 128) return false;
+    $lower = mb_strtolower($pw, 'UTF-8');
+    static $common = null;
+    if ($common === null) $common = require __DIR__ . '/_common-passwords.php';
+    if (isset($common[$lower])) return false;
+    $local = mb_strtolower(explode('@', $email)[0] ?? '', 'UTF-8');
+    if (mb_strlen($local, 'UTF-8') >= 4 && str_contains($lower, $local)) return false;
+    return true;
+}

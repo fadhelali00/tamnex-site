@@ -152,7 +152,7 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   await p.click('[data-next]');
   await p.fill('#s-first', 'فاضل'); await p.fill('#s-last', 'علي'); await p.selectOption('#s-job', 'cfo'); await p.fill('#s-email', 'flow@example.com'); await p.fill('#s-phone', '0551234567');
   await p.fill('#s-password', 'short'); await p.click('[data-next]');
-  check('weak password blocks step 2', /10/.test(await p.textContent('#se-password')));
+  check('short password blocks step 2 (ERP policy: 12+)', /12/.test(await p.textContent('#se-password')));
   await p.fill('#s-password', 'Secure-pass-2026'); await p.fill('#s-password2', 'Different-2026'); await p.click('[data-next]');
   check('mismatched confirmation blocks step 2', (await p.textContent('#se-password2')).length > 0);
   await p.fill('#s-password2', 'Secure-pass-2026'); await p.click('[data-pw-toggle]');

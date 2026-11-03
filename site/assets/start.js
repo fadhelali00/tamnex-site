@@ -65,7 +65,9 @@
       need('email', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(val('email'))), D.eEmail);
       need('phone', /^0?5\d{8}$/.test(String(val('phone')).replace(/[\s-]/g, '')), D.ePhone);
       var pw = String($('#s-password', f).value);
-      need('password', pw.length >= 10 && /\p{L}/u.test(pw) && /\d/.test(pw), D.ePw);
+      // Mirrors ERP BR-SEC-006 (12..128 characters, not built from the email); the common-password list is checked by the server.
+      var pwLen = Array.from(pw).length, local = String($('#s-email', f).value).split('@')[0].toLowerCase();
+      need('password', pwLen >= 12 && pwLen <= 128 && !(local.length >= 4 && pw.toLowerCase().indexOf(local) !== -1), D.ePw);
       need('password2', pw === String($('#s-password2', f).value), D.ePw2);
     }
     if (n === 3) {

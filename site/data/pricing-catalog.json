@@ -1,7 +1,7 @@
 {
   "schema": "pricing-catalog",
   "schemaVersion": 1,
-  "catalogVersion": "2026-11-04.1",
+  "catalogVersion": "2026-11-04.2",
   "effectiveFrom": "2026-11-04",
   "source": {
     "kind": "approved-display-copy",
@@ -138,24 +138,6 @@
         "ar": "ميزات الذكاء الاصطناعي (مسودات، والاعتماد لك)",
         "en": "AI features (drafts; you approve)"
       }
-    },
-    {
-      "id": "multi_company",
-      "group": "enterprise",
-      "availability": "launch",
-      "name": {
-        "ar": "أكثر من منشأة في حساب واحد",
-        "en": "Several companies under one account"
-      }
-    },
-    {
-      "id": "managed_onboarding",
-      "group": "enterprise",
-      "availability": "launch",
-      "name": {
-        "ar": "تهيئة وانتقال بإشراف فريقنا",
-        "en": "Onboarding and migration run by our team"
-      }
     }
   ],
   "plans": [
@@ -165,12 +147,12 @@
       "public": true,
       "highlight": null,
       "name": {
-        "ar": "الانطلاق",
-        "en": "Launch"
+        "ar": "الأساسية",
+        "en": "Core"
       },
       "audience": {
-        "ar": "لمنشأة بمستودع واحد تبدأ دفاترها صحيحة",
-        "en": "For a single-warehouse business starting with clean books"
+        "ar": "لمنشأة بمستودع واحد تريد أرقامها المالية لحظة بلحظة",
+        "en": "For a single-warehouse business that wants its numbers in real time"
       },
       "pricing": {
         "kind": "listed",
@@ -227,12 +209,6 @@
         },
         "ai_assistant": {
           "kind": "included"
-        },
-        "multi_company": {
-          "kind": "not_included"
-        },
-        "managed_onboarding": {
-          "kind": "not_included"
         }
       },
       "highlights": [
@@ -251,8 +227,8 @@
         "en": "Built for several warehouses"
       },
       "name": {
-        "ar": "النمو",
-        "en": "Growth"
+        "ar": "الأعمال",
+        "en": "Business"
       },
       "audience": {
         "ar": "لمنشأة بعدة مستودعات تحتاج تحليلاً أدق",
@@ -313,12 +289,6 @@
         },
         "ai_assistant": {
           "kind": "included"
-        },
-        "multi_company": {
-          "kind": "not_included"
-        },
-        "managed_onboarding": {
-          "kind": "not_included"
         }
       },
       "highlights": [
@@ -334,8 +304,8 @@
       "public": true,
       "highlight": null,
       "name": {
-        "ar": "التوسّع",
-        "en": "Scale"
+        "ar": "المتقدمة",
+        "en": "Advanced"
       },
       "audience": {
         "ar": "لمنشأة تدير دورة كاملة من الطلب إلى التحصيل",
@@ -394,12 +364,6 @@
         },
         "ai_assistant": {
           "kind": "included"
-        },
-        "multi_company": {
-          "kind": "not_included"
-        },
-        "managed_onboarding": {
-          "kind": "not_included"
         }
       },
       "highlights": [
@@ -407,76 +371,6 @@
         "cash_bank",
         "customers",
         "orders"
-      ]
-    },
-    {
-      "id": "enterprise",
-      "order": 4,
-      "public": true,
-      "highlight": null,
-      "name": {
-        "ar": "المؤسسات",
-        "en": "Enterprise"
-      },
-      "audience": {
-        "ar": "لمجموعات الشركات والاحتياجات الخاصة",
-        "en": "For groups of companies and special requirements"
-      },
-      "pricing": {
-        "kind": "on_request"
-      },
-      "values": {
-        "accounting_ifrs18": {
-          "kind": "included"
-        },
-        "sales_einvoice_p1": {
-          "kind": "included"
-        },
-        "einvoice_p2": {
-          "kind": "included"
-        },
-        "purchases_inventory": {
-          "kind": "included"
-        },
-        "invoices": {
-          "kind": "unlimited"
-        },
-        "warehouses": {
-          "kind": "contract"
-        },
-        "cash_bank": {
-          "kind": "contract"
-        },
-        "customers": {
-          "kind": "contract"
-        },
-        "users": {
-          "kind": "contract"
-        },
-        "cost_centers_price_lists": {
-          "kind": "included"
-        },
-        "api": {
-          "kind": "included"
-        },
-        "orders": {
-          "kind": "included"
-        },
-        "ai_assistant": {
-          "kind": "included"
-        },
-        "multi_company": {
-          "kind": "included"
-        },
-        "managed_onboarding": {
-          "kind": "included"
-        }
-      },
-      "highlights": [
-        "multi_company",
-        "managed_onboarding",
-        "users",
-        "api"
       ]
     }
   ]

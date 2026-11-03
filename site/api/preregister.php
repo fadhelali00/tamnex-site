@@ -63,7 +63,7 @@ if (!in_array($v['vatreg'], ['yes', 'no'], true)) $e[] = 'vatreg';
 if ($v['vatreg'] === 'yes' && !preg_match('/^3\d{13}3$/', $v['vat'])) $e[] = 'vat';
 if ($v['vatreg'] === 'no') $v['vat'] = '';
 if (!preg_match('/^(?:[1-9]|1[0-2])$/', $v['fy'])) $e[] = 'fy';
-if (!in_array($v['plan'], ['', 'launch', 'growth', 'scale', 'enterprise'], true)) $e[] = 'plan';
+if (!in_array($v['plan'], ['', 'launch', 'growth', 'scale'], true)) $e[] = 'plan';
 if (!$terms) $e[] = 'terms';
 if ($e) tx_out(422, ['ok' => false, 'error' => 'invalid', 'fields' => $e], $prefix . '/start/?error=invalid');
 

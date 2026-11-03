@@ -38,11 +38,13 @@ test('owner-approved prices, VAT 15% totals and annual amounts', () => {
     assert.equal(a.charged, w.a); assert.equal(a.perMonth, w.aEq); assert.equal(a.chargedTotal, w.aTotal);
     assert.equal(a.upfront, true);
   }
-  assert.equal(priceFor(c, c.plans.find(x => x.id === 'enterprise'), 'monthly'), null);
 });
 
 test('stable ids, order, one descriptive highlight, no "best seller" claim', () => {
-  assert.deepEqual(publicPlans(c).map(p => p.id), ['launch', 'growth', 'scale', 'enterprise']);
+  assert.deepEqual(publicPlans(c).map(p => p.id), ['launch', 'growth', 'scale']);
+  assert.deepEqual(c.plans.map(p => p.name.ar), ['الأساسية', 'الأعمال', 'المتقدمة']);
+  assert.deepEqual(c.plans.map(p => p.name.en), ['Core', 'Business', 'Advanced']);
+  assert.ok(c.plans.every(p => p.pricing.kind === 'listed'), 'no contact-sales plan');
   const hl = c.plans.filter(p => p.highlight);
   assert.equal(hl.length, 1); assert.equal(hl[0].id, 'growth');
   assert.doesNotMatch(JSON.stringify(c), /الأكثر مبيعاً|best[- ]?sell/i);

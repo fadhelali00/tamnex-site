@@ -106,6 +106,29 @@
     });
   });
 
+  /* ---------- Continuous Close dashboard (hero demo) ---------- */
+  var cd = $('[data-close]');
+  if (cd) {
+    var approve = $('[data-cd-approve]', cd), fsBtn = $('[data-cd-fs]', cd), logBtn = $('[data-cd-log]', cd), logBox = $('[data-cd-logbox]', cd);
+    if (approve) approve.addEventListener('click', function () {
+      var pct = $('[data-cd-pct]', cd), meter = $('[data-cd-meter]', cd), ok = $('[data-cd-approved]', cd);
+      if (pct) pct.textContent = cd.getAttribute('data-l-done') || '100%';
+      if (meter) { meter.setAttribute('data-complete', ''); meter.setAttribute('aria-valuenow', '100'); }
+      var den = $('[data-cd-den]', cd); if (den) den.textContent = den.getAttribute('data-l-done') || den.textContent;
+      if (ok) ok.hidden = false;
+      approve.disabled = true; track('close_demo', { step: 'approve' });
+    });
+    if (fsBtn) fsBtn.addEventListener('click', function () {
+      var d = $('[data-cd-fs-done]', cd); if (d) d.hidden = false;
+      fsBtn.disabled = true; track('close_demo', { step: 'statements' });
+    });
+    if (logBtn && logBox) logBtn.addEventListener('click', function () {
+      var open = logBtn.getAttribute('aria-expanded') !== 'true';
+      logBtn.setAttribute('aria-expanded', String(open));
+      if (open) logBox.setAttribute('data-open', ''); else logBox.removeAttribute('data-open');
+    });
+  }
+
   /* ---------- Monthly / annual: swaps text already rendered from the catalog ---------- */
   var cycle = $('[data-cycle]');
   if (cycle) {

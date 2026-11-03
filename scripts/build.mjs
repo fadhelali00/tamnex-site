@@ -99,27 +99,29 @@ function header(lang, page) {
 </header>`;
 }
 
-/** @param {'ar'|'en'} lang */
+/** Continuous Close dashboard for the hero (sample data). @param {'ar'|'en'} lang */
 function showcase(lang) {
   const t = T[lang];
-  const tabs = [['acc', t.tab_acc], ['inv', t.tab_inv], ['pur', t.tab_pur], ['ai', t.tab_ai]];
-  void orb;
-  const table = (/** @type {string[]} */ cols, /** @type {string[][]} */ rows, /** @type {string[]|null} */ foot) =>
-    `<div class="tscroll" tabindex="0" role="region" aria-label="${esc(t.sc_label)}"><table class="ui-table"><thead><tr>${cols.map((c, i) => `<th scope="col"${i ? ' class="n"' : ''}>${esc(c)}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => i ? `<td class="n"><bdi>${esc(c)}</bdi></td>` : `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>${foot ? `<tfoot><tr><td>${esc(t.sc_total)}</td>${foot.map(f => `<td class="n"><bdi>${esc(f)}</bdi></td>`).join('')}</tr></tfoot>` : ''}</table></div>`;
-  const panels = {
-    acc: `<div class="ui-head"><b>${esc(t.sc_acc_title)}</b><span class="chip chip-ok"><i></i>${esc(t.sc_acc_state)}</span></div>${table(t.sc_cols_entry, t.sc_acc_rows, t.sc_acc_totals)}<p class="ui-note">${esc(t.sc_acc_note)}</p>`,
-    inv: `<div class="ui-head"><b>${esc(t.sc_inv_title)}</b></div>${table(t.sc_cols_inv, t.sc_inv_rows, null)}<p class="ui-note">${esc(t.sc_inv_note)}</p>`,
-    pur: `<div class="ui-head"><b>${esc(t.sc_pur_title)}</b></div><ol class="ui-flow">${t.sc_pur_steps.map((/** @type {string[]} */ s) => `<li><b>${esc(s[0])}</b><span><bdi>${esc(s[1])}</bdi></span></li>`).join('')}</ol><p class="ui-note">${esc(t.sc_pur_note)}</p>`,
-    ai: `<div class="ui-head"><b>${esc(t.sc_ai_title)}</b><span class="chip chip-soon">${esc(t.soon)}</span></div><ul class="ui-insights">${t.sc_ai_items.map((/** @type {string[]} */ s) => `<li><b>${esc(s[0])}</b><span>${esc(s[1])}</span></li>`).join('')}</ul><p class="ui-note">${esc(t.sc_ai_note)}</p>`
-  };
-  return `<div class="showcase" data-showcase>
+  const tick = '<svg class="cd-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg>';
+  return `<div class="showcase cd" data-close data-l-done="${esc(t.cd_pct_done)}">
     <div class="sc-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="sc-label">${esc(t.sc_label)}</span></div>
-    <div class="sc-tabs" role="tablist" aria-label="${esc(t.sc_tabs_label)}">
-      ${tabs.map(([id, name], i) => `<button type="button" role="tab" id="tab-${id}" aria-controls="panel-${id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${esc(name)}</button>`).join('')}
-    </div>
     <div class="sc-body">
-      <p class="sc-company">${esc(t.sc_company)}</p>
-      ${tabs.map(([id], i) => `<div class="sc-panel" role="tabpanel" id="panel-${id}" aria-labelledby="tab-${id}" tabindex="0"${i ? ' data-inactive' : ''}>${/** @type {any} */ (panels)[id]}</div>`).join('')}
+      <div class="cd-status">
+        <div><p class="cd-org">${esc(t.cd_org)}</p><p class="cd-title">${esc(t.cd_status)} <span class="cd-pct" dir="ltr" data-cd-pct>${esc(t.cd_pct)}</span> ${esc(t.cd_ready)}</p></div>
+        <span class="live"><i></i>${esc(t.cd_live)}</span>
+      </div>
+      <div class="cd-meter" role="progressbar" aria-label="${esc(t.cd_meter)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="99.8" data-cd-meter><span></span></div>
+      <p class="fine" data-cd-den data-l-done="${esc(t.cd_den_done)}">${esc(t.cd_den)}</p>
+      <div class="cd-grid">
+        <ul class="cd-checks">${t.cd_checks.map((/** @type {string[]} */ r) => `<li>${tick}<div><b>${esc(r[0])}</b><span>${esc(r[1])}</span></div><span class="chip chip-ok">${esc(r[2])}</span></li>`).join('')}</ul>
+        <div class="cd-side">
+          <div class="capsule">${orb('orb orb-sm')}<div><p class="nx-who">${esc(t.nexa_badge)}</p><p>${esc(t.cd_nexa)}</p>
+            <button type="button" class="btn btn-ghost btn-sm" data-cd-approve>${esc(t.cd_approve)}</button><p class="nx-done" data-cd-approved hidden>${esc(t.cd_approved)}</p></div></div>
+          <div class="cd-actions"><button type="button" class="btn" data-cd-fs>${esc(t.cd_fs)}</button><button type="button" class="btn btn-ghost" data-cd-log aria-expanded="false" aria-controls="cd-log-${lang}">${esc(t.cd_log)}</button></div>
+          <p class="nx-done" data-cd-fs-done hidden>${esc(t.cd_fs_done)}</p>
+        </div>
+      </div>
+      <ol class="cd-log" id="cd-log-${lang}" data-cd-logbox>${t.cd_log_items.map((/** @type {string[]} */ r) => `<li><bdi>${esc(r[0])}</bdi><span>${esc(r[1])}</span></li>`).join('')}</ol>
     </div>
   </div>`;
 }
@@ -158,10 +160,9 @@ function nexa(lang) {
   const s1 = `<div class="cmd"><span class="kbd" dir="ltr">${esc(t.nx_s1_kbd)}</span>${orb('orb orb-sm')}<span class="cmd-q" data-type="${esc(t.nx_s1_q)}">${esc(t.nx_s1_q)}</span></div>
       <div class="nx-answer"><p class="nx-who">${esc(t.nexa_badge)}</p><p>${esc(t.nx_s1_a)}</p>${tbl(t.nx_s1_cols, t.nx_s1_rows)}
       <button type="button" class="btn btn-ghost btn-sm" data-nx-act="s1">${esc(t.nx_s1_btn)}</button><p class="nx-done" data-nx-done="s1" hidden>${esc(t.nx_s1_done)}</p></div>`;
-  const s2 = `<div class="radar"><div class="radar-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="r-track" cx="60" cy="60" r="50"/><circle class="r-arc nx-arc" cx="60" cy="60" r="50" pathLength="1000"/></svg><span class="ring-n"><bdi>${esc(t.nx_s2_pct)}</bdi></span></div>
-      <div><p class="nx-h">${esc(t.nx_s2_head)}</p><p class="nx-ready"><bdi>${esc(t.nx_s2_pct)}</bdi> ${esc(t.nx_s2_ready)}</p><p class="fine">${esc(t.nx_s2_den)}</p></div></div>
-      <ul class="nx-checks">${t.nx_s2_items.map((/** @type {string[]} */ r, /** @type {number} */ i) => `<li><span>${esc(r[0])}</span>${i === t.nx_s2_items.length - 1 ? `<span class="chip chip-soon"><bdi>${esc(r[1])}</bdi></span>` : `<span class="chip chip-ok"><i></i>${esc(r[1])}</span>`}</li>`).join('')}</ul>
-      <div class="nx-answer"><p class="nx-who">${esc(t.nexa_badge)}</p><p>${esc(t.nx_s2_sugg)}</p>${tbl(t.nx_s2_cols, t.nx_s2_rows)}
+  const s2 = `<p class="nx-h">${esc(t.nx_s2_head)}</p>
+      <ul class="kpis">${t.nx_s2_kpis.map((/** @type {string[]} */ r) => `<li><span>${esc(r[0])}</span><b><bdi>${esc(r[1])}</bdi> <small>${esc(t.currency)}</small></b></li>`).join('')}</ul>
+      <div class="nx-answer"><p class="nx-who">${esc(t.nexa_badge)}</p><p>${esc(t.nx_s2_sugg)}</p>
       <button type="button" class="btn btn-ghost btn-sm" data-nx-act="s2">${esc(t.nx_s2_btn)}</button><p class="nx-done" data-nx-done="s2" hidden>${esc(t.nx_s2_done)}</p></div>`;
   const s3 = `<div class="po"><div class="ui-head"><b>${esc(t.nx_s3_head)}</b><span class="fine">${esc(t.nx_s3_vendor)}</span></div>
       <div class="capsule">${orb('orb orb-sm')}<div><p class="nx-who">${esc(t.nexa_badge)}</p><p>${esc(t.nx_s3_price)}</p><p>${esc(t.nx_s3_stock)}</p><p class="nx-prop">${esc(t.nx_s3_prop)}</p>
@@ -225,7 +226,7 @@ function pricing(lang, full) {
   const t = T[lang];
   const plans = publicPlans(catalog);
   const feats = catalog.features;
-  const req = (/** @type {string} */ id) => id === 'enterprise' ? href(lang, '/') + `?plan=${id}#request` : href(lang, '/start/') + `?plan=${id}`;
+  const req = (/** @type {string} */ id) => href(lang, '/start/') + `?plan=${id}`;
   const toggle = `<div class="cycle" role="radiogroup" aria-label="${esc(t.cycle_label)}" data-cycle>
       ${catalog.cycles.map(c => `<button type="button" role="radio" data-c="${c}" aria-checked="${c === catalog.defaultCycle}" tabindex="${c === catalog.defaultCycle ? 0 : -1}">${esc(c === 'monthly' ? t.cycle_monthly : t.cycle_annual)}</button>`).join('')}
     </div>`;
@@ -240,7 +241,7 @@ function pricing(lang, full) {
       <ul class="ticks">${p.highlights.map(fid => { const f = /** @type {import('./catalog.mjs').Feature} */ (feats.find(x => x.id === fid)); const v = valueLabel(catalog, p, f, t); return `<li><span>${esc(f.name[lang])}</span><b>${esc(v.label)}</b>${v.soon ? ` <span class="chip chip-soon">${esc(t.soon)}</span>` : ''}</li>`; }).join('')}</ul>
     </article>`;
   }).join('');
-  const groups = ['core', 'limits', 'advanced', 'ai', 'enterprise'];
+  const groups = ['core', 'limits', 'advanced', 'ai'];
   const table = `<div class="table-scroll" tabindex="0" role="region" aria-labelledby="cmp-title"><table class="compare">
       <caption id="cmp-title">${esc(t.compare_title)}</caption>
       <thead><tr><th scope="col">${esc(t.compare_feature)}</th>${plans.map(p => `<th scope="col"${p.highlight ? ' class="hl"' : ''}>${esc(p.name[lang])}</th>`).join('')}</tr></thead>

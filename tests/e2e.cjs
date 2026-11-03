@@ -99,10 +99,16 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   const p = await ctx.newPage();
   const net = []; p.on('request', r => { if (!r.url().startsWith(BASE)) net.push(r.url()); });
   await p.goto(BASE + '/', { waitUntil: 'networkidle' });
-  // showcase tabs by keyboard (RTL: ArrowLeft goes forward)
-  await p.focus('#tab-acc'); await p.keyboard.press('ArrowLeft');
-  check('showcase tabs: arrow key moves selection (RTL)', (await p.getAttribute('#tab-inv', 'aria-selected')) === 'true');
-  check('showcase: only the selected panel shows', await p.isVisible('#panel-inv') && !(await p.isVisible('#panel-acc')));
+  // Continuous Close dashboard (hero)
+  check('close dashboard: 99.8% with live matching', (await p.textContent('[data-cd-pct]')) === '99.8%' && /مطابقة فورية نشطة/.test(await p.textContent('.cd .live')));
+  check('hero has no debit/credit journal', !(await p.evaluate(() => /مدين|دائن/.test(document.querySelector('.hero').textContent))));
+  check('adjustments log is collapsed until asked', !(await p.isVisible('[data-cd-logbox]')));
+  await p.click('[data-cd-log]');
+  check('adjustments log opens and reports expanded', await p.isVisible('[data-cd-logbox]') && (await p.getAttribute('[data-cd-log]', 'aria-expanded')) === 'true');
+  await p.click('[data-cd-approve]');
+  check('approving the Nexa draft completes readiness (human action)', (await p.textContent('[data-cd-pct]')) === '100%' && /باسمك/.test(await p.textContent('[data-cd-approved]')) && (await p.getAttribute('[data-cd-meter]', 'aria-valuenow')) === '100');
+  await p.click('[data-cd-fs]');
+  check('draft statements are a draft that needs approval', /مسودة/.test(await p.textContent('[data-cd-fs-done]')) && /اعتمادك/.test(await p.textContent('[data-cd-fs-done]')));
   // demo
   const verdict = () => p.textContent('[data-verdict]');
   const ring = () => p.textContent('[data-ring-n]');
@@ -118,7 +124,7 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   // Nexa scenes
   await p.click('#tab-s2');
   await p.click('[data-nx-act="s2"]');
-  check('Nexa adjustment creates a draft only, nothing posted', /مسودة/.test(await p.textContent('[data-nx-done="s2"]')) && /لم يُرحَّل/.test(await p.textContent('[data-nx-done="s2"]')));
+  check('Nexa cash plan is a draft only, nothing sent', /مسودة/.test(await p.textContent('[data-nx-done="s2"]')) && /لم يُرسَل/.test(await p.textContent('[data-nx-done="s2"]')));
   await p.click('#tab-s3'); await p.click('[data-nx-act="s3"]');
   check('Nexa purchase request approval is a human action, logged', /باسمك/.test(await p.textContent('[data-nx-done="s3"]')));
   // form
@@ -183,10 +189,10 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   // 6. No JavaScript: everything readable, prices present, nav visible
   const c3 = await b.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
   const p3 = await c3.newPage(); await p3.goto(BASE + '/');
-  const nj = await p3.evaluate(() => ({ nav: [...document.querySelectorAll('[data-nav] a')].filter(a => a.offsetParent).length, plans: document.querySelectorAll('.plan .amount').length, panels: [...document.querySelectorAll('.sc-panel')].filter(x => x.offsetParent).length }));
+  const nj = await p3.evaluate(() => ({ nav: [...document.querySelectorAll('[data-nav] a')].filter(a => a.offsetParent).length, plans: document.querySelectorAll('.plan .amount').length, dash: !!document.querySelector('.cd .cd-checks').offsetParent, log: !!document.querySelector('[data-cd-logbox]').offsetParent }));
   check('no-JS: navigation visible', nj.nav >= 6, String(nj.nav));
   check('no-JS: plan prices rendered', nj.plans === catalog.plans.length);
-  check('no-JS: all showcase panels readable', nj.panels === 4);
+  check('no-JS: close dashboard and its log readable', nj.dash && nj.log);
   await p3.goto(BASE + '/start/');
   const ns = await p3.evaluate(() => ({ steps: [...document.querySelectorAll('.step')].filter(x => x.offsetParent).length, submit: !!document.querySelector('[data-submit]').offsetParent }));
   check('no-JS: registration is one complete form with a submit', ns.steps === 3 && ns.submit, JSON.stringify(ns));

@@ -40,7 +40,7 @@ $plan     = $str('plan', 40);
 $lang     = $str('lang', 2);
 $SECTORS  = ['trade', 'distribution', 'retail', 'services', 'accounting-office', 'other'];
 $BRANCHES = ['1', '2-5', '6+'];
-$PLANS    = ['', 'launch', 'growth', 'scale', 'enterprise'];   // stable ids from data/pricing-catalog.json
+$PLANS    = ['', 'launch', 'growth', 'scale'];   // stable ids from data/pricing-catalog.json
 $errors = [];
 if ($name === '') $errors[] = 'name';
 if ($company === '') $errors[] = 'company';

@@ -138,7 +138,8 @@ bdi { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .brand img { height: 34px; width: auto; }
 .nav { display: flex; align-items: center; gap: 4px; margin-inline-start: auto; font-size: 15px; }
 .nav a:not(.btn) { padding: 10px 12px; border-radius: 10px; text-decoration: none; color: var(--fg); font-weight: 500; }
-.nav a:not(.btn):hover, .nav a[aria-current] { background: var(--surface-2); }
+.nav a:not(.btn):hover, .nav a[aria-current]:not(.btn) { background: var(--surface-2); }
+.nav .btn[aria-current] { box-shadow: 0 0 0 2px var(--canvas), 0 0 0 4px var(--blue); }
 .nav .lang { color: var(--blue-ink); }
 .nav .nav-cta { margin-inline-start: 8px; }
 .menu-btn { display: none; }

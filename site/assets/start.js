@@ -153,7 +153,7 @@
           $('#n-email').value = body.email;
           hold.setAttribute('data-ref-value', res.j.ref);
           $$('[data-progress] li').forEach(function (li) { li.classList.add('done'); li.removeAttribute('aria-current'); });
-          hold.focus();
+          hold.focus({ preventScroll: true }); hold.scrollIntoView({ block: 'start', behavior: 'auto' });
           var w = /** @type {any} */ (window); (w.tamnexEvents = w.tamnexEvents || []).push({ name: 'prereg_submit', data: { plan: body.plan || 'none' }, t: Date.now() });
           return;
         }

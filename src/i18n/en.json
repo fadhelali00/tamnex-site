@@ -485,5 +485,6 @@
  "nx_s2_sugg": "A cash gap of SAR 64,500 is expected on 18 November: two supplier payments land a week before the two largest collections. Suggested: remind the two overdue customers and schedule the second payment for 25 November within the supplier terms.",
  "nx_s2_btn": "Prepare the suggested cash plan",
  "nx_s2_done": "A draft plan awaits your approval. No reminder was sent and no payment changed.",
- "cd_den_done": "Share of close checks complete: 2,000 of 2,000."
+ "cd_den_done": "Share of close checks complete: 2,000 of 2,000.",
+ "st_fix": "We could not create the account yet: correct the field marked in red, then submit again."
 }

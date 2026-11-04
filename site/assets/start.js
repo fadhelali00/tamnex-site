@@ -162,7 +162,13 @@
         if (res.status === 409) { msg.className = 'form-msg bad'; msg.textContent = D.lDup; return; }
         if (res.status === 422 && res.j.fields) {
           var map = { company: 1, sector: 1, size: 1, branches: 1, cr: 1, subdomain: 1, first: 2, last: 2, job: 2, email: 2, phone: 2, password: 2, vatreg: 3, vat: 3, fy: 3, plan: 3, terms: 3 };
-          var first = res.j.fields[0]; show(/** @type {any} */ (map)[first] || 1, false); check(/** @type {any} */ (map)[first] || 1);
+          // The server is authoritative: it also applies rules the browser cannot (e.g. the common-password list),
+          // so every field it names gets a visible error, never a silent jump back to an earlier step.
+          var msgs = { password: D.ePw, email: D.eEmail, phone: D.ePhone, cr: D.eCr, vat: D.eVat, subdomain: D.eSub, terms: D.eTerms };
+          var fields = /** @type {string[]} */ (res.j.fields), first = fields[0], step = /** @type {any} */ (map)[first] || 1;
+          show(step, false); check(step);
+          fields.forEach(function (fld) { if ((/** @type {any} */ (map)[fld] || 1) === step) err(fld, /** @type {any} */ (msgs)[fld] || D.eReq); });
+          msg.className = 'form-msg bad'; msg.textContent = D.lFix;
           var fe = $('#s-' + first, f); if (fe) fe.focus();
           return;
         }

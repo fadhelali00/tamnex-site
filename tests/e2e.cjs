@@ -163,6 +163,13 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   await p.fill('#s-vat', '310123456700003'); await p.click('[data-next]');
   check('review lists the entered details', /شركة الاختبار/.test(await p.textContent('[data-review]')) && /test-co\.tamnex\.com/.test(await p.textContent('[data-review]')));
   check('review never shows the password', !/Secure-pass/.test(await p.textContent('[data-review]')));
+  // A password only the server rejects (ERP common-password list) must come back with a visible error, not a silent jump.
+  await p.click('[data-goto="2"]'); await p.fill('#s-password', '123456789012'); await p.fill('#s-password2', '123456789012');
+  await p.click('[data-next]'); await p.click('[data-next]'); await p.click('[data-submit]');
+  await p.waitForSelector('#se-password:not(:empty)');
+  check('server-only rejection shows the field error and a message on step 2', await p.isVisible('[data-step="2"]') && (await p.textContent('#se-password')).length > 0 && (await p.textContent('#start-msg')).length > 0 && (await p.evaluate(() => document.activeElement.id)) === 's-password');
+  await p.fill('#s-password', 'Secure-pass-2026'); await p.fill('#s-password2', 'Secure-pass-2026');
+  await p.click('[data-next]'); await p.click('[data-next]');
   await p.click('[data-submit]');
   await p.waitForSelector('[data-holding]:not([hidden])');
   check('holding screen: welcome title, request received, focus moved', /أهلاً بك في تامنكس/.test(await p.textContent('[data-holding]')) && /استلمنا طلب انضمام/.test(await p.textContent('[data-holding]')) && (await p.evaluate(() => document.activeElement.hasAttribute('data-holding'))));

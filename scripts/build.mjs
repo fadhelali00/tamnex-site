@@ -374,7 +374,7 @@ ${header(lang, 'start')}
     </aside>
     <div class="card start-card">
       <form id="start-form" action="/api/preregister.php" method="post" novalidate data-endpoint="/api/preregister.php" data-lang="${lang}"
-        data-l-step="${esc(t.st_step_of)}" data-l-sending="${esc(t.st_sending)}" data-l-submit="${esc(t.st_submit)}" data-l-fail="${esc(t.st_fail)}" data-l-dup="${esc(t.st_dup)}"
+        data-l-step="${esc(t.st_step_of)}" data-l-sending="${esc(t.st_sending)}" data-l-submit="${esc(t.st_submit)}" data-l-fail="${esc(t.st_fail)}" data-l-dup="${esc(t.st_dup)}" data-l-fix="${esc(t.st_fix)}"
         data-e-req="${esc(t.e_req)}" data-e-cr="${esc(t.e_cr)}" data-e-vat="${esc(t.e_vat)}" data-e-sub="${esc(t.e_sub)}" data-e-sub-reserved="${esc(t.e_sub_reserved)}" data-e-email="${esc(t.e_email)}" data-e-phone="${esc(t.e_phone)}" data-e-terms="${esc(t.e_terms)}" data-e-pw="${esc(t.e_pw)}" data-e-pw2="${esc(t.e_pw2)}"
         data-l-yes="${esc(t.f_yes)}" data-l-no="${esc(t.f_no)}">
         <input type="hidden" name="lang" value="${lang}">

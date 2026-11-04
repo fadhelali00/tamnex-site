@@ -1,0 +1,44 @@
+# Tamnex marketing site (Apache / LiteSpeed, e.g. Hostinger). Public: the stealth teaser (/, /en/) and its
+# waitlist endpoint; the full site is under /preview/. Nothing here touches admin.tamnex.com, tenant subdomains or the ERP.
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+# One canonical origin: https://tamnex.com
+# Behind Hostinger's CDN the origin may see plain HTTP; trust X-Forwarded-Proto to avoid a redirect loop.
+RewriteCond %{HTTP_HOST} ^www\.tamnex\.com$ [NC]
+RewriteRule ^ https://tamnex.com%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://tamnex.com%{REQUEST_URI} [R=301,L]
+# Hide dotfiles and anything that is not part of the site
+RewriteRule (^|/)\. - [F]
+RewriteRule (^|/)_[^/]*\.php$ - [F]
+RewriteRule ^(marketing|tests|brand/README|\.github)(/|$) - [F]
+# Stealth mode: the full site lives under /preview/ (noindex). Its old public paths lead to the teaser.
+RewriteRule ^(en/)?(pricing|start)(/.*)?$ /$1 [R=302,L]
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  <FilesMatch "\.(woff2|svg|png|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType image/svg+xml .svg
+  AddType application/xml .xml
+</IfModule>

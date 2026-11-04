@@ -18,7 +18,7 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
 
 (async () => {
   const b = await chromium.launch(process.env.PW_CHROMIUM ? { executablePath: process.env.PW_CHROMIUM } : {});
-  const PAGES = ['/', '/pricing/', '/en/', '/en/pricing/', '/start/', '/en/start/'];
+  const PAGES = ['/', '/en/', '/preview/', '/preview/pricing/', '/en/preview/', '/en/preview/pricing/', '/preview/start/', '/en/preview/start/'];
 
   // 1. Layout at six widths, both themes, both languages; console, network, fonts, targets, axe
   for (const scheme of ['light', 'dark']) {
@@ -57,7 +57,7 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
 
   // 2. Header glass edge >= 3:1 against the page, both themes (VF02)
   for (const scheme of ['light', 'dark']) {
-    const p = await b.newPage({ colorScheme: scheme }); await p.goto(BASE + '/');
+    const p = await b.newPage({ colorScheme: scheme }); await p.goto(BASE + '/preview/');
     const r = await p.evaluate(() => {
       const lum = c => { const [r, g, b] = c.match(/\d+(\.\d+)?/g).slice(0, 3).map(Number).map(v => v / 255).map(v => v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
       const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
@@ -73,7 +73,7 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
 
   // 3. Prices: home, /pricing and the catalog agree, monthly and annual, VAT totals
   for (const lang of ['', '/en']) {
-    for (const pg of ['/', '/pricing/']) {
+    for (const pg of ['/preview/', '/preview/pricing/']) {
       const p = await b.newPage({ viewport: { width: 1280, height: 900 } });
       await p.goto(BASE + lang + pg, { waitUntil: 'networkidle' });
       const read = () => p.evaluate(() => [...document.querySelectorAll('.plan')].map(c => ({ id: c.dataset.plan, amount: c.querySelector('.amount').textContent.trim(), billed: c.querySelector('.billed').textContent.trim() })));
@@ -94,11 +94,47 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
     }
   }
 
+  // 3b. Stealth teaser: one screen, no navigation, one email field, nothing that leads to the full site
+  const ADMIN = process.env.TAMNEX_NOTIFY_EMAIL || '';
+  for (const [lang, pg, okRe] of [['ar', '/', /قائمة الوصول المبكر/], ['en', '/en/', /early-access list/]]) {
+    const c = await b.newContext({ viewport: { width: 390, height: 844 } }); const q = await c.newPage();
+    const bodies = []; q.on('response', async r => { if (r.url().includes('/api/')) bodies.push(await r.text().catch(() => '')); });
+    await q.goto(BASE + pg, { waitUntil: 'networkidle' });
+    const t = await q.evaluate(() => ({
+      nav: document.querySelectorAll('nav, [data-nav]').length,
+      inputs: [...document.querySelectorAll('input, select, textarea')].filter(e => !e.closest('.hp') && e.type !== 'hidden').map(e => e.type),
+      buttons: [...document.querySelectorAll('button, a.btn')].map(e => e.hasAttribute('data-theme-btn') ? 'theme' : e.getAttribute('type') || 'link'),
+      preview: /\/preview|\/start\/|\/pricing\//.test(document.documentElement.outerHTML),
+      fits: document.documentElement.scrollHeight <= innerHeight * 1.6,
+      dir: document.documentElement.dir
+    }));
+    check(`teaser ${lang}: no navigation menu`, t.nav === 0);
+    check(`teaser ${lang}: exactly one email field`, JSON.stringify(t.inputs) === '["email"]', JSON.stringify(t.inputs));
+    check(`teaser ${lang}: only the submit and theme buttons`, JSON.stringify(t.buttons.sort()) === '["submit","theme"]', JSON.stringify(t.buttons));
+    check(`teaser ${lang}: no link or path to the full site`, !t.preview);
+    check(`teaser ${lang}: direction`, t.dir === (lang === 'ar' ? 'rtl' : 'ltr'));
+    await q.fill('#wl-email', 'not-an-email'); await q.click('[data-wl-submit]');
+    check(`teaser ${lang}: invalid email is refused with a message`, (await q.textContent('#wl-err')).length > 0 && (await q.isVisible('#wl-form')));
+    await q.fill('#wl-email', `waitlist-${lang}@example.com`); await q.click('[data-wl-submit]');
+    await q.waitForSelector('[data-wl-ok]:not([hidden])');
+    check(`teaser ${lang}: confirmation replaces the form and takes focus`, okRe.test(await q.textContent('[data-wl-ok]')) && !(await q.isVisible('#wl-form')) && (await q.evaluate(() => document.activeElement.hasAttribute('data-wl-ok'))));
+    const html = await q.content();
+    check(`teaser ${lang}: admin inbox never appears in the page or network responses`, !!ADMIN && !html.includes(ADMIN) && !bodies.some(x => x.includes(ADMIN)), ADMIN ? '' : 'TAMNEX_NOTIFY_EMAIL not set for this run');
+    await c.close();
+  }
+  {
+    const c = await b.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false }); const q = await c.newPage();
+    await q.goto(BASE + '/'); await q.fill('#wl-email', 'nojs-waitlist@example.com'); await q.click('[data-wl-submit]');
+    await q.waitForURL(/\/joined\/$/);
+    check('teaser no-JS: plain post lands on the confirmation page', /قائمة الوصول المبكر/.test(await q.textContent('[data-wl-ok]')) && await q.isVisible('[data-wl-ok]'));
+    await c.close();
+  }
+
   // 4. Interactions (Arabic home, desktop)
   const ctx = await b.newContext({ viewport: { width: 1280, height: 900 } });
   const p = await ctx.newPage();
   const net = []; p.on('request', r => { if (!r.url().startsWith(BASE)) net.push(r.url()); });
-  await p.goto(BASE + '/', { waitUntil: 'networkidle' });
+  await p.goto(BASE + '/preview/', { waitUntil: 'networkidle' });
   // Continuous Close dashboard (hero)
   check('close dashboard: 99.8% with live matching', (await p.textContent('[data-cd-pct]')) === '99.8%' && /مطابقة فورية نشطة/.test(await p.textContent('.cd .live')));
   check('hero has no debit/credit journal', !(await p.evaluate(() => /مدين|دائن/.test(document.querySelector('.hero').textContent))));
@@ -183,7 +219,7 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
 
   // 5. Mobile drawer: opens, Esc closes and returns focus; reduced motion; language and theme
   const c2 = await b.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
-  const p2 = await c2.newPage(); await p2.goto(BASE + '/en/', { waitUntil: 'networkidle' });
+  const p2 = await c2.newPage(); await p2.goto(BASE + '/en/preview/', { waitUntil: 'networkidle' });
   check('English page is LTR', (await p2.getAttribute('html', 'dir')) === 'ltr');
   await p2.focus('[data-menu-btn]'); await p2.keyboard.press('Enter');
   check('drawer opens and focuses its first link', (await p2.getAttribute('[data-nav]', 'data-open')) === 'true' && (await p2.evaluate(() => document.activeElement.closest('[data-nav]') !== null)));
@@ -195,24 +231,24 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
 
   // 6. No JavaScript: everything readable, prices present, nav visible
   const c3 = await b.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
-  const p3 = await c3.newPage(); await p3.goto(BASE + '/');
+  const p3 = await c3.newPage(); await p3.goto(BASE + '/preview/');
   const nj = await p3.evaluate(() => ({ nav: [...document.querySelectorAll('[data-nav] a')].filter(a => a.offsetParent).length, plans: document.querySelectorAll('.plan .amount').length, dash: !!document.querySelector('.cd .cd-checks').offsetParent, log: !!document.querySelector('[data-cd-logbox]').offsetParent }));
   check('no-JS: navigation visible', nj.nav >= 6, String(nj.nav));
   check('no-JS: plan prices rendered', nj.plans === catalog.plans.length);
   check('no-JS: close dashboard and its log readable', nj.dash && nj.log);
-  await p3.goto(BASE + '/start/');
+  await p3.goto(BASE + '/preview/start/');
   const ns = await p3.evaluate(() => ({ steps: [...document.querySelectorAll('.step')].filter(x => x.offsetParent).length, submit: !!document.querySelector('[data-submit]').offsetParent }));
   check('no-JS: registration is one complete form with a submit', ns.steps === 3 && ns.submit, JSON.stringify(ns));
   await c3.close();
 
   // 7. Review screenshots: ar/en x light/dark x desktop/mobile
   if (process.env.SHOTS) {
-    for (const [lang, pg] of [['ar', '/'], ['en', '/en/'], ['ar', '/pricing/'], ['en', '/en/pricing/'], ['ar', '/start/'], ['en', '/en/start/']]) {
+    for (const [lang, pg] of [['ar', '/'], ['en', '/en/'], ['ar', '/preview/'], ['en', '/en/preview/'], ['ar', '/preview/pricing/'], ['en', '/en/preview/pricing/'], ['ar', '/preview/start/'], ['en', '/en/preview/start/']]) {
       for (const scheme of ['light', 'dark']) {
         for (const [w, h, dev] of [[1440, 900, 'desktop'], [390, 844, 'mobile']]) {
           const c = await b.newContext({ viewport: { width: w, height: h }, colorScheme: scheme, deviceScaleFactor: dev === 'mobile' ? 2 : 1 });
           const q = await c.newPage(); await q.goto(BASE + pg, { waitUntil: 'networkidle' }); await q.evaluate(() => document.fonts.ready);
-          const name = `${pg.includes('pricing') ? 'pricing' : pg.includes('start') ? 'start' : 'home'}-${lang}-${scheme}-${dev}`;
+          const name = `${pg.includes('pricing') ? 'pricing' : pg.includes('start') ? 'start' : pg.includes('preview') ? 'home' : 'teaser'}-${lang}-${scheme}-${dev}`;
           await q.screenshot({ path: `${OUT}/${name}-fold.png` });
           await q.screenshot({ path: `${OUT}/${name}-full.png`, fullPage: true });
           await c.close();

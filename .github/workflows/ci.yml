@@ -35,8 +35,10 @@ jobs:
       - name: Endpoint tests (PHP built-in server)
         run: node --test tests/endpoints.test.mjs
       - name: Browser tests (6 widths, light/dark, ar/en, axe WCAG 2.2 AA, prices, registration, keyboard, no-JS)
+        env:
+          TAMNEX_NOTIFY_EMAIL: ci-admin-inbox@example.org  # test marker: must never reach a page or response
         run: |
-          (TAMNEX_SALT=ci TAMNEX_DATA_DIR=$(mktemp -d) TAMNEX_ORIGINS=http://127.0.0.1:8765 php -S 127.0.0.1:8765 -t site >/dev/null 2>&1 &)
+          (TAMNEX_SALT=ci TAMNEX_DATA_DIR=$(mktemp -d) TAMNEX_ORIGINS=http://127.0.0.1:8765 TAMNEX_NOTIFY_EMAIL=$TAMNEX_NOTIFY_EMAIL TAMNEX_MAIL_SINK=$(mktemp) php -S 127.0.0.1:8765 -t site >/dev/null 2>&1 &)
           sleep 1
           SHOTS=1 AXE=node_modules/axe-core/axe.min.js OUT=shots node tests/e2e.cjs
       - uses: actions/upload-artifact@v4

@@ -1,5 +1,5 @@
 {
-  "name": "tamnex-website",
+  "name": "tamnex-site",
   "private": true,
   "description": "Tamnex public marketing site (tamnex.com). Static HTML/CSS/JS, no build step.",
   "scripts": {

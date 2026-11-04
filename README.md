@@ -1,4 +1,4 @@
-# tamnex-website
+# tamnex-site
 
 The public marketing site for **Tamnex (تامنكس)**, published on **https://tamnex.com**. Tamnex by Evexa.
 

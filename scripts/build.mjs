@@ -23,13 +23,17 @@ const T = {
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c] || c);
 /** @param {'ar'|'en'} lang @param {string} path */
 const href = (lang, path) => (lang === 'ar' ? '' : '/en') + path;
+/** Stealth mode: the full site lives under /preview (noindex, not linked from the public teaser). */
+const PV = '/preview';
+/** @param {'ar'|'en'} lang @param {string} path */
+const fhref = (lang, path) => href(lang, PV + path);
 /** @param {string} s @param {Record<string,string|number>} v */
 const fill = (s, v) => s.replace(/\{(\w+)\}/g, (_, k) => String(v[k]));
 
 /** @param {'ar'|'en'} lang @param {'home'|'pricing'|'start'|'received'} page */
 function head(lang, page) {
   const t = T[lang];
-  const path = { home: '/', pricing: '/pricing/', start: '/start/', received: '/start/received/' }[page];
+  const path = PV + { home: '/', pricing: '/pricing/', start: '/start/', received: '/start/received/' }[page];
   const title = { home: t.title_home, pricing: t.title_pricing, start: t.title_start, received: t.title_start }[page];
   const desc = { home: t.desc_home, pricing: t.desc_pricing, start: t.desc_start, received: t.desc_start }[page];
   const url = SITE + href(lang, path);
@@ -44,7 +48,7 @@ function head(lang, page) {
 <link rel="alternate" hreflang="ar" href="${SITE + path}">
 <link rel="alternate" hreflang="en" href="${SITE + '/en' + path}">
 <link rel="alternate" hreflang="x-default" href="${SITE + path}">
-<meta name="robots" content="${page === 'received' ? 'noindex' : 'index, follow'}">
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
@@ -72,22 +76,22 @@ function head(lang, page) {
 /** @param {'ar'|'en'} lang @param {'home'|'pricing'|'start'|'received'} page */
 function header(lang, page) {
   const t = T[lang];
-  const otherPath = (t.otherLang === 'ar' ? '' : '/en') + { home: '/', pricing: '/pricing/', start: '/start/', received: '/start/received/' }[page];
+  const otherPath = (t.otherLang === 'ar' ? '' : '/en') + PV + { home: '/', pricing: '/pricing/', start: '/start/', received: '/start/received/' }[page];
   const wordmark = lang === 'ar' ? 'tamnex-wordmark-ar.svg' : 'tamnex-wordmark.svg';
   const w = lang === 'ar' ? 111 : 118;
-  const sec = (/** @type {string} */ id) => (page === 'home' ? '' : href(lang, '/')) + '#' + id;
+  const sec = (/** @type {string} */ id) => (page === 'home' ? '' : fhref(lang, '/')) + '#' + id;
   return `<a class="skip" href="#main">${esc(t.skip)}</a>
 <header class="topbar" data-topbar>
   <div class="topbar-in">
-    <a class="brand" href="${href(lang, '/')}"><img src="/brand/${wordmark}" alt="${esc(t.brand_alt)}" width="${w}" height="36"></a>
+    <a class="brand" href="${fhref(lang, '/')}"><img src="/brand/${wordmark}" alt="${esc(t.brand_alt)}" width="${w}" height="36"></a>
     <nav class="nav" id="site-nav" aria-label="${esc(t.nav_label)}" data-nav>
       <a href="${sec('product')}">${esc(t.nav_product)}</a>
       <a href="${sec('features')}">${esc(t.nav_features)}</a>
       <a href="${sec('nexa')}">${esc(t.nav_nexa)}</a>
-      <a href="${href(lang, '/pricing/')}"${page === 'pricing' ? ' aria-current="page"' : ''}>${esc(t.nav_pricing)}</a>
+      <a href="${fhref(lang, '/pricing/')}"${page === 'pricing' ? ' aria-current="page"' : ''}>${esc(t.nav_pricing)}</a>
       <a href="${sec('faq')}">${esc(t.nav_faq)}</a>
       <a class="lang" href="${otherPath}" hreflang="${t.otherLang}" lang="${t.otherLang}">${esc(t.otherLangName)}</a>
-      <a class="btn btn-sm nav-cta" href="${href(lang, '/start/')}"${page === 'start' ? ' aria-current="page"' : ''}>${esc(t.nav_start)}</a>
+      <a class="btn btn-sm nav-cta" href="${fhref(lang, '/start/')}"${page === 'start' ? ' aria-current="page"' : ''}>${esc(t.nav_start)}</a>
     </nav>
     <button class="icon-btn theme-btn" type="button" data-theme-btn aria-label="${esc(t.theme_label)}: ${esc(t.theme_system)}" data-l-light="${esc(t.theme_light)}" data-l-dark="${esc(t.theme_dark)}" data-l-system="${esc(t.theme_system)}" data-l-label="${esc(t.theme_label)}">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9A7 7 0 0 1 12 3Z"/></svg>
@@ -226,7 +230,7 @@ function pricing(lang, full) {
   const t = T[lang];
   const plans = publicPlans(catalog);
   const feats = catalog.features;
-  const req = (/** @type {string} */ id) => href(lang, '/start/') + `?plan=${id}`;
+  const req = (/** @type {string} */ id) => fhref(lang, '/start/') + `?plan=${id}`;
   const toggle = `<div class="cycle" role="radiogroup" aria-label="${esc(t.cycle_label)}" data-cycle>
       ${catalog.cycles.map(c => `<button type="button" role="radio" data-c="${c}" aria-checked="${c === catalog.defaultCycle}" tabindex="${c === catalog.defaultCycle ? 0 : -1}">${esc(c === 'monthly' ? t.cycle_monthly : t.cycle_annual)}</button>`).join('')}
     </div>`;
@@ -255,7 +259,7 @@ function pricing(lang, full) {
     </div>
     <div class="plans">${cards}</div>
     <p class="prelaunch">${esc(t.prelaunch)}</p>
-    ${full ? table + `<p class="fine">${esc(t.soon_note)}</p>` : `<p class="compare-link"><a class="link" href="${href(lang, '/pricing/')}">${esc(t.compare_link)}</a></p>`}
+    ${full ? table + `<p class="fine">${esc(t.soon_note)}</p>` : `<p class="compare-link"><a class="link" href="${fhref(lang, '/pricing/')}">${esc(t.compare_link)}</a></p>`}
     <p class="fine price-version">${esc(fill(t.price_version, { v: catalog.catalogVersion }))}</p>
   </div>
 </section>`;
@@ -312,10 +316,86 @@ function footer(lang) {
   return `<footer class="foot"><div class="wrap foot-in">
   <div><img src="/brand/${wordmark}" alt="${esc(t.brand_alt)}" width="148" height="48" loading="lazy"><p>${esc(t.footer_tag)}</p></div>
   <nav aria-label="${esc(t.footer_nav)}" class="foot-nav">
-    <a href="${href(lang, '/')}#product">${esc(t.nav_product)}</a><a href="${href(lang, '/')}#features">${esc(t.nav_features)}</a><a href="${href(lang, '/pricing/')}">${esc(t.nav_pricing)}</a><a href="${href(lang, '/')}#faq">${esc(t.nav_faq)}</a><a href="${href(lang, '/')}#request">${esc(t.nav_request)}</a>
+    <a href="${fhref(lang, '/')}#product">${esc(t.nav_product)}</a><a href="${fhref(lang, '/')}#features">${esc(t.nav_features)}</a><a href="${fhref(lang, '/pricing/')}">${esc(t.nav_pricing)}</a><a href="${fhref(lang, '/')}#faq">${esc(t.nav_faq)}</a><a href="${fhref(lang, '/')}#request">${esc(t.nav_request)}</a>
   </nav>
   <p class="legal"><span dir="ltr">Tamnex by Evexa</span> · ${esc(t.rights)}</p>
 </div></footer>`;
+}
+
+/** Public stealth teaser: one screen, logo + language + theme, one email field. @param {'ar'|'en'} lang @param {boolean} joined */
+function teaser(lang, joined) {
+  const t = T[lang];
+  const wordmark = lang === 'ar' ? 'tamnex-wordmark-ar.svg' : 'tamnex-wordmark.svg';
+  const w = lang === 'ar' ? 111 : 118;
+  const url = SITE + href(lang, '/');
+  return `<!doctype html>
+<html lang="${t.lang}" dir="${t.dir}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>${esc(t.tz_title)}</title>
+<meta name="description" content="${esc(t.tz_desc)}">
+<link rel="canonical" href="${url}">
+<link rel="alternate" hreflang="ar" href="${SITE}/">
+<link rel="alternate" hreflang="en" href="${SITE}/en/">
+<link rel="alternate" hreflang="x-default" href="${SITE}/">
+<meta name="robots" content="${joined ? 'noindex' : 'index, follow'}">
+<meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tamnex">
+<meta property="og:locale" content="${t.ogLocale}">
+<meta property="og:url" content="${url}">
+<meta property="og:title" content="${esc(t.tz_title)}">
+<meta property="og:description" content="${esc(t.tz_desc)}">
+<meta property="og:image" content="${SITE}/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/brand/tamnex-mark.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/ibm-plex-sans-arabic-${lang === 'ar' ? 'arabic' : 'latin'}-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/styles.css">
+<script src="/assets/theme.js"></script>
+<script src="/assets/app.js" defer></script>
+<script src="/assets/waitlist.js" defer></script>
+</head>
+<body class="tz-body">
+<a class="skip" href="#main">${esc(t.skip)}</a>
+<header class="tz-top">
+  <a class="brand" href="${href(lang, '/')}"><img src="/brand/${wordmark}" alt="${esc(t.brand_alt)}" width="${w}" height="36"></a>
+  <div class="tz-tools">
+    <a class="tz-lang" href="${t.otherLang === 'ar' ? '/' : '/en/'}" hreflang="${t.otherLang}" lang="${t.otherLang}">${esc(t.otherLangName)}</a>
+    <button class="icon-btn theme-btn" type="button" data-theme-btn aria-label="${esc(t.theme_label)}: ${esc(t.theme_system)}" data-l-light="${esc(t.theme_light)}" data-l-dark="${esc(t.theme_dark)}" data-l-system="${esc(t.theme_system)}" data-l-label="${esc(t.theme_label)}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9A7 7 0 0 1 12 3Z"/></svg>
+    </button>
+  </div>
+</header>
+<main id="main" class="tz">
+  <div class="tz-in">
+    <p class="tz-pill">${esc(t.tz_pill)}</p>
+    <h1 class="tz-h1">${esc(t.tz_h1)}</h1>
+    <p class="tz-sub">${esc(t.tz_sub)}</p>
+    <ul class="tz-pills">${t.tz_pills.map((/** @type {string} */ p) => `<li>${esc(p)}</li>`).join('')}</ul>
+    <form class="tz-form" id="wl-form" action="/api/waitlist.php" method="post" novalidate${joined ? ' hidden' : ''}
+      data-l-sending="${esc(t.tz_sending)}" data-l-submit="${esc(t.tz_submit)}" data-e-email="${esc(t.tz_e_email)}" data-l-fail="${esc(t.tz_fail)}" data-l-rate="${esc(t.tz_rate)}">
+      <input type="hidden" name="lang" value="${lang}">
+      <div class="tz-field">
+        <label class="sr" for="wl-email">${esc(t.tz_email)}</label>
+        <input id="wl-email" name="email" type="email" required autocomplete="email" inputmode="email" dir="ltr" maxlength="254" placeholder="${esc(t.tz_email_ph)}" aria-describedby="wl-err wl-privacy">
+        <button class="btn" type="submit" data-wl-submit>${esc(t.tz_submit)}</button>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="wl-website">Website</label><input id="wl-website" name="website" tabindex="-1" autocomplete="off"></div>
+      <p class="err" id="wl-err" aria-live="polite"></p>
+      <p class="tz-privacy" id="wl-privacy">${esc(t.tz_privacy)}</p>
+    </form>
+    <p class="tz-ok" data-wl-ok tabindex="-1" role="status"${joined ? '' : ' hidden'}>${esc(t.tz_ok)}</p>
+  </div>
+</main>
+<footer class="tz-foot"><span dir="ltr">Tamnex by Evexa</span> · ${esc(t.rights)}</footer>
+</body>
+</html>
+`;
 }
 
 /** @param {'ar'|'en'} lang */
@@ -330,7 +410,7 @@ ${header(lang, 'home')}
     <p class="hero-badge">${orb('orb orb-xs')}<span>${esc(t.hero_badge)}</span></p>
     <h1 id="hero-title">${esc(t.hero_h1)}</h1>
     <p class="lead">${esc(t.hero_sub)}</p>
-    <div class="actions"><a class="btn btn-lg" href="${href(lang, '/start/')}">${esc(t.cta_start)}</a><a class="btn btn-lg btn-ghost" href="#pricing">${esc(t.cta_plans)}</a></div>
+    <div class="actions"><a class="btn btn-lg" href="${fhref(lang, '/start/')}">${esc(t.cta_start)}</a><a class="btn btn-lg btn-ghost" href="#pricing">${esc(t.cta_plans)}</a></div>
   </div>
   <div class="wrap hero-visual">${showcase(lang)}</div>
 </section>
@@ -374,7 +454,7 @@ ${header(lang, 'start')}
     </aside>
     <div class="card start-card">
       <form id="start-form" action="/api/preregister.php" method="post" novalidate data-endpoint="/api/preregister.php" data-lang="${lang}"
-        data-l-step="${esc(t.st_step_of)}" data-l-sending="${esc(t.st_sending)}" data-l-submit="${esc(t.st_submit)}" data-l-fail="${esc(t.st_fail)}" data-l-dup="${esc(t.st_dup)}"
+        data-l-step="${esc(t.st_step_of)}" data-l-sending="${esc(t.st_sending)}" data-l-submit="${esc(t.st_submit)}" data-l-fail="${esc(t.st_fail)}" data-l-dup="${esc(t.st_dup)}" data-l-fix="${esc(t.st_fix)}"
         data-e-req="${esc(t.e_req)}" data-e-cr="${esc(t.e_cr)}" data-e-vat="${esc(t.e_vat)}" data-e-sub="${esc(t.e_sub)}" data-e-sub-reserved="${esc(t.e_sub_reserved)}" data-e-email="${esc(t.e_email)}" data-e-phone="${esc(t.e_phone)}" data-e-terms="${esc(t.e_terms)}" data-e-pw="${esc(t.e_pw)}" data-e-pw2="${esc(t.e_pw2)}"
         data-l-yes="${esc(t.f_yes)}" data-l-no="${esc(t.f_no)}">
         <input type="hidden" name="lang" value="${lang}">
@@ -455,7 +535,7 @@ function holding(lang, inline) {
       <div class="field"><label for="n-email">${esc(t.hold_notify)}</label><div class="row-inline"><input id="n-email" type="email" dir="ltr" autocomplete="email" aria-describedby="ne-email"><button class="btn btn-ghost" type="submit">${esc(t.hold_notify_btn)}</button></div><p class="err" id="ne-email"></p></div>
       <p class="form-msg" data-notify-msg role="status" aria-live="polite"></p>
     </form>` : ''}
-    <div class="actions"><a class="btn" href="${href(lang, '/')}#request">${esc(t.hold_sales)}</a><a class="btn btn-ghost" href="${href(lang, '/')}">${esc(t.hold_home)}</a></div>
+    <div class="actions"><a class="btn" href="${fhref(lang, '/')}#request">${esc(t.hold_sales)}</a><a class="btn btn-ghost" href="${fhref(lang, '/')}">${esc(t.hold_home)}</a></div>
   </div>`;
 }
 
@@ -488,20 +568,24 @@ ${footer(lang)}
 }
 
 const out = (/** @type {string} */ rel, /** @type {string} */ html) => { const p = ROOT + 'site/' + rel; mkdirSync(p.slice(0, p.lastIndexOf('/')), { recursive: true }); writeFileSync(p, html); };
-out('index.html', home('ar'));
-out('pricing/index.html', pricingPage('ar'));
-out('en/index.html', home('en'));
-out('en/pricing/index.html', pricingPage('en'));
-out('start/index.html', startPage('ar'));
-out('en/start/index.html', startPage('en'));
-out('start/received/index.html', receivedPage('ar'));
-out('en/start/received/index.html', receivedPage('en'));
+out('index.html', teaser('ar', false));
+out('en/index.html', teaser('en', false));
+out('joined/index.html', teaser('ar', true));
+out('en/joined/index.html', teaser('en', true));
+out('preview/index.html', home('ar'));
+out('preview/pricing/index.html', pricingPage('ar'));
+out('en/preview/index.html', home('en'));
+out('en/preview/pricing/index.html', pricingPage('en'));
+out('preview/start/index.html', startPage('ar'));
+out('en/preview/start/index.html', startPage('en'));
+out('preview/start/received/index.html', receivedPage('ar'));
+out('en/preview/start/received/index.html', receivedPage('en'));
 mkdirSync(ROOT + 'site/data', { recursive: true });
 copyFileSync(ROOT + 'data/pricing-catalog.json', ROOT + 'site/data/pricing-catalog.json');
 writeFileSync(ROOT + 'site/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Tamnex by Evexa -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${['/', '/pricing/', '/start/'].map(p => ['', '/en'].map(l => `  <url><loc>${SITE}${l}${p}</loc><lastmod>${catalog.effectiveFrom}</lastmod><xhtml:link rel="alternate" hreflang="ar" href="${SITE}${p}"/><xhtml:link rel="alternate" hreflang="en" href="${SITE}/en${p}"/></url>`).join('\n')).join('\n')}
+${['/'].map(p => ['', '/en'].map(l => `  <url><loc>${SITE}${l}${p}</loc><lastmod>${catalog.effectiveFrom}</lastmod><xhtml:link rel="alternate" hreflang="ar" href="${SITE}${p}"/><xhtml:link rel="alternate" hreflang="en" href="${SITE}/en${p}"/></url>`).join('\n')).join('\n')}
 </urlset>
 `);
-console.log('built: site/index.html, site/pricing/, site/en/, site/en/pricing/, catalog', catalog.catalogVersion);
+console.log('built: teaser /, /en/; full site under /preview/ and /en/preview/; catalog', catalog.catalogVersion);

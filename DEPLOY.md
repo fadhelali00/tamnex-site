@@ -7,6 +7,9 @@
 - DNS على Cloudflare، وكل السجلات DNS-only: `@` CNAME `tamnex.com.cdn.hstgr.net` و`www` CNAME. لا تغيير مطلوب.
 - **لا تلمس** سجل `admin` (خادم UAT)، ولا تفعّل proxy عليه، ولا تضغط Reset DNS records، ولا تغيّر nameservers.
 
+## وضع الإطلاق الصامت (الحالي)
+`/` و`/en/` شاشة «الإطلاق قريباً» وحدها، بحقل بريد واحد يحفظ في `tamnex-data/waitlist.csv` ويرسل إشعاراً لبريد الإدارة. الموقع الكامل تحت `/preview/` و`/en/preview/` (مستثنى من محركات البحث، وغير مرتبط من العامة). للانتقال لاحقاً إلى الموقع الكامل علناً: نقل الصفحات من `preview/` إلى الجذر في `scripts/build.mjs`.
+
 ## الخطوات (مرة واحدة)
 1. **الدمج:** بعد أن يصبح CI أخضر، يُدمج الـ PR في `main`. ينشئ CI فرع `deploy` خلال دقيقتين.
 2. **ربط Git في Hostinger:** hPanel ← Websites ← tamnex.com ← Advanced ← **Git** ← Create a new repository:
@@ -18,6 +21,7 @@
    ```php
    <?php return ['salt' => 'نص-عشوائي-طويل-40-حرفاً-على-الأقل', 'origins' => ['https://tamnex.com', 'https://www.tamnex.com']];
    ```
+   وأضف فيه مفتاح بريد الإدارة لتصلك إشعارات تسجيل الاهتمام: `'notify_email' => 'بريد-الإدارة@النطاق'` (داخل المصفوفة نفسها، قبل `];` الأخيرة). هذا العنوان يبقى في هذا الملف فقط، ولا يظهر في الصفحة ولا في أي استجابة. ومن دونه يحفظ الموقع التسجيلات لكن لا يرسل إشعاراً. اختيارياً: `'mail_from' => 'no-reply@tamnex.com'`.
    القيمة تُكتب في hPanel مباشرة، لا في المحادثة ولا في GitHub. التسجيلات تُحفظ في `tamnex-data/` بجانبه، خارج الموقع العام.
 4. **SSL:** hPanel ← Security ← SSL: تأكد أن الشهادة فعّالة لـ `tamnex.com` و`www.tamnex.com`.
 5. **PHP:** hPanel ← Advanced ← PHP Configuration: إصدار 8.1 أو أحدث. Argon2id مطلوب للتسجيل، وبدونه يرفض التسجيل بـ 503 بدل تجزئة لا يقرؤها النظام.

@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>أنشئ حساب منشأتك | تامنكس</title>
 <meta name="description" content="سجّل منشأتك في تامنكس: بيانات المنشأة والمسؤول وكلمة المرور والإعداد المالي والضريبي. نجهّز بيئتك، وتدخل بكلمة المرور التي اخترتها.">
-<link rel="canonical" href="https://tamnex.com/start/">
-<link rel="alternate" hreflang="ar" href="https://tamnex.com/start/">
-<link rel="alternate" hreflang="en" href="https://tamnex.com/en/start/">
-<link rel="alternate" hreflang="x-default" href="https://tamnex.com/start/">
-<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tamnex.com/preview/start/">
+<link rel="alternate" hreflang="ar" href="https://tamnex.com/preview/start/">
+<link rel="alternate" hreflang="en" href="https://tamnex.com/en/preview/start/">
+<link rel="alternate" hreflang="x-default" href="https://tamnex.com/preview/start/">
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tamnex">
 <meta property="og:locale" content="ar_SA">
-<meta property="og:url" content="https://tamnex.com/start/">
+<meta property="og:url" content="https://tamnex.com/preview/start/">
 <meta property="og:title" content="تامنكس: نظام ERP ذكي يجمع محاسبتك ومخزونك وفواتيرك">
 <meta property="og:description" content="سجّل منشأتك في تامنكس: بيانات المنشأة والمسؤول وكلمة المرور والإعداد المالي والضريبي. نجهّز بيئتك، وتدخل بكلمة المرور التي اخترتها.">
 <meta property="og:image" content="https://tamnex.com/og.png">
@@ -37,15 +37,15 @@
 <a class="skip" href="#main">انتقل إلى المحتوى</a>
 <header class="topbar" data-topbar>
   <div class="topbar-in">
-    <a class="brand" href="/"><img src="/brand/tamnex-wordmark-ar.svg" alt="تامنكس" width="111" height="36"></a>
+    <a class="brand" href="/preview/"><img src="/brand/tamnex-wordmark-ar.svg" alt="تامنكس" width="111" height="36"></a>
     <nav class="nav" id="site-nav" aria-label="التنقل الرئيسي" data-nav>
-      <a href="/#product">المنتج</a>
-      <a href="/#features">المزايا</a>
-      <a href="/#nexa">نكسا</a>
-      <a href="/pricing/">الأسعار</a>
-      <a href="/#faq">الأسئلة</a>
-      <a class="lang" href="/en/start/" hreflang="en" lang="en">English</a>
-      <a class="btn btn-sm nav-cta" href="/start/" aria-current="page">أنشئ حسابك</a>
+      <a href="/preview/#product">المنتج</a>
+      <a href="/preview/#features">المزايا</a>
+      <a href="/preview/#nexa">نكسا</a>
+      <a href="/preview/pricing/">الأسعار</a>
+      <a href="/preview/#faq">الأسئلة</a>
+      <a class="lang" href="/en/preview/start/" hreflang="en" lang="en">English</a>
+      <a class="btn btn-sm nav-cta" href="/preview/start/" aria-current="page">أنشئ حسابك</a>
     </nav>
     <button class="icon-btn theme-btn" type="button" data-theme-btn aria-label="المظهر: حسب الجهاز" data-l-light="فاتح" data-l-dark="داكن" data-l-system="حسب الجهاز" data-l-label="المظهر">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9A7 7 0 0 1 12 3Z"/></svg>
@@ -60,13 +60,13 @@
   <div class="wrap start-grid">
     <aside class="start-side">
       <h1 id="st-title">أنشئ حساب منشأتك</h1>
-      <p class="lead">ثلاث خطوات قصيرة، ثم نجهّز بيئة منشأتك.</p>
+      <p class="lead">ثلاث خطوات قصيرة ثم مراجعة أخيرة، ونجهّز بيئة منشأتك.</p>
       <p class="prelaunch">تسجيل مسبق: ننشئ حساب منشأتك ونجهّز بيئتها، ونرسل إلى بريدك إشعار التفعيل ورابط الدخول فور جاهزيتها، وتدخل بكلمة المرور التي تختارها هنا. لا يُطلب دفع.</p>
       <ol class="progress" data-progress aria-label="أنشئ حساب منشأتك"><li data-p="1" aria-current="step"><span class="pn">1</span><span>المنشأة</span></li><li data-p="2"><span class="pn">2</span><span>المسؤول</span></li><li data-p="3"><span class="pn">3</span><span>الإعداد المالي والضريبي</span></li><li data-p="4"><span class="pn">4</span><span>المراجعة</span></li></ol>
     </aside>
     <div class="card start-card">
       <form id="start-form" action="/api/preregister.php" method="post" novalidate data-endpoint="/api/preregister.php" data-lang="ar"
-        data-l-step="الخطوة {n} من {t}" data-l-sending="جارٍ الحفظ…" data-l-submit="أنشئ الحساب" data-l-fail="تعذّر حفظ البيانات. بياناتك ما زالت في النموذج، حاول مرة أخرى." data-l-dup="هذا البريد مسجّل لدينا من قبل. إن كانت منشأة أخرى فاستخدم بريداً آخر، أو تواصل معنا."
+        data-l-step="الخطوة {n} من {t}" data-l-sending="جارٍ الحفظ…" data-l-submit="أنشئ الحساب" data-l-fail="تعذّر حفظ البيانات. بياناتك ما زالت في النموذج، حاول مرة أخرى." data-l-dup="هذا البريد مسجّل لدينا من قبل. إن كانت منشأة أخرى فاستخدم بريداً آخر، أو تواصل معنا." data-l-fix="لم نتمكن من إنشاء الحساب بعد: صحّح الحقل المعلَّم بالأحمر ثم أعد الإرسال."
         data-e-req="هذا الحقل مطلوب." data-e-cr="اكتب 10 أرقام." data-e-vat="اكتب 15 رقماً يبدأ بـ 3 وينتهي بـ 3." data-e-sub="استخدم 3 إلى 30 حرفاً: إنجليزية صغيرة وأرقام وشرطة، دون شرطة في البداية أو النهاية." data-e-sub-reserved="هذا العنوان محجوز. اختر غيره." data-e-email="اكتب بريداً بالشكل name@company.com." data-e-phone="اكتب رقم جوال صحيحاً، مثل 05xxxxxxxx." data-e-terms="نحتاج موافقتك لحفظ البيانات." data-e-pw="استخدم 12 حرفاً على الأقل، دون بريدك أو كلمة مرور شائعة." data-e-pw2="كلمتا المرور غير متطابقتين."
         data-l-yes="نعم" data-l-no="لا">
         <input type="hidden" name="lang" value="ar">
@@ -133,7 +133,7 @@
       <div class="field"><label for="n-email">بريد إشعار الإطلاق</label><div class="row-inline"><input id="n-email" type="email" dir="ltr" autocomplete="email" aria-describedby="ne-email"><button class="btn btn-ghost" type="submit">حدّث بريد الإشعار</button></div><p class="err" id="ne-email"></p></div>
       <p class="form-msg" data-notify-msg role="status" aria-live="polite"></p>
     </form>
-    <div class="actions"><a class="btn" href="/#request">طلب عرض مباشر من المبيعات</a><a class="btn btn-ghost" href="/">العودة للرئيسية</a></div>
+    <div class="actions"><a class="btn" href="/preview/#request">طلب عرض مباشر من المبيعات</a><a class="btn btn-ghost" href="/preview/">العودة للرئيسية</a></div>
   </div>
     </div>
   </div>
@@ -142,7 +142,7 @@
 <footer class="foot"><div class="wrap foot-in">
   <div><img src="/brand/tamnex-wordmark-ar.svg" alt="تامنكس" width="148" height="48" loading="lazy"><p>نظام ERP ذكي للمنشآت السعودية.</p></div>
   <nav aria-label="روابط الموقع" class="foot-nav">
-    <a href="/#product">المنتج</a><a href="/#features">المزايا</a><a href="/pricing/">الأسعار</a><a href="/#faq">الأسئلة</a><a href="/#request">اطلب عرضاً مباشراً</a>
+    <a href="/preview/#product">المنتج</a><a href="/preview/#features">المزايا</a><a href="/preview/pricing/">الأسعار</a><a href="/preview/#faq">الأسئلة</a><a href="/preview/#request">اطلب عرضاً مباشراً</a>
   </nav>
   <p class="legal"><span dir="ltr">Tamnex by Evexa</span> · © 2026 Evexa AI Systems</p>
 </div></footer>

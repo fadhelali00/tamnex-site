@@ -10,11 +10,13 @@ import { verify } from '@node-rs/argon2';
 const PORT = 8790 + Math.floor(Math.random() * 100);
 const ORIGIN = `http://127.0.0.1:${PORT}`;
 const DATA = mkdtempSync(join(tmpdir(), 'tamnex-data-'));
+const SINK = join(DATA, 'mail-sink.txt');
+const ADMIN = 'owner-inbox-7f3a@example.org';
 const SITE = new URL('../site/', import.meta.url).pathname;
 let srv;
 
 before(async () => {
-  srv = spawn('php', ['-S', `127.0.0.1:${PORT}`, '-t', SITE], { env: { ...process.env, TAMNEX_SALT: 'test-salt', TAMNEX_DATA_DIR: DATA, TAMNEX_ORIGINS: ORIGIN }, stdio: 'ignore' });
+  srv = spawn('php', ['-S', `127.0.0.1:${PORT}`, '-t', SITE], { env: { ...process.env, TAMNEX_SALT: 'test-salt', TAMNEX_DATA_DIR: DATA, TAMNEX_ORIGINS: ORIGIN, TAMNEX_NOTIFY_EMAIL: ADMIN, TAMNEX_MAIL_SINK: SINK }, stdio: 'ignore' });
   for (let i = 0; i < 50; i++) { try { await fetch(ORIGIN + '/robots.txt'); return; } catch { await new Promise(r => setTimeout(r, 100)); } }
   throw new Error('php server did not start');
 });
@@ -73,7 +75,7 @@ test('foreign origin and GET are refused', async () => {
 test('plain HTML form post (no JS) redirects to the received page', async () => {
   const body = new URLSearchParams({ ...good({ email: 'nojs@example.com', subdomain: '' }), terms: 'on', marketing: '' }).toString();
   const r = await post('/api/preregister.php', body, ORIGIN, 'application/x-www-form-urlencoded');
-  assert.equal(r.status, 303); assert.equal(r.headers.get('location'), '/start/received/');
+  assert.equal(r.status, 303); assert.equal(r.headers.get('location'), '/preview/start/received/');
 });
 
 test('formula injection is neutralised in the stored CSV', async () => {
@@ -100,4 +102,36 @@ test('quote request endpoint accepts a valid request', async () => {
 test('_lib.php is not executable as an endpoint', async () => {
   const r = await fetch(ORIGIN + '/api/_lib.php');
   assert.notEqual((await r.text()).includes('"ok":true'), true);
+});
+
+test('waitlist: stores email, time and language outside the web root and notifies the admin inbox', async () => {
+  const r = await post('/api/waitlist.php', { email: 'Early.Bird@Example.com', lang: 'en', website: '' });
+  const text = await r.text();
+  assert.equal(r.status, 200); assert.deepEqual(JSON.parse(text), { ok: true });
+  assert.doesNotMatch(text, new RegExp(ADMIN), 'the admin address never reaches the client');
+  const csv = readFileSync(join(DATA, 'waitlist.csv'), 'utf8');
+  assert.match(csv, /^utc_time,email,lang,ip_hash\n/); assert.match(csv, /early\.bird@example\.com,en,/);
+  const mail = readFileSync(SINK, 'utf8');
+  assert.match(mail, new RegExp('To: ' + ADMIN)); assert.match(mail, /early\.bird@example\.com/); assert.match(mail, /Time \(UTC\): \d{4}-/);
+});
+
+test('waitlist: a repeat sign-up is idempotent (no second row, no second email)', async () => {
+  const r = await post('/api/waitlist.php', { email: 'early.bird@example.com', lang: 'ar', website: '' });
+  assert.equal(r.status, 200);
+  assert.equal(readFileSync(join(DATA, 'waitlist.csv'), 'utf8').split('\n').filter(l => l.includes('early.bird@')).length, 1);
+  assert.equal(readFileSync(SINK, 'utf8').split('---').filter(m => m.includes('early.bird@')).length, 1);
+});
+
+test('waitlist: invalid email, foreign origin and honeypot', async () => {
+  const bad = await post('/api/waitlist.php', { email: 'not-an-email', lang: 'ar', website: '' });
+  assert.equal(bad.status, 422); assert.deepEqual((await bad.json()).fields, ['email']);
+  assert.equal((await post('/api/waitlist.php', { email: 'x@example.com', lang: 'ar' }, 'https://evil.example')).status, 403);
+  const bot = await post('/api/waitlist.php', { email: 'bot@example.com', lang: 'ar', website: 'spam' });
+  assert.equal(bot.status, 200);
+  assert.doesNotMatch(readFileSync(join(DATA, 'waitlist.csv'), 'utf8'), /bot@example\.com/);
+});
+
+test('waitlist: plain HTML form post (no JS) lands on the joined page', async () => {
+  const r = await fetch(ORIGIN + '/api/waitlist.php', { method: 'POST', redirect: 'manual', headers: { Origin: ORIGIN, 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'email=nojs%40example.com&lang=en&website=' });
+  assert.equal(r.status, 303); assert.equal(r.headers.get('location'), '/en/joined/');
 });

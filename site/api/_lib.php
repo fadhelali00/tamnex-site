@@ -24,6 +24,9 @@ function tx_config(): array {
         'data_dir' => $cfg['data_dir'] ?? (getenv('TAMNEX_DATA_DIR') ?: dirname(__DIR__, 2) . '/tamnex-data'),
         'salt'     => $cfg['salt'] ?? (getenv('TAMNEX_SALT') ?: ''),
         'origins'  => $cfg['origins'] ?? (getenv('TAMNEX_ORIGINS') ? explode(',', (string) getenv('TAMNEX_ORIGINS')) : ['https://tamnex.com', 'https://www.tamnex.com']),
+        // Admin inbox for waitlist notifications. Server-side only: never echoed to clients.
+        'notify_email' => $cfg['notify_email'] ?? (getenv('TAMNEX_NOTIFY_EMAIL') ?: ''),
+        'mail_from'    => $cfg['mail_from'] ?? (getenv('TAMNEX_MAIL_FROM') ?: 'no-reply@tamnex.com'),
     ];
 }
 
@@ -113,3 +116,22 @@ function tx_password_ok(string $pw, string $email): bool
     if (mb_strlen($local, 'UTF-8') >= 4 && str_contains($lower, $local)) return false;
     return true;
 }
+
+/**
+ * Sends a plain-text notification to the configured admin inbox. Failures never reach the visitor: the sign-up is
+ * already stored. TAMNEX_MAIL_SINK (env only, for tests) writes the message to a file instead of sending it.
+ * Only fixed headers are used, so visitor input can never inject headers.
+ */
+function tx_notify(array $cfg, string $subject, string $body): void {
+    $to = (string) $cfg['notify_email'];
+    if (!filter_var($to, FILTER_VALIDATE_EMAIL)) return;
+    $from = (string) $cfg['mail_from'];
+    if (!filter_var($from, FILTER_VALIDATE_EMAIL)) $from = 'no-reply@tamnex.com';
+    $sink = getenv('TAMNEX_MAIL_SINK');
+    if ($sink) { @file_put_contents($sink, "To: {$to}\nFrom: {$from}\nSubject: {$subject}\n\n{$body}\n---\n", FILE_APPEND | LOCK_EX); return; }
+    $headers = "From: Tamnex <{$from}>\r\nContent-Type: text/plain; charset=UTF-8\r\nX-Mailer: tamnex-site";
+    if (!@mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, $headers, '-f' . $from)) {
+        @file_put_contents(tx_dir($cfg) . '/notify-errors.log', gmdate('c') . " mail() failed\n", FILE_APPEND | LOCK_EX);
+    }
+}
+

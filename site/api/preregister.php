@@ -10,7 +10,7 @@ tx_headers();
 $cfg = tx_config();
 $in  = tx_input($cfg);
 $lang = in_array($in['lang'] ?? '', ['ar', 'en'], true) ? $in['lang'] : 'ar';
-$prefix = $lang === 'en' ? '/en' : '';
+$prefix = ($lang === 'en' ? '/en' : '') . '/preview';
 
 // Honeypot: look like success, store nothing.
 if (!empty($in['website'])) tx_out(200, ['ok' => true, 'ref' => 'TMX-00000000'], $prefix . '/start/received/');

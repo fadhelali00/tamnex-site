@@ -1,0 +1,489 @@
+{
+ "lang": "en",
+ "dir": "ltr",
+ "ogLocale": "en_US",
+ "otherLang": "ar",
+ "otherLangName": "العربية",
+ "title_home": "Tamnex | The AI-native ERP for Saudi businesses",
+ "desc_home": "Tamnex brings accounting, inventory, purchasing and e-invoicing into one system, and shows what blocks your month-end close before the month ends. Monthly and annual plans in SAR.",
+ "title_pricing": "Plans and pricing | Tamnex",
+ "desc_pricing": "Tamnex monthly and annual plans: Core, Business and Advanced, with prices before and after VAT and a full comparison of features and limits.",
+ "og_title": "Tamnex: the AI-native ERP for your accounting, inventory and invoicing",
+ "skip": "Skip to content",
+ "brand_alt": "Tamnex",
+ "nav_label": "Main navigation",
+ "nav_product": "Product",
+ "nav_features": "Features",
+ "nav_pricing": "Pricing",
+ "nav_faq": "FAQ",
+ "nav_request": "Book a live demo",
+ "menu_open": "Menu",
+ "menu_close": "Close menu",
+ "theme_label": "Theme",
+ "theme_light": "Light",
+ "theme_dark": "Dark",
+ "theme_system": "System",
+ "hero_h1": "Continuous Close, In Real Time",
+ "hero_sub": "Forward-thinking finance teams rely on Tamnex to unify accounting and inventory, close their books faster, and track margins and cash in real time.",
+ "cta_choose": "Choose your plan",
+ "cta_demo": "Book a live demo",
+ "sc_label": "Close dashboard · sample data",
+ "trust_label": "Why Tamnex",
+ "trust_items": [
+  [
+   "Real-time financial clarity",
+   "Live performance and margin reports that update with every transaction, so you decide on today's reality."
+  ],
+  [
+   "Automated document cycle",
+   "One connected flow across purchasing, sales and inventory that removes wasted manual entry."
+  ],
+  [
+   "Built-in executive intelligence",
+   "Nexa watches your working-capital cycle, warns you of stock-out risk, and suggests purchasing and pricing decisions."
+  ],
+  [
+   "Speed and a modern experience",
+   "High-performance cloud interfaces that free your team from the slowness and complexity of legacy systems."
+  ]
+ ],
+ "f_title": "Your whole business cycle in one system",
+ "f_sub": "Preferred company address",
+ "soon": "After launch",
+ "close_title": "Continuous close",
+ "close_body": "Accounting checks that run all month, each exception with an owner and evidence. Try it: clear the three exceptions, then re-run the checks.",
+ "cycle_title": "Connected document cycle",
+ "cycle_body": "Each step builds on the last: no double entry, no manual posting at month end.",
+ "cycle_steps": [
+  "Purchase request",
+  "Receipt and landed cost",
+  "Invoice",
+  "Entry and stock"
+ ],
+ "ai_title": "Tamnex Nexa: proactive insights",
+ "ai_body": "Reads supplier invoices, suggests bank matches, and answers questions about your numbers in Arabic with sources. Everything Nexa suggests is a draft you approve.",
+ "ai_points": [
+  "Supplier invoice to draft",
+  "Bank matching from statement files",
+  "Error guard before approval",
+  "Ask your numbers in Arabic"
+ ],
+ "mig_title": "Move from your current system",
+ "mig_body": "Import master data, the trial balance, open invoices and stock, with a mapping you review and approve, then a balance reconciliation.",
+ "dist_title": "Field distribution",
+ "dist_body": "Sales reps, visits and routes, orders and collections in the field, credit limits, and van stock transfers.",
+ "demo_label": "Interactive demo with sample data",
+ "demo_period": "October · Riyadh branch",
+ "demo_before": "Before",
+ "demo_after": "After",
+ "demo_checks_done": "{n} of {t} checks complete",
+ "demo_ex_bank": "Bank line of 11,500.00 unmatched",
+ "demo_ex_accrual": "October service expense not recorded",
+ "demo_ex_inventory": "Stock report does not cover 31 October",
+ "demo_act_bank": "Match with receipt RV-1042",
+ "demo_act_accrual": "Approve the accrual draft (demo)",
+ "demo_act_inventory": "Link the 31 October report",
+ "demo_done_bank": "Matched. No entry created.",
+ "demo_done_accrual": "A 4,000.00 accrual draft is ready in the simulation.",
+ "demo_done_inventory": "Report agrees with the ledger.",
+ "demo_run": "Re-run checks",
+ "demo_reset": "Restart demo",
+ "demo_stale": "Data changed. Re-run the checks to read the result.",
+ "demo_open": "3 exceptions block the close.",
+ "demo_better": "Readiness improved; an exception is still open.",
+ "demo_complete": "This scenario's checks are complete, awaiting accountant review.",
+ "p_title": "Clear plans for every stage",
+ "p_sub": "Every plan includes full accounting and e-invoicing, with no monthly cap on invoices.",
+ "cycle_label": "Billing cycle",
+ "cycle_monthly": "Monthly",
+ "cycle_annual": "Annual",
+ "currency": "SAR",
+ "per_month": "per month",
+ "before_vat": "before VAT",
+ "billed_monthly": "SAR {total} per month including 15% VAT",
+ "billed_annual": "SAR {net} billed yearly in advance, SAR {total} including 15% VAT",
+ "on_request": "Custom",
+ "on_request_sub": "Written contract with limits and service terms",
+ "choose_plan": "Choose your plan",
+ "contact_sales": "Contact sales",
+ "card_more": "Includes",
+ "prelaunch": "Subscriptions open at commercial launch. Choosing a plan sends us your request, and we contact you to confirm the price and the features available at activation. No payment is taken now.",
+ "compare_link": "Compare all features and limits",
+ "compare_title": "Plan comparison",
+ "compare_feature": "Feature",
+ "soon_note": "“After launch”: included in the plan and available after commercial launch.",
+ "group_core": "Core",
+ "group_limits": "Limits",
+ "group_advanced": "Advanced",
+ "group_ai": "AI",
+ "v_included": "Included",
+ "v_not_included": "Not included",
+ "v_unlimited": "Unlimited",
+ "v_upto": "Up to {n}",
+ "v_contract": "Per contract",
+ "v_addon_more": "extra at a cost",
+ "price_version": "Price list {v}",
+ "pricing_faq": [
+  [
+   "Do prices include VAT?",
+   "Prices are shown before 15% VAT, with the VAT-inclusive amount under each price."
+  ],
+  [
+   "How does annual billing work?",
+   "The full year is paid in advance; its monthly equivalent is shown next to it."
+  ],
+  [
+   "What does “After launch” mean?",
+   "The feature is part of the plan and becomes available to the plan's subscribers when it launches, with no change to the agreed price."
+  ],
+  [
+   "What happens if I choose a plan now?",
+   "We receive your request and contact you before launch to confirm price and features. No payment is taken before activation."
+  ]
+ ],
+ "faq_title": "Frequently asked questions",
+ "faq": [
+  [
+   "Does the AI post or close the period for me?",
+   "No. It reads, analyses and prepares drafts; approval and close stay with you or whoever you delegate, and every suggestion is logged."
+  ],
+  [
+   "Can I see cash and margins in real time?",
+   "Yes. Every invoice, receipt and collection updates the cash and margin indicators immediately, without waiting for month end."
+  ],
+  [
+   "Does it support e-invoicing?",
+   "Yes. Phase 1 (generation and storage) is built into every invoice, and we activate your Fatoora integration (Phase 2) before your wave deadline."
+  ],
+  [
+   "How do I move from my current system?",
+   "We import master data, opening balances, open invoices and inventory, and reconcile them with you before you approve."
+  ],
+  [
+   "Does my company get its own address?",
+   "Yes. You choose your company subdomain at sign-up, and your team signs in from it directly."
+  ]
+ ],
+ "r_title": "Book a live demo",
+ "r_sub": "We show you the system on your own cycle, from purchase to sale to financial statements, with the effect of each step on cash and margin.",
+ "r_name": "Name",
+ "r_email": "Work email",
+ "r_phone": "Mobile number",
+ "r_company": "Company name",
+ "r_sector": "Industry",
+ "r_sector_ph": "Choose an industry",
+ "r_sectors": [
+  [
+   "trade",
+   "Trade and wholesale"
+  ],
+  [
+   "distribution",
+   "Distribution"
+  ],
+  [
+   "retail",
+   "Retail"
+  ],
+  [
+   "services",
+   "Services"
+  ],
+  [
+   "accounting-office",
+   "Accounting firm"
+  ],
+  [
+   "other",
+   "Other"
+  ]
+ ],
+ "r_branches": "Number of branches",
+ "r_branches_opts": [
+  [
+   "1",
+   "One branch"
+  ],
+  [
+   "2-5",
+   "2 to 5"
+  ],
+  [
+   "6+",
+   "More than 5"
+  ]
+ ],
+ "r_plan": "Plan of interest",
+ "r_plan_none": "Not decided yet",
+ "r_consent": "I agree that this data is used only to contact me about my request.",
+ "r_privacy_title": "How we use your data",
+ "r_privacy": "We keep your request only to contact you about it. We never sell it or share it with marketers, and you can ask us to delete it by replying to any of our messages. The interactive demo collects nothing, and we use no advertising trackers.",
+ "r_submit": "Send request",
+ "r_sending": "Sending…",
+ "r_ok": "Request received. We will email you to book the demo.",
+ "r_fail": "Could not send. Check your connection and try again.",
+ "r_rate": "Too many requests from this connection. Please try again in an hour.",
+ "e_name": "Enter your name.",
+ "e_email": "Enter an email like name@company.com.",
+ "e_phone": "Enter a valid mobile number, e.g. 05xxxxxxxx.",
+ "e_company": "Enter your company name.",
+ "e_sector": "Choose an industry.",
+ "e_consent": "We need your consent to contact you.",
+ "required": "required",
+ "footer_tag": "The AI-native ERP for Saudi businesses.",
+ "footer_nav": "Site links",
+ "rights": "© 2026 Evexa AI Systems",
+ "nav_nexa": "Nexa",
+ "nexa_full": "Tamnex Nexa",
+ "nexa_short": "Nexa",
+ "nexa_badge": "✦ Nexa AI",
+ "nexa_ask": "✦ Ask Nexa",
+ "nx_title": "The Nexa AI Show",
+ "nx_sub": "Nexa is the AI engine inside Tamnex: it watches margins, cash and cost deviations as they happen, prepares the action and leaves the decision to you.",
+ "nx_label": "Interactive demo with sample data",
+ "nx_scenes_label": "Nexa scenes",
+ "nx_s1_tab": "Ask Nexa",
+ "nx_s3_tab": "Alert inside the document cycle",
+ "nx_s1_kbd": "Ctrl K",
+ "nx_s1_q": "Nexa, analyse how freight and customs affect this quarter's item margins",
+ "nx_s1_a": "Freight and customs impact on margin, Q4. Source: 18 purchase invoices this quarter.",
+ "nx_s1_cols": [
+  "Item",
+  "Margin before",
+  "Freight and customs per unit",
+  "Margin after"
+ ],
+ "nx_s1_rows": [
+  [
+   "Industrial meters",
+   "32.0%",
+   "9.20",
+   "27.4%"
+  ],
+  [
+   "Nitrile gloves (box)",
+   "30.0%",
+   "4.25",
+   "25.0%"
+  ],
+  [
+   "Circulation pumps",
+   "25.0%",
+   "23.80",
+   "18.0%"
+  ]
+ ],
+ "nx_s1_btn": "Review item pricing",
+ "nx_s1_done": "The three items are flagged for review. A price change needs your approval.",
+ "nx_s3_head": "New purchase order · Nitrile gloves",
+ "nx_s3_vendor": "Vendor: Al Mada Supplies",
+ "nx_s3_price": "Unit price 46.20, 12% above the 90-day average (41.25).",
+ "nx_s3_stock": "Nitrile gloves: 340 boxes on hand at 68 a day, out of stock in 5 days.",
+ "nx_s3_prop": "Suggested: purchase request for 600 boxes from a vendor at 41.10.",
+ "nx_s3_btn": "Approve suggested purchase request",
+ "nx_s3_done": "You approved the request in the demo. It is logged under your name.",
+ "nx_rules": [
+  "Nexa suggests and explains; the decision and approval are yours.",
+  "Every figure it shows opens to its source.",
+  "It catches cost and cash deviations as they happen, not at month end."
+ ],
+ "cta_start": "Get started",
+ "nav_start": "Create your account",
+ "title_start": "Create your company account | Tamnex",
+ "desc_start": "Register your company with Tamnex: company, administrator, password, and financial and tax setup. We prepare your environment and you sign in with the password you chose.",
+ "st_title": "Create your company account",
+ "st_sub": "Three short steps, then we prepare your company's environment.",
+ "st_prereg": "Pre-registration: we create your company account and prepare its environment, then email you an activation notice and sign-in link as soon as it is ready. You sign in with the password you choose here. No payment is taken.",
+ "st_steps": [
+  "Company",
+  "Administrator",
+  "Financial and tax setup",
+  "Review"
+ ],
+ "st_step_of": "Step {n} of {t}",
+ "st_next": "Next",
+ "st_back": "Back",
+ "st_submit": "Create account",
+ "st_sending": "Saving…",
+ "st_edit": "Edit",
+ "st_optional": "optional",
+ "f_company": "Company name",
+ "f_sector": "Industry",
+ "f_size": "Company size",
+ "f_sizes": [
+  [
+   "1-10",
+   "1 to 10 employees"
+  ],
+  [
+   "11-50",
+   "11 to 50"
+  ],
+  [
+   "51-200",
+   "51 to 200"
+  ],
+  [
+   "201+",
+   "More than 200"
+  ]
+ ],
+ "f_cr": "Commercial registration or unified number",
+ "f_cr_hint": "10 digits",
+ "f_sub_hint": "Lowercase letters, digits and hyphens, 3 to 30. Reserved at activation once availability is confirmed.",
+ "f_first": "First name",
+ "f_last": "Last name",
+ "f_job": "Job title",
+ "f_jobs": [
+  [
+   "owner",
+   "Owner or partner"
+  ],
+  [
+   "cfo",
+   "Finance director"
+  ],
+  [
+   "accountant",
+   "Accountant"
+  ],
+  [
+   "ops",
+   "Operations manager"
+  ],
+  [
+   "other",
+   "Other"
+  ]
+ ],
+ "f_country": "Country",
+ "f_country_v": "Saudi Arabia",
+ "f_tz": "Time zone",
+ "f_tz_v": "Riyadh (UTC+3)",
+ "f_currency": "Base currency",
+ "f_currency_v": "Saudi riyal (SAR)",
+ "f_vatreg": "Is the company registered for VAT?",
+ "f_yes": "Yes",
+ "f_no": "No",
+ "f_vat": "VAT number",
+ "f_vat_hint": "15 digits, starting and ending with 3",
+ "f_fy": "Fiscal year starts in",
+ "f_months": [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+ ],
+ "f_plan": "Plan",
+ "f_terms": "I agree that these details are kept to prepare my company's environment and to contact me about it.",
+ "f_marketing": "Send me Tamnex news and offers.",
+ "st_review": "Review your details",
+ "e_req": "This field is required.",
+ "e_cr": "Enter 10 digits.",
+ "e_vat": "Enter 15 digits starting and ending with 3.",
+ "e_sub": "Use 3 to 30 lowercase letters, digits or hyphens, not starting or ending with a hyphen.",
+ "e_sub_reserved": "This address is reserved. Choose another.",
+ "e_terms": "We need your consent to keep your details.",
+ "st_fail": "Could not save. Your details are still in the form; please try again.",
+ "st_dup": "This email is already registered with us. For another company, use a different email or contact us.",
+ "hold_title": "Welcome to Tamnex — we are preparing your workspace",
+ "hold_body": "We have received your company's request to join. We are setting up your dedicated workspace and will email you an activation notice and direct sign-in link as soon as it is ready; you sign in with the password you chose.",
+ "hold_ref": "Registration number",
+ "hold_notify": "Launch notification email",
+ "hold_notify_btn": "Update notification email",
+ "hold_notify_ok": "We will send the launch notice to this email.",
+ "hold_home": "Back to home",
+ "hold_sales": "Request a live demo from sales",
+ "hold_saved": [
+  "Company details",
+  "Administrator details",
+  "Financial and tax setup"
+ ],
+ "hold_nojs": "",
+ "f_pw": "Password",
+ "f_pw2": "Confirm password",
+ "f_pw_hint": "At least 12 characters. Pick a phrase that is hard to guess, without your email or a common password.",
+ "f_pw_show": "Show",
+ "f_pw_hide": "Hide",
+ "e_pw": "Use at least 12 characters, without your email or a common password.",
+ "e_pw2": "The passwords do not match.",
+ "hero_badge": "AI-Native ERP Powered by Nexa",
+ "cta_plans": "Browse plans",
+ "cd_org": "Al Wadi Trading Co. · November 2026",
+ "cd_status": "November close status:",
+ "cd_pct": "99.8%",
+ "cd_pct_done": "100%",
+ "cd_ready": "ready for real-time close",
+ "cd_live": "Live matching on",
+ "cd_meter": "Close readiness",
+ "cd_den": "Share of close checks complete: 1,996 of 2,000. What remains is the variance below.",
+ "cd_checks": [
+  [
+   "Automatic bank reconciliation",
+   "1,480 / 1,480 transactions matched",
+   "100%"
+  ],
+  [
+   "Inventory and cost of goods (WAC)",
+   "All warehouse movements settled and posted",
+   "Complete"
+  ],
+  [
+   "Tax return and invoicing readiness",
+   "0 pending invoices; return ready for review",
+   "Ready"
+  ]
+ ],
+ "cd_nexa": "A SAR 420 variance from freight differences was found; a draft adjustment is ready for your one-click approval.",
+ "cd_approve": "Review and approve the draft",
+ "cd_approved": "You approved the draft in the demo, logged under your name. Close readiness is complete.",
+ "cd_fs": "Generate draft closing financial statements",
+ "cd_fs_done": "Draft November statements were prepared in the demo. Final issue needs your approval.",
+ "cd_log": "Automatic adjustments log",
+ "cd_log_items": [
+  [
+   "09:12",
+   "1,480 bank transactions matched to receipts and payments automatically"
+  ],
+  [
+   "09:14",
+   "Freight costs loaded onto received items and weighted average recalculated"
+  ],
+  [
+   "09:15",
+   "Output VAT rounding differences settled (SAR 0.03)"
+  ],
+  [
+   "09:16",
+   "SAR 420 freight variance detected and passed to Nexa"
+  ]
+ ],
+ "nx_s2_tab": "Cash radar",
+ "nx_s2_head": "Cash forecast · 30 days",
+ "nx_s2_kpis": [
+  [
+   "Cash available today",
+   "412,300"
+  ],
+  [
+   "Expected collections",
+   "286,900"
+  ],
+  [
+   "Payments due",
+   "351,400"
+  ]
+ ],
+ "nx_s2_sugg": "A cash gap of SAR 64,500 is expected on 18 November: two supplier payments land a week before the two largest collections. Suggested: remind the two overdue customers and schedule the second payment for 25 November within the supplier terms.",
+ "nx_s2_btn": "Prepare the suggested cash plan",
+ "nx_s2_done": "A draft plan awaits your approval. No reminder was sent and no payment changed.",
+ "cd_den_done": "Share of close checks complete: 2,000 of 2,000."
+}

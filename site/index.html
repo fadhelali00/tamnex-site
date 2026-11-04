@@ -2,396 +2,217 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>تامنكس | نظام ERP سعودي من الجيل القادم</title>
-<meta name="description" content="تامنكس نظام ERP سحابي سعودي قيد البناء: دقة محاسبية بالتصميم، وجاهزية إقفال مستمرة، وذكاء اصطناعي يجهّز المسودات ويترك الاعتماد لك. جرّب العرض التفاعلي وسجّل اهتمامك بالإطلاق.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تامنكس | نظام ERP ذكي للمنشآت السعودية</title>
+<meta name="description" content="تامنكس يجمع المحاسبة والمخزون والمشتريات والفوترة الإلكترونية في نظام واحد، ويكشف ما يمنع الإقفال قبل نهاية الشهر. باقات شهرية وسنوية بالريال.">
 <link rel="canonical" href="https://tamnex.com/">
+<link rel="alternate" hreflang="ar" href="https://tamnex.com/">
+<link rel="alternate" hreflang="en" href="https://tamnex.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://tamnex.com/">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Tamnex تامنكس">
+<meta property="og:site_name" content="Tamnex">
 <meta property="og:locale" content="ar_SA">
 <meta property="og:url" content="https://tamnex.com/">
-<meta property="og:title" content="تامنكس: نظام ERP يجهّز إقفالك طوال الشهر">
-<meta property="og:description" content="نظام ERP سعودي من الجيل القادم، قيد البناء. جرّب عرض جاهزية الإقفال المستمر ببيانات تجريبية، وسجّل اهتمامك بالإطلاق.">
+<meta property="og:title" content="تامنكس: نظام ERP ذكي يجمع محاسبتك ومخزونك وفواتيرك">
+<meta property="og:description" content="تامنكس يجمع المحاسبة والمخزون والمشتريات والفوترة الإلكترونية في نظام واحد، ويكشف ما يمنع الإقفال قبل نهاية الشهر. باقات شهرية وسنوية بالريال.">
 <meta property="og:image" content="https://tamnex.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="تامنكس: نظام ERP يجهّز إقفالك طوال الشهر">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="تامنكس: نظام ERP يجهّز إقفالك طوال الشهر">
-<meta name="twitter:description" content="نظام ERP سعودي من الجيل القادم، قيد البناء. جرّب العرض التفاعلي وسجّل اهتمامك بالإطلاق.">
-<meta name="twitter:image" content="https://tamnex.com/og.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/brand/tamnex-mark.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/styles.css">
+<script src="/assets/theme.js"></script>
 <script src="/assets/readiness.js" defer></script>
 <script src="/assets/app.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">انتقل إلى المحتوى</a>
-
-<header class="bar">
-  <a class="brand" href="/" aria-label="تامنكس، الصفحة الرئيسية">
-    <img src="/brand/tamnex-wordmark-ar.svg" alt="تامنكس" width="111" height="36">
-  </a>
-  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">القائمة</button>
-  <nav id="site-nav" class="nav" aria-label="أقسام الصفحة">
-    <a href="#demo">العرض التفاعلي</a>
-    <a href="#ai">الذكاء الاصطناعي</a>
-    <a href="#operations">دورة العمل</a>
-    <a href="#trust">ما نعد به</a>
-    <a href="#faq">الأسئلة</a>
-    <a class="btn btn-sm nav-cta" href="#interest">سجّل اهتمامك</a>
-  </nav>
+<header class="topbar" data-topbar>
+  <div class="topbar-in">
+    <a class="brand" href="/"><img src="/brand/tamnex-wordmark-ar.svg" alt="تامنكس" width="111" height="36"></a>
+    <nav class="nav" id="site-nav" aria-label="التنقل الرئيسي" data-nav>
+      <a href="#product">المنتج</a>
+      <a href="#features">المزايا</a>
+      <a href="#nexa">نكسا</a>
+      <a href="/pricing/">الأسعار</a>
+      <a href="#faq">الأسئلة</a>
+      <a class="lang" href="/en/" hreflang="en" lang="en">English</a>
+      <a class="btn btn-sm nav-cta" href="/start/">أنشئ حسابك</a>
+    </nav>
+    <button class="icon-btn theme-btn" type="button" data-theme-btn aria-label="المظهر: حسب الجهاز" data-l-light="فاتح" data-l-dark="داكن" data-l-system="حسب الجهاز" data-l-label="المظهر">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9A7 7 0 0 1 12 3Z"/></svg>
+    </button>
+    <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-btn data-l-open="القائمة" data-l-close="إغلاق القائمة">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="sr">القائمة</span>
+    </button>
+  </div>
 </header>
-
 <main id="main">
-
-<!-- Hero -->
-<section class="hero" aria-labelledby="hero-title">
-  <div class="hero-text">
-    <h1 id="hero-title">نظام ERP يجهّز إقفالك<br>طوال الشهر</h1>
-    <p class="lead">تامنكس نظام سحابي سعودي من الجيل القادم يجمع الدقة المحاسبية والعمل التشغيلي، وذكاءً يجهّز لك ويترك الاعتماد بيدك. النظام قيد البناء، وهذه صفحة ما قبل الإطلاق.</p>
-    <div class="actions">
-      <a class="btn btn-lg" href="#demo" data-track="hero_demo">جرّب العرض التفاعلي</a>
-      <a class="link" href="#interest">سجّل اهتمامك بالإطلاق</a>
-    </div>
-    <p class="hero-note">دفاتر صحيحة بالتصميم: القيد المرحّل لا يُعدَّل، والفاتورة المعتمدة لا تُحذف، والترقيم بلا فجوات. هذه ضوابط مبنية ومختبرة في المحرك المحاسبي.</p>
+<section class="hero" id="product" aria-labelledby="hero-title">
+  <div class="wrap hero-center">
+    <p class="hero-badge"><svg class="orb orb-xs" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="nx-g1" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#e0e7ff"/><stop offset=".45" stop-color="#818cf8"/><stop offset="1" stop-color="#2563eb"/></radialGradient></defs><circle class="orb-pulse" cx="24" cy="24" r="22" fill="none" stroke="#6366f1" stroke-width="1"/><circle cx="24" cy="24" r="14" fill="url(#nx-g1)"/><path d="M24 14l2.6 7.4L34 24l-7.4 2.6L24 34l-2.6-7.4L14 24l7.4-2.6Z" fill="#fff" opacity=".9"/></svg><span>نظام ERP ذكي مدعوم بمحرك نكسا</span></p>
+    <h1 id="hero-title">إقفال مالي لحظي</h1>
+    <p class="lead">المنشآت الطموحة تعتمد تامنكس لتوحيد حساباتها ومخزونها، وتسريع إقفالها المالي، ومراقبة السيولة وهوامش الربح لحظة بلحظة.</p>
+    <div class="actions"><a class="btn btn-lg" href="/start/">ابدأ الآن</a><a class="btn btn-lg btn-ghost" href="#pricing">تصفح الباقات</a></div>
   </div>
-
-  <a class="hero-preview" href="#demo" data-ui aria-label="معاينة جاهزية الإقفال من العرض التفاعلي، انتقل إلى العرض">
-    <div class="pv-head">
-      <span class="pv-title">جاهزية إقفال أكتوبر</span>
-      <span class="pv-sample">بيانات تجريبية</span>
-    </div>
-    <div class="pv-body">
-      <div class="ring" data-bind="ring" role="img" aria-label="5 من 8 فحوص مكتملة">
-        <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="50"/><circle class="ring-arc" cx="60" cy="60" r="50" pathLength="100"/></svg>
-        <div class="ring-num"><bdi dir="ltr" data-bind="ring-num">5/8</bdi><span>فحوص مكتملة</span></div>
+  <div class="wrap hero-visual"><div class="showcase cd" data-close data-l-done="100%">
+    <div class="sc-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="sc-label">لوحة الإقفال المالي · بيانات تجريبية</span></div>
+    <div class="sc-body">
+      <div class="cd-status">
+        <div><p class="cd-org">شركة الوادي للتجارة · نوفمبر 2026</p><p class="cd-title">حالة الإقفال لشهر نوفمبر: <span class="cd-pct" dir="ltr" data-cd-pct>99.8%</span> جاهز للإغلاق اللحظي</p></div>
+        <span class="live"><i></i>مطابقة فورية نشطة</span>
       </div>
-      <ul class="pv-list" data-bind="pv-list">
-        <li><span class="st st-open"><i></i>مفتوح</span><span>البنك: حركة غير مطابقة</span></li>
-        <li><span class="st st-open"><i></i>مفتوح</span><span>المخزون: دليل لا يغطي نهاية الفترة</span></li>
-        <li><span class="st st-open"><i></i>مفتوح</span><span>خدمات أكتوبر غير مقيَّدة</span></li>
-      </ul>
-    </div>
-    <span class="pv-go">افتح العرض وأغلق الاستثناءات بنفسك</span>
-  </a>
-</section>
-
-<!-- Demo -->
-<section class="demo" id="demo" aria-labelledby="demo-title">
-  <div class="demo-intro">
-    <h2 id="demo-title">جاهزية الإقفال المستمر</h2>
-    <p class="lead">فحوص محاسبية تعمل طوال الشهر، فتعرف ما يمنع الإقفال اليوم لا في آخره. لكل استثناء مسؤول ودليل، والذكاء الاصطناعي يشرح ويقترح مسودة فقط. جرّبها على شركة تجريبية في دقيقة ونصف.</p>
-    <p class="status-line"><b>الحالة:</b> ميزة معتمدة في حزمة الإطلاق، قيد المواصفة، ولم تُبنَ بعد.</p>
-  </div>
-
-  <p class="demo-banner" role="note">تجربة توضيحية لميزة قيد البناء — بيانات تجريبية، دون اتصال ببنك أو ترحيل أو إقفال فعلي.</p>
-
-  <div class="demo-controls" data-js-only>
-    <button type="button" class="btn btn-ghost btn-sm" data-act="reset">أعد التجربة</button>
-    <button type="button" class="btn btn-ghost btn-sm" data-act="example">عرض مثال</button>
-    <button type="button" class="btn btn-ghost btn-sm" data-act="skip" aria-pressed="false">تخطَّ الشرح</button>
-  </div>
-
-  <div class="demo-grid">
-    <!-- Readiness board: everything here is derived from the single state -->
-    <div class="board" data-ui aria-labelledby="board-title">
-      <div class="board-head">
-        <div>
-          <h3 id="board-title">لوحة جاهزية الإقفال</h3>
-          <p class="board-meta">شركة الوادي للتجارة (شركة تجريبية) · أكتوبر 2026 · فرع الرياض</p>
-        </div>
-        <div class="ring ring-sm" data-bind="ring" role="img" aria-label="5 من 8 فحوص مكتملة">
-          <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="50"/><circle class="ring-arc" cx="60" cy="60" r="50" pathLength="100"/></svg>
-          <div class="ring-num"><bdi dir="ltr" data-bind="ring-num">5/8</bdi></div>
+      <div class="cd-meter" role="progressbar" aria-label="جاهزية الإقفال" aria-valuemin="0" aria-valuemax="100" aria-valuenow="99.8" data-cd-meter><span></span></div>
+      <p class="fine" data-cd-den data-l-done="النسبة لاكتمال فحوص الإقفال: 2,000 من 2,000.">النسبة لاكتمال فحوص الإقفال: 1,996 من 2,000. المتبقي مرتبط بفارق التسوية أدناه.</p>
+      <div class="cd-grid">
+        <ul class="cd-checks"><li><svg class="cd-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><div><b>المطابقة البنكية الآلية</b><span>1,480 / 1,480 حركة مطابقة</span></div><span class="chip chip-ok">100%</span></li><li><svg class="cd-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><div><b>تسوية المخزون وتكلفة البضاعة (WAC)</b><span>كافة حركات المستودعات مسوّاة ومرحّلة</span></div><span class="chip chip-ok">مكتملة</span></li><li><svg class="cd-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><div><b>جاهزية الإقرار الضريبي والفوترة</b><span>0 فواتير معلّقة، والإقرار جاهز للمراجعة</span></div><span class="chip chip-ok">جاهزة</span></li></ul>
+        <div class="cd-side">
+          <div class="capsule"><svg class="orb orb-sm" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="nx-g2" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#e0e7ff"/><stop offset=".45" stop-color="#818cf8"/><stop offset="1" stop-color="#2563eb"/></radialGradient></defs><circle class="orb-pulse" cx="24" cy="24" r="22" fill="none" stroke="#6366f1" stroke-width="1"/><circle cx="24" cy="24" r="14" fill="url(#nx-g2)"/><path d="M24 14l2.6 7.4L34 24l-7.4 2.6L24 34l-2.6-7.4L14 24l7.4-2.6Z" fill="#fff" opacity=".9"/></svg><div><p class="nx-who">✦ نكسا</p><p>تم رصد فارق تسوية بمبلغ 420 ر.س ناتج عن فروق شحن؛ مسودة قيد التسوية جاهزة بانتظار اعتمادك بنقرة واحدة.</p>
+            <button type="button" class="btn btn-ghost btn-sm" data-cd-approve>مراجعة واعتماد المسودة</button><p class="nx-done" data-cd-approved hidden>اعتمدتَ المسودة في العرض وسُجّل الاعتماد باسمك. اكتملت جاهزية الإقفال.</p></div></div>
+          <div class="cd-actions"><button type="button" class="btn" data-cd-fs>إصدار مسودة القوائم المالية الختامية</button><button type="button" class="btn btn-ghost" data-cd-log aria-expanded="false" aria-controls="cd-log-ar">سجل التسويات الآلية</button></div>
+          <p class="nx-done" data-cd-fs-done hidden>أُعدّت مسودة القوائم المالية لشهر نوفمبر في العرض. الإصدار النهائي يحتاج اعتمادك.</p>
         </div>
       </div>
-      <p class="verdict v-open" data-bind="verdict" aria-live="polite">الإقفال غير جاهز: 3 فحوص مفتوحة.</p>
-      <p class="denominator">المقام 8 فحوص في قائمة مختصرة لهذا العرض. الرقم يقيس اكتمال فحوص العرض فقط، وليس درجة لجودة الدفاتر.</p>
-      <table class="checks">
-        <caption class="sr">الفحوص وحالتها والمسؤول عنها</caption>
-        <thead><tr><th scope="col">الفحص</th><th scope="col">الحالة</th><th scope="col">المسؤول</th></tr></thead>
-        <tbody data-bind="checks">
-          <tr><td>البنك: كشف أكتوبر مطابق للسندات<small>حركة واحدة غير مطابقة: 11,500.00 ر.س بتاريخ 2026-10-28.</small></td><td><span class="st st-open"><i></i>مفتوح</span></td><td>أمين الخزينة</td></tr>
-          <tr><td>المقبوضات غير المخصصة: لا شيء أقدم من 30 يوماً</td><td><span class="st st-pass"><i></i>مكتمل</span></td><td>أمين الخزينة</td></tr>
-          <tr><td>دفتر العملاء الفرعي يطابق حساب العملاء</td><td><span class="st st-pass"><i></i>مكتمل</span></td><td>المحاسب</td></tr>
-          <tr><td>دفتر الموردين الفرعي يطابق حساب الموردين</td><td><span class="st st-pass"><i></i>مكتمل</span></td><td>المحاسب</td></tr>
-          <tr><td>تقييم المستودعات يطابق حساب المخزون<small>الدليل لا يغطي نهاية الفترة (حتى 2026-10-29).</small></td><td><span class="st st-open"><i></i>مفتوح</span></td><td>مراقب المخزون</td></tr>
-          <tr><td>حركة ضريبة المخرجات في الفواتير والإشعارات الدائنة = حركة حسابها</td><td><span class="st st-pass"><i></i>مكتمل</span></td><td>المحاسب</td></tr>
-          <tr><td>القيود المتوقعة: الخدمات والرواتب والإهلاك<small>خدمات الحراسة والنظافة لأكتوبر غير مقيَّدة.</small></td><td><span class="st st-open"><i></i>مفتوح</span></td><td>المحاسب</td></tr>
-          <tr><td>لا مسودات معلقة في الفترة</td><td><span class="st st-pass"><i></i>مكتمل</span></td><td>المحاسب</td></tr>
-        </tbody>
-      </table>
-      <div class="board-foot" data-js-only>
-        <button type="button" class="btn" data-act="run">أعد الفحص</button>
-        <dl class="ledger" aria-label="دفتر المحاكاة المحلي">
-          <div><dt>رصيد البنك في الأستاذ</dt><dd><bdi dir="ltr" data-bind="l-bank">248,300.00</bdi></dd></div>
-          <div><dt>مصروف الحراسة والنظافة (حركة أكتوبر)</dt><dd><bdi dir="ltr" data-bind="l-rent">0.00</bdi></dd></div>
-          <div><dt>مصروفات مستحقة</dt><dd><bdi dir="ltr" data-bind="l-accrued">12,600.00</bdi></dd></div>
-        </dl>
+      <ol class="cd-log" id="cd-log-ar" data-cd-logbox><li><bdi>09:12</bdi><span>مطابقة 1,480 حركة بنكية مع المقبوضات والمدفوعات آلياً</span></li><li><bdi>09:14</bdi><span>تحميل تكاليف الشحن على الأصناف المستلمة وإعادة احتساب المتوسط المرجّح</span></li><li><bdi>09:15</bdi><span>تسوية فروق تقريب ضريبة المخرجات (0.03 ر.س)</span></li><li><bdi>09:16</bdi><span>رصد فارق شحن بقيمة 420 ر.س وإحالته إلى نكسا</span></li></ol>
+    </div>
+  </div></div>
+</section>
+<section class="section nexa" id="nexa" aria-labelledby="nx-title">
+  <div class="wrap">
+    <div class="nx-head"><svg class="orb orb-lg" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="nx-g5" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#e0e7ff"/><stop offset=".45" stop-color="#818cf8"/><stop offset="1" stop-color="#2563eb"/></radialGradient></defs><circle class="orb-pulse" cx="24" cy="24" r="22" fill="none" stroke="#6366f1" stroke-width="1"/><circle cx="24" cy="24" r="14" fill="url(#nx-g5)"/><path d="M24 14l2.6 7.4L34 24l-7.4 2.6L24 34l-2.6-7.4L14 24l7.4-2.6Z" fill="#fff" opacity=".9"/></svg><div><h2 id="nx-title">مسرح عروض نكسا</h2><p class="lead">نكسا محرك الذكاء الاصطناعي في تامنكس: يراقب الهوامش والسيولة وانحرافات التكلفة لحظة حدوثها، ويجهّز الإجراء، ويترك القرار لك.</p>
+      <p class="nx-tags"><span class="demo-label">عرض تفاعلي ببيانات تجريبية</span> <span class="chip chip-soon">بعد الإطلاق</span></p></div></div>
+    <div class="nx-stage card">
+      <div class="sc-tabs" role="tablist" aria-label="مشاهد نكسا">
+        <button type="button" role="tab" id="tab-s1" aria-controls="panel-s1" aria-selected="true" tabindex="0">اسأل نكسا</button><button type="button" role="tab" id="tab-s2" aria-controls="panel-s2" aria-selected="false" tabindex="-1">رادار السيولة</button><button type="button" role="tab" id="tab-s3" aria-controls="panel-s3" aria-selected="false" tabindex="-1">تنبيه داخل الدورة المستندية</button>
       </div>
+      <div class="nx-panel" role="tabpanel" id="panel-s1" aria-labelledby="tab-s1" tabindex="0"><div class="cmd"><span class="kbd" dir="ltr">Ctrl K</span><svg class="orb orb-sm" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="nx-g3" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#e0e7ff"/><stop offset=".45" stop-color="#818cf8"/><stop offset="1" stop-color="#2563eb"/></radialGradient></defs><circle class="orb-pulse" cx="24" cy="24" r="22" fill="none" stroke="#6366f1" stroke-width="1"/><circle cx="24" cy="24" r="14" fill="url(#nx-g3)"/><path d="M24 14l2.6 7.4L34 24l-7.4 2.6L24 34l-2.6-7.4L14 24l7.4-2.6Z" fill="#fff" opacity=".9"/></svg><span class="cmd-q" data-type="يا نكسا، حلّلي أثر تكاليف الشحن والجمارك على هامش ربح أصناف الربع الحالي">يا نكسا، حلّلي أثر تكاليف الشحن والجمارك على هامش ربح أصناف الربع الحالي</span></div>
+      <div class="nx-answer"><p class="nx-who">✦ نكسا</p><p>أثر الشحن والجمارك على الهامش، الربع الرابع. المصدر: 18 فاتورة شراء للربع.</p><div class="tscroll" tabindex="0" role="region" aria-label="لوحة الإقفال المالي · بيانات تجريبية"><table class="ui-table"><thead><tr><th scope="col">الصنف</th><th scope="col" class="n">الهامش قبل</th><th scope="col" class="n">الشحن والجمارك للوحدة</th><th scope="col" class="n">الهامش بعد</th></tr></thead><tbody><tr><td>أجهزة قياس صناعية</td><td class="n"><bdi>32.0%</bdi></td><td class="n"><bdi>9.20</bdi></td><td class="n"><bdi>27.4%</bdi></td></tr><tr><td>قفازات نتريل (علبة)</td><td class="n"><bdi>30.0%</bdi></td><td class="n"><bdi>4.25</bdi></td><td class="n"><bdi>25.0%</bdi></td></tr><tr><td>مضخات تدوير</td><td class="n"><bdi>25.0%</bdi></td><td class="n"><bdi>23.80</bdi></td><td class="n"><bdi>18.0%</bdi></td></tr></tbody></table></div>
+      <button type="button" class="btn btn-ghost btn-sm" data-nx-act="s1">مراجعة تسعير الأصناف</button><p class="nx-done" data-nx-done="s1" hidden>عُلّمت الأصناف الثلاثة للمراجعة. تغيير السعر يحتاج اعتمادك.</p></div></div><div class="nx-panel" role="tabpanel" id="panel-s2" aria-labelledby="tab-s2" tabindex="0" data-inactive><p class="nx-h">توقع السيولة · 30 يوماً</p>
+      <ul class="kpis"><li><span>النقد المتاح اليوم</span><b><bdi>412,300</bdi> <small>ر.س</small></b></li><li><span>تحصيلات متوقعة</span><b><bdi>286,900</bdi> <small>ر.س</small></b></li><li><span>مدفوعات مستحقة</span><b><bdi>351,400</bdi> <small>ر.س</small></b></li></ul>
+      <div class="nx-answer"><p class="nx-who">✦ نكسا</p><p>فجوة سيولة متوقعة يوم 18 نوفمبر بقيمة 64,500 ر.س: دفعتا موردين تسبقان أكبر تحصيلين بأسبوع. المقترح: تذكير العميلين المتأخرين، وجدولة الدفعة الثانية إلى 25 نوفمبر ضمن شروط المورد.</p>
+      <button type="button" class="btn btn-ghost btn-sm" data-nx-act="s2">أعدّ خطة السيولة المقترحة</button><p class="nx-done" data-nx-done="s2" hidden>أُعدّت مسودة الخطة بانتظار اعتمادك. لم يُرسَل أي تذكير ولم تُعدَّل أي دفعة.</p></div></div><div class="nx-panel" role="tabpanel" id="panel-s3" aria-labelledby="tab-s3" tabindex="0" data-inactive><div class="po"><div class="ui-head"><b>أمر شراء جديد · قفازات نتريل</b><span class="fine">المورد: شركة المدى للتوريد</span></div>
+      <div class="capsule"><svg class="orb orb-sm" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="nx-g4" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#e0e7ff"/><stop offset=".45" stop-color="#818cf8"/><stop offset="1" stop-color="#2563eb"/></radialGradient></defs><circle class="orb-pulse" cx="24" cy="24" r="22" fill="none" stroke="#6366f1" stroke-width="1"/><circle cx="24" cy="24" r="14" fill="url(#nx-g4)"/><path d="M24 14l2.6 7.4L34 24l-7.4 2.6L24 34l-2.6-7.4L14 24l7.4-2.6Z" fill="#fff" opacity=".9"/></svg><div><p class="nx-who">✦ نكسا</p><p>سعر الوحدة 46.20، أعلى 12% من متوسط آخر 90 يوماً (41.25).</p><p>قفازات نتريل: الرصيد 340 علبة، والاستهلاك 68 يومياً، فينفد خلال 5 أيام.</p><p class="nx-prop">المقترح: طلب شراء 600 علبة من مورد بسعر 41.10.</p>
+      <button type="button" class="btn btn-sm" data-nx-act="s3">اعتماد طلب الشراء المقترح</button><p class="nx-done" data-nx-done="s3" hidden>اعتمدتَ الطلب في العرض. يُسجَّل باسمك في سجل التدقيق.</p></div></div></div></div>
     </div>
-
-    <!-- Guided steps -->
-    <ol class="steps" data-bind="steps">
-      <li class="step" data-step="1" id="step-1">
-        <h3>مطابقة حركة بنكية</h3>
-        <p class="guide">في الكشف تحويل وارد لم يُطابق بعد. اختر السند الصحيح. النظام يتحقق من المبلغ والعملة وأن السند غير مستخدم.</p>
-        <div class="task" data-ui>
-          <p class="task-line"><b>حركة البنك BNK-1028</b> · 2026-10-28 · تحويل وارد من مؤسسة النخبة التجارية · <bdi dir="ltr" class="num">11,500.00 SAR</bdi></p>
-          <ul class="cands" data-bind="cands">
-            <li><span><b>RV-1039</b> مؤسسة النخبة التجارية · 2026-10-21 · <bdi dir="ltr" class="num">11,500.00</bdi></span><button type="button" class="btn btn-ghost btn-sm" data-act="match" data-id="RV-1039">اربط</button></li>
-            <li><span><b>RV-1047</b> مؤسسة الرواد · 2026-10-27 · <bdi dir="ltr" class="num">11,050.00</bdi></span><button type="button" class="btn btn-ghost btn-sm" data-act="match" data-id="RV-1047">اربط</button></li>
-            <li><span><b>RV-1042</b> مؤسسة النخبة التجارية · 2026-10-28 · <bdi dir="ltr" class="num">11,500.00</bdi></span><button type="button" class="btn btn-ghost btn-sm" data-act="match" data-id="RV-1042">اربط</button></li>
-          </ul>
-          <p class="msg" data-bind="msg-1" role="status"></p>
-          <p class="fine">ربط مستندين موجودين لا يُنشئ قيداً، ولا يغيّر رصيد حساب البنك في الأستاذ.</p>
-        </div>
-      </li>
-
-      <li class="step" data-step="2" id="step-2">
-        <h3>شرح استثناء ومسودة</h3>
-        <p class="guide">مصروف خدمات الحراسة والنظافة لشهر أكتوبر غير مقيَّد. اطلب الشرح، ثم احفظ المسودة. المسودة وحدها لا تحل الاستثناء.</p>
-        <div class="task" data-ui>
-          <button type="button" class="btn btn-ghost btn-sm" data-act="explain">اشرح الاستثناء</button>
-          <div class="explain" data-bind="explain" hidden>
-            <p><b>الشرح:</b> عقد الحراسة والنظافة المرفق (عقد-حراسة-ونظافة-المستودع.pdf) ينص في البند 4 على 4,000.00 ر.س شهرياً قبل الضريبة، وتُصدر الفاتورة في الخامس من الشهر التالي. الخدمة قُدمت في أكتوبر ولا يوجد مصروف مسجّل لها حتى 31 أكتوبر، فالمقترح قيد استحقاق بالمبلغ قبل الضريبة. تُسجَّل ضريبة المدخلات عند استلام فاتورة ضريبية صالحة، لا في هذا القيد.</p>
-            <p class="fine">شرح ثابت مكتوب مسبقاً لهذا العرض، لا استدعاء لنموذج ذكاء اصطناعي.</p>
-            <table class="entry">
-              <caption>قيد مقترح (مسودة)</caption>
-              <thead><tr><th scope="col">الحساب</th><th scope="col">مدين</th><th scope="col">دائن</th></tr></thead>
-              <tbody>
-                <tr><td>مصروف خدمات الحراسة والنظافة</td><td><bdi dir="ltr" class="num">4,000.00</bdi></td><td></td></tr>
-                <tr><td>مصروفات مستحقة</td><td></td><td><bdi dir="ltr" class="num">4,000.00</bdi></td></tr>
-              </tbody>
-              <tfoot><tr><td>المجموع</td><td><bdi dir="ltr" class="num">4,000.00</bdi></td><td><bdi dir="ltr" class="num">4,000.00</bdi></td></tr></tfoot>
-            </table>
-            <div class="row-btns">
-              <button type="button" class="btn btn-ghost btn-sm" data-act="draft">احفظ كمسودة</button>
-              <button type="button" class="btn btn-ghost btn-sm" data-act="approve" disabled>اعتماد تجريبي يدوي</button>
-            </div>
-            <p class="fine">الاعتماد هنا تجريبي يدوي يطبَّق على دفتر المحاكاة في هذه الصفحة فقط. في النظام يعتمد مستخدم له الصلاحية، ويتطلب الاعتماد الفعلي فصل المهام.</p>
-          </div>
-          <p class="msg" data-bind="msg-2" role="status"></p>
-        </div>
-      </li>
-
-      <li class="step" data-step="3" id="step-3">
-        <h3>دليل ناقص أو قديم</h3>
-        <p class="guide">تقرير المستودعات المربوط بالفحص لا يغطي نهاية الفترة، فلا يطابق الأستاذ. اربط الدليل الصحيح. إخفاء التنبيه لا يكفي.</p>
-        <div class="task" data-ui>
-          <p class="task-line">حساب المخزون في الأستاذ بتاريخ 2026-10-31: <bdi dir="ltr" class="num">612,400.00</bdi></p>
-          <fieldset class="evid">
-            <legend>الدليل المربوط بالفحص</legend>
-            <label><input type="radio" name="evid" value="VAL-1029" checked> تقرير تقييم المستودعات بتاريخ 2026-10-29: <bdi dir="ltr" class="num">608,750.00</bdi></label>
-            <label><input type="radio" name="evid" value="VAL-1031"> تقرير تقييم المستودعات بتاريخ 2026-10-31: <bdi dir="ltr" class="num">612,400.00</bdi></label>
-          </fieldset>
-          <p class="fine">الفرق 3,650.00 قبل الضريبة سببه فاتورة شراء PI-2207 بتاريخ 2026-10-30، استُلمت بضاعتها في اليوم نفسه بعد تاريخ التقرير الأول. الفحص يطابق الدفتر الفرعي بالأستاذ، ولا يثبت التقييم أو الجرد الفعلي.</p>
-          <div class="row-btns">
-            <button type="button" class="btn btn-ghost btn-sm" data-act="evidence">اربط الدليل المختار</button>
-            <button type="button" class="btn btn-ghost btn-sm" data-act="dismiss">تجاهل التنبيه</button>
-          </div>
-          <p class="msg" data-bind="msg-3" role="status"></p>
-        </div>
-      </li>
-
-      <li class="step" data-step="4" id="step-4">
-        <h3>إعادة الفحص وحزمة الأدلة</h3>
-        <p class="guide">أي تغيير يُبطل نتيجة الفحص السابق. أعد الفحص، ثم راجع الحزمة التي تذهب للمحاسب.</p>
-        <div class="task" data-ui>
-          <button type="button" class="btn btn-sm" data-act="run">أعد الفحص</button>
-          <div class="pack" data-bind="pack">
-            <table class="ba">
-              <caption>قبل وبعد</caption>
-              <thead><tr><th scope="col">الفحص</th><th scope="col">في البداية</th><th scope="col">الآن</th></tr></thead>
-              <tbody data-bind="ba"></tbody>
-            </table>
-            <h4>سجل القرارات والإجراءات</h4>
-            <ol class="log" data-bind="log"><li>لا إجراءات بعد.</li></ol>
-            <p class="fine">لا شهادة امتثال ولا زر إقفال هنا. الحزمة تذهب للمحاسب، والقرار له.</p>
-          </div>
-        </div>
-      </li>
-    </ol>
+    <ul class="nx-rules"><li>نكسا يقترح ويشرح، والقرار والاعتماد لك.</li><li>كل رقم يعرضه تستطيع فتح مصدره.</li><li>يرصد انحرافات التكلفة والسيولة لحظة حدوثها، لا في نهاية الشهر.</li></ul>
   </div>
-
-  <noscript>
-    <div class="noscript">
-      <h3>وضع القراءة</h3>
-      <p>العرض التفاعلي يحتاج JavaScript. ملخصه: شركة تجريبية في أكتوبر 2026 فيها ثمانية فحوص، خمسة مكتملة وثلاثة مفتوحة. الأول حركة بنكية بـ11,500.00 تُطابَق بسند القبض الصحيح RV-1042، ويُرفض سند بمبلغ مختلف وسند مستخدم مسبقاً، ولا يتغير أي رصيد. الثاني مصروف خدمات الحراسة والنظافة لأكتوبر غير مقيَّد، فيظهر شرح مسنَد إلى العقد وقيد استحقاق مقترح بـ4,000.00 قبل الضريبة، والمسودة لا تحل الاستثناء حتى تُعتمد. الثالث تقرير مخزون لا يغطي نهاية الفترة يُستبدل بتقرير 31 أكتوبر المطابق للأستاذ. بعد إعادة الفحص تكتمل فحوص السيناريو الثمانية، وتذهب حزمة الأدلة للمحاسب.</p>
-    </div>
-  </noscript>
 </section>
-
-<!-- AI launch package -->
-<section class="ai" id="ai" aria-labelledby="ai-title">
-  <div class="ai-head">
-    <h2 id="ai-title">ذكاء يجهّز،<br>وأنت تعتمد</h2>
-    <p class="lead">ست ميزات معتمدة لحزمة الإطلاق. كلها قيد البناء. الذكاء الاصطناعي فيها يقرأ ويشرح ويقترح مسودات مسنَدة إلى مستنداتك، والاعتماد والترحيل للإنسان دائماً.</p>
-  </div>
-  <table class="feat">
-    <caption class="sr">ميزات الذكاء الاصطناعي في حزمة الإطلاق وحالتها</caption>
-    <thead><tr><th scope="col">الميزة</th><th scope="col">ماذا تفعل</th><th scope="col">الحالة</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">قراءة فاتورة المورّد</th><td>صورة أو PDF تتحول إلى مسودة فاتورة شراء، مع التحقق من الرقم الضريبي ورمز QR واقتراح الحسابات.</td><td><span class="tag">معتمدة · قيد المواصفة</span></td></tr>
-      <tr><th scope="row">مطابقة البنك</th><td>استيراد الكشف من Excel أو CSV أو MT940 أولاً، ومحرك مطابقة يقترح التسويات مسودات.</td><td><span class="tag">الاستيراد قيد المواصفة · الربط البنكي الآلي قيد الدراسة</span></td></tr>
-      <tr><th scope="row">حارس الأخطاء قبل الاعتماد</th><td>ينبّه قبل الاعتماد: فاتورة مكررة، بيع بأقل من التكلفة، ضريبة لا تناسب نوع العميل، تجاوز حد الائتمان، مخزون سيصير سالباً.</td><td><span class="tag">معتمدة · قيد المواصفة</span></td></tr>
-      <tr><th scope="row">اسأل أرقامك بالعربية</th><td>جواب بالأرقام مع روابط إلى المستندات المصدرية، قراءة فقط، من مقاييس معرّفة لا من النموذج.</td><td><span class="tag">معتمدة · تنتظر تفعيل MCP، المطفأ حالياً</span></td></tr>
-      <tr><th scope="row">جاهزية الإقفال المستمر</th><td>فحوص تعمل طوال الشهر، ولكل استثناء مسؤول ودليل، وشرح ومسودة مقترحة. <a class="link" href="#demo">جرّبها في العرض</a></td><td><span class="tag">معتمدة · قيد المواصفة</span></td></tr>
-      <tr><th scope="row">الانتقال من نظامك السابق</th><td>استيراد البيانات الرئيسية وميزان المراجعة والفواتير المفتوحة وكميات المخزون، مع ربط يُراجَع ويُعتمد، ومطابقة للأرصدة بعد النقل.</td><td><span class="tag">أولوية أولى · قيد التجربة والمواصفة</span></td></tr>
-    </tbody>
-  </table>
-  <p class="ai-frame">داخل النظام تجتمع هذه الميزات في مركز للمهارات والرؤى والمحاكاة. المركز إطار يعرضها في مكانها من كل وحدة، وليس قائمة قدرات إضافية جاهزة.</p>
-  <ul class="rules">
-    <li><b>مسودات فقط.</b> لا ترحيل ولا إقفال ولا حذف من الذكاء الاصطناعي.</li>
-    <li><b>بصلاحياتك.</b> يقرأ ما يحق لك قراءته فقط، وكل شركة معزولة.</li>
-    <li><b>أرقام من النظام.</b> من مقاييس معرّفة، بلا استعلام SQL حر.</li>
-    <li><b>كل اقتراح مسجّل.</b> من اقترح، ومن اعتمد، ومتى.</li>
-  </ul>
+<section class="trust" aria-labelledby="trust-title">
+  <div class="wrap"><h2 id="trust-title" class="trust-title">لماذا تامنكس</h2>
+  <ul class="trust-grid"><li><b>وضوح مالي ولحظي</b><span>تقارير أداء وهوامش ربح حية تُحدَّث مع كل حركة، لتتخذ قراراتك بناءً على واقع اليوم.</span></li><li><b>أتمتة الدورة المستندية</b><span>تدفق متكامل يربط المشتريات والمبيعات والمخزون بضغطة واحدة، ويلغي هدر الإدخال اليدوي.</span></li><li><b>ذكاء تنفيذي مدمج</b><span>محرك «نكسا» يراقب دورة رأس المال، وينبّهك لمخاطر نفاد المخزون، ويقترح قرارات الشراء والتسعير.</span></li><li><b>سرعة وتجربة استخدام عصرية</b><span>واجهات سحابية فائقة الأداء تحرر فريقك من بطء الأنظمة التقليدية وتعقيدها.</span></li></ul></div>
 </section>
-
-<!-- Operations and distribution -->
-<section class="ops" id="operations" aria-labelledby="ops-title">
-  <h2 id="ops-title">دورة عملك كاملة،<br>من الطلب إلى الأستاذ</h2>
-  <div class="ops-grid">
-    <div class="ops-main">
-      <p class="lead">كل مستند يولّد قيده لحظة الاعتماد، والفروع والمستودعات في أساس النظام. المحرك المحاسبي مبني ومختبر، والشاشات قيد البناء بدءاً بدورة المبيعات.</p>
-      <table class="mods">
-        <caption class="sr">وحدات دورة العمل وحالتها</caption>
-        <tbody>
-          <tr><th scope="row">المبيعات والفوترة الإلكترونية</th><td>عروض الأسعار والفواتير والإشعارات الدائنة، ترقيم بلا فجوات، ورمز QR</td><td>أول دورة نسلّمها</td></tr>
-          <tr><th scope="row">المشتريات</th><td>فاتورة الشراء والاستلام ومصروفاتها، والمتوسط المرجّح</td><td>قيد البناء</td></tr>
-          <tr><th scope="row">المخزون والمستودعات</th><td>تحويلات وجرد بحسابات مستقلة للفروقات والتالف</td><td>قيد البناء</td></tr>
-          <tr><th scope="row">الخزينة</th><td>سندات القبض والصرف والتخصيص وكشوف الحساب</td><td>قيد البناء</td></tr>
-          <tr><th scope="row">الأستاذ العام والقوائم</th><td>دليل حسابات وقائمة دخل وفق IFRS 18، وإقفال لكل فرع</td><td>قيد البناء</td></tr>
-          <tr><th scope="row">ربط المتاجر الإلكترونية</th><td>سلة وزد وShopify وما يماثلها</td><td>التأسيس قيد البناء</td></tr>
-        </tbody>
-      </table>
+<section class="section" id="features" aria-labelledby="f-title">
+  <div class="wrap">
+    <h2 id="f-title">كل دورة عملك في نظام واحد</h2>
+    <p class="lead">عنوان المنشأة المفضّل</p>
+    <div class="bento">
+      <article class="card c-close"><div class="card-head"><h3>الإقفال المستمر</h3><span class="chip chip-soon">بعد الإطلاق</span></div><p>فحوص محاسبية تعمل طوال الشهر، ولكل استثناء مسؤول ودليل. جرّب: أغلق الاستثناءات الثلاثة ثم أعد الفحص.</p><div class="demo" data-demo data-l-done="{n} من {t} فحوص مكتملة" data-l-stale="تغيّرت البيانات. أعد الفحص لقراءة النتيجة." data-l-open="3 استثناءات تمنع الإقفال." data-l-better="تحسنت الجاهزية، وما زال استثناء مفتوحاً." data-l-complete="فحوص هذا السيناريو مكتملة، بانتظار مراجعة المحاسب.">
+    <p class="demo-label">عرض تفاعلي ببيانات تجريبية · أكتوبر · فرع الرياض</p>
+    <div class="demo-rings">
+      <div class="ring" data-ring="before"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="r-track" cx="60" cy="60" r="50"/><circle class="r-arc r-5" cx="60" cy="60" r="50" pathLength="100"/></svg><span class="ring-n"><bdi>5/8</bdi><small>قبل</small></span></div>
+      <div class="ring" data-ring="after" role="img" aria-label="5 من 8 فحوص مكتملة"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="r-track" cx="60" cy="60" r="50"/><circle class="r-arc r-5" cx="60" cy="60" r="50" pathLength="100" data-arc/></svg><span class="ring-n"><bdi data-ring-n>5/8</bdi><small>بعد</small></span></div>
     </div>
-    <div class="dist" aria-labelledby="dist-title">
-      <h3 id="dist-title">التوزيع الميداني لشركات السلع الاستهلاكية</h3>
-      <p>مسار أساسي في خطتنا لشركات التوزيع، لا إضافة جانبية:</p>
-      <ul>
-        <li>المندوب وزياراته ومساراته</li>
-        <li>الطلبات والتحصيل في الميدان</li>
-        <li>الذمم وحد الائتمان لكل عميل</li>
-        <li>تحويل المخزون إلى سيارة المندوب وتسويته</li>
-      </ul>
-      <p class="dist-status"><b>الحالة:</b> قيد التخطيط والتحليل، ولم يبدأ بناؤه بعد.</p>
+    <ul class="demo-ex">
+      <li data-ex="bank"><span class="ex-text"><b>حركة بنكية بـ 11,500.00 غير مطابقة</b><small data-done-text hidden>طوبقت. لم يُنشأ قيد.</small></span><button type="button" class="btn btn-ghost btn-sm" data-ex-act="bank">طابق مع سند القبض RV-1042</button></li><li data-ex="accrual"><span class="ex-text"><b>مصروف خدمات أكتوبر غير مقيَّد</b><small data-done-text hidden>مسودة استحقاق 4,000.00 جاهزة في المحاكاة.</small></span><button type="button" class="btn btn-ghost btn-sm" data-ex-act="accrual">اعتمد مسودة الاستحقاق (تجريبي)</button></li><li data-ex="inventory"><span class="ex-text"><b>تقرير المخزون لا يغطي 31 أكتوبر</b><small data-done-text hidden>التقرير يطابق الأستاذ.</small></span><button type="button" class="btn btn-ghost btn-sm" data-ex-act="inventory">اربط تقرير 31 أكتوبر</button></li>
+    </ul>
+    <div class="demo-foot">
+      <button type="button" class="btn btn-sm" data-demo-run>أعد الفحص</button>
+      <button type="button" class="btn btn-ghost btn-sm" data-demo-reset>أعد التجربة</button>
+    </div>
+    <p class="verdict v-open" data-verdict aria-live="polite">3 استثناءات تمنع الإقفال.</p>
+  </div></article>
+      <article class="card c-cycle"><h3>الدورة المستندية المتكاملة</h3><p>كل خطوة تبني على السابقة، فلا إدخال مزدوج ولا ترحيل يدوي آخر الشهر.</p><ol class="flow"><li>طلب شراء</li><li>استلام وتكلفة محمّلة</li><li>فاتورة</li><li>قيد ومخزون</li></ol></article>
+      <article class="card c-ai"><div class="card-head"><h3>نكسا من تامنكس: رؤى استباقية</h3><span class="chip chip-soon">بعد الإطلاق</span></div><p>يقرأ فواتير الموردين، ويقترح المطابقة البنكية، ويجيب عن أسئلة أرقامك بالعربية مع المصدر. كل ما يقترحه نكسا مسودة تعتمدها أنت.</p><ul class="ticks"><li>قراءة فاتورة المورّد إلى مسودة</li><li>مطابقة البنك من ملف الكشف</li><li>حارس الأخطاء قبل الاعتماد</li><li>اسأل أرقامك بالعربية</li></ul><a class="btn btn-ghost btn-sm nx-ask" href="#nexa">✦ اسأل نكسا</a></article>
+      <article class="card c-mig"><div class="card-head"><h3>الانتقال من نظامك السابق</h3><span class="chip chip-soon">بعد الإطلاق</span></div><p>استيراد البيانات الرئيسية وميزان المراجعة والفواتير المفتوحة والمخزون، مع ربط تراجعه وتعتمده، ثم مطابقة للأرصدة.</p></article>
+      <article class="card c-dist"><div class="card-head"><h3>التوزيع الميداني</h3><span class="chip chip-soon">بعد الإطلاق</span></div><p>المندوب وزياراته ومساراته، والطلبات والتحصيل في الميدان، وحد الائتمان، وتحويل المخزون إلى السيارة.</p></article>
     </div>
   </div>
 </section>
-
-<!-- Trust -->
-<section class="trust" id="trust" aria-labelledby="trust-title">
-  <h2 id="trust-title">ما نعد به اليوم، وما لا نعد به</h2>
-  <div class="trust-cols">
-    <div>
-      <h3>مبني ومختبر في المحرك المحاسبي</h3>
-      <ul>
-        <li>القيد المرحّل لا يُعدَّل ولا يُحذف، والتصحيح بقيد عكسي مرتبط بالأصل.</li>
-        <li>الفاتورة المعتمدة لا تُحذف، وتُلغى بإشعار دائن مرتبط بها.</li>
-        <li>الترقيم بلا فجوات ولا تكرار، حتى عند الاعتماد المتزامن.</li>
-        <li>بيانات كل منشأة معزولة على مستوى قاعدة البيانات.</li>
-        <li>القنوات الآلية تقرأ وتُعدّ مسودات فقط، والترحيل منها مرفوض.</li>
-      </ul>
+<section class="section pricing" id="pricing" aria-labelledby="p-title">
+  <div class="wrap">
+    <div class="p-head">
+      <div><h2 id="p-title">باقات واضحة لكل مرحلة</h2><p class="lead">كل الباقات تشمل المحاسبة الكاملة والفوترة الإلكترونية، والفواتير بلا سقف شهري.</p></div>
+      <div class="cycle" role="radiogroup" aria-label="دورة الدفع" data-cycle>
+      <button type="button" role="radio" data-c="monthly" aria-checked="false" tabindex="-1">شهري</button><button type="button" role="radio" data-c="annual" aria-checked="true" tabindex="0">سنوي</button>
     </div>
-    <div>
-      <h3>لا ندّعيه</h3>
-      <ul>
-        <li>النظام لم يُطلق بعد، ولا يوجد عملاء نذكر أعدادهم.</li>
-        <li>لا شهادة امتثال، والربط مع منصة فاتورة (المرحلة الثانية) قيد البناء.</li>
-        <li>لا وعد بمدة محددة للانتقال قبل قياسها.</li>
-        <li>لا نسب توفير أو دقة للذكاء الاصطناعي قبل قياسها.</li>
-      </ul>
     </div>
+    <div class="plans"><article class="plan" data-plan="launch">
+      <div class="plan-top"><h3>الأساسية</h3></div>
+      <p class="aud">لمنشأة بمستودع واحد تريد أرقامها المالية لحظة بلحظة</p>
+      <div class="price"><span class="amount" data-monthly="120" data-annual="95"><bdi>95</bdi></span><span class="unit">ر.س شهرياً<small>قبل الضريبة</small></span></div>
+      <p class="billed" data-monthly="138 ر.س شهرياً شامل ضريبة القيمة المضافة 15%" data-annual="يُدفع 1,140 ر.س سنوياً مقدماً، و1,311 ر.س شامل ضريبة القيمة المضافة 15%">يُدفع 1,140 ر.س سنوياً مقدماً، و1,311 ر.س شامل ضريبة القيمة المضافة 15%</p>
+      <a class="btn btn-ghost btn-block" href="/start/?plan=launch" data-choose="launch">اختر باقتك</a>
+      <p class="incl">يشمل</p>
+      <ul class="ticks"><li><span>المحاسبة والقوائم المالية بفئات IFRS 18</span><b>مشمولة</b></li><li><span>المبيعات والفوترة الإلكترونية (المرحلة الأولى)</span><b>مشمولة</b></li><li><span>الفواتير شهرياً</span><b>بلا حد</b></li><li><span>المستودعات</span><b>1</b></li></ul>
+    </article><article class="plan plan-hl" data-plan="growth">
+      <div class="plan-top"><h3>الأعمال</h3><span class="chip chip-hl">مناسبة لعدة مستودعات</span></div>
+      <p class="aud">لمنشأة بعدة مستودعات تحتاج تحليلاً أدق</p>
+      <div class="price"><span class="amount" data-monthly="220" data-annual="155"><bdi>155</bdi></span><span class="unit">ر.س شهرياً<small>قبل الضريبة</small></span></div>
+      <p class="billed" data-monthly="253 ر.س شهرياً شامل ضريبة القيمة المضافة 15%" data-annual="يُدفع 1,860 ر.س سنوياً مقدماً، و2,139 ر.س شامل ضريبة القيمة المضافة 15%">يُدفع 1,860 ر.س سنوياً مقدماً، و2,139 ر.س شامل ضريبة القيمة المضافة 15%</p>
+      <a class="btn  btn-block" href="/start/?plan=growth" data-choose="growth">اختر باقتك</a>
+      <p class="incl">يشمل</p>
+      <ul class="ticks"><li><span>المستودعات</span><b>3</b></li><li><span>الخزائن والحسابات البنكية</span><b>5</b></li><li><span>مراكز التكلفة وقوائم الأسعار</span><b>مشمولة</b> <span class="chip chip-soon">بعد الإطلاق</span></li><li><span>الربط عبر API</span><b>مشمولة</b> <span class="chip chip-soon">بعد الإطلاق</span></li></ul>
+    </article><article class="plan" data-plan="scale">
+      <div class="plan-top"><h3>المتقدمة</h3></div>
+      <p class="aud">لمنشأة تدير دورة كاملة من الطلب إلى التحصيل</p>
+      <div class="price"><span class="amount" data-monthly="320" data-annual="225"><bdi>225</bdi></span><span class="unit">ر.س شهرياً<small>قبل الضريبة</small></span></div>
+      <p class="billed" data-monthly="368 ر.س شهرياً شامل ضريبة القيمة المضافة 15%" data-annual="يُدفع 2,700 ر.س سنوياً مقدماً، و3,105 ر.س شامل ضريبة القيمة المضافة 15%">يُدفع 2,700 ر.س سنوياً مقدماً، و3,105 ر.س شامل ضريبة القيمة المضافة 15%</p>
+      <a class="btn btn-ghost btn-block" href="/start/?plan=scale" data-choose="scale">اختر باقتك</a>
+      <p class="incl">يشمل</p>
+      <ul class="ticks"><li><span>المستودعات</span><b>5</b></li><li><span>الخزائن والحسابات البنكية</span><b>بلا حد</b></li><li><span>العملاء</span><b>بلا حد</b></li><li><span>أوامر البيع والشراء</span><b>مشمولة</b> <span class="chip chip-soon">بعد الإطلاق</span></li></ul>
+    </article></div>
+    <p class="prelaunch">الاشتراك يفتح مع الإطلاق التجاري. اختيار الباقة يرسل طلبك، ونتواصل معك لتأكيد السعر والمزايا المتاحة عند التفعيل. لا يُطلب منك دفع الآن.</p>
+    <p class="compare-link"><a class="link" href="/pricing/">قارن كل المزايا والحدود</a></p>
+    <p class="fine price-version">إصدار الأسعار 2026-11-04.2</p>
   </div>
 </section>
-
-<!-- FAQ -->
-<section class="faq" id="faq" aria-labelledby="faq-title">
-  <h2 id="faq-title">أسئلة مختارة</h2>
-  <div class="faq-text">
-    <p><b>متى يُطلق تامنكس؟</b> لم نعلن موعداً بعد. سجّل اهتمامك لنبلغك عند الإطلاق.</p>
-    <p><b>هل أستطيع استخدام النظام الآن؟</b> ليس بعد. هذه صفحة ما قبل الإطلاق، والعرض التفاعلي ببيانات تجريبية ولا يتصل بأي نظام.</p>
-    <p><b>هل يرحّل الذكاء الاصطناعي أو يقفل الفترة بدلاً مني؟</b> لا. يقرأ ويشرح ويُعدّ مسودات، والاعتماد والترحيل والإقفال لمستخدم له الصلاحية.</p>
-    <p><b>هل يدعم الفوترة الإلكترونية؟</b> ضوابط إصدار الفاتورة مبنية في المحرك: منع حذف المعتمدة، والترقيم بلا فجوات، ورمز QR. والربط مع منصة فاتورة قيد البناء.</p>
-    <p><b>كيف أنتقل من نظامي الحالي؟</b> أداة الانتقال أولوية أولى في حزمة الإطلاق: استيراد ثم ربط تراجعه وتعتمده، ثم مطابقة للأرصدة. لن نعلن مدة قبل قياسها.</p>
-    <p><b>كم السعر؟</b> نعلن الباقات قبل الإطلاق.</p>
-    <p><b>من وراء تامنكس؟</b> تامنكس منتج تطوره Evexa AI Systems.</p>
+<section class="section faq" id="faq" aria-labelledby="faq-title">
+  <div class="wrap narrow">
+    <h2 id="faq-title">أسئلة شائعة</h2>
+    <details><summary>هل يرحّل الذكاء الاصطناعي أو يقفل الفترة بدلاً مني؟</summary><p>لا. يقرأ ويحلّل ويُعدّ مسودات، والاعتماد والإقفال لك أو لمن تفوّضه، وكل اقتراح مسجّل.</p></details><details><summary>هل أرى السيولة والهوامش لحظياً؟</summary><p>نعم. كل فاتورة واستلام وتحصيل يحدّث مؤشرات السيولة وهامش الربح فوراً، دون انتظار نهاية الشهر.</p></details><details><summary>هل يدعم الفوترة الإلكترونية؟</summary><p>نعم. المرحلة الأولى (الإصدار والحفظ) مدمجة في كل فاتورة، ونفعّل ربط منشأتك مع منصة فاتورة (المرحلة الثانية) قبل موعد إلزامها في موجتها.</p></details><details><summary>كيف أنتقل من نظامي الحالي؟</summary><p>نستورد البيانات الرئيسية والأرصدة الافتتاحية والفواتير المفتوحة والمخزون، ونطابقها معك قبل الاعتماد.</p></details><details><summary>هل لمنشأتي عنوان خاص؟</summary><p>نعم، تختار عنوان منشأتك الفرعي عند التسجيل، ويدخل منه فريقك مباشرة.</p></details>
   </div>
 </section>
-
-<!-- Interest -->
-<section class="interest" id="interest" aria-labelledby="interest-title">
-  <div class="interest-text">
-    <h2 id="interest-title">سجّل اهتمامك بالإطلاق</h2>
-    <p class="lead">اترك بريدك وقطاعك، ونبلغك حين يفتح النظام للتجربة. لا نطلب كلمة مرور ولا بيانات مالية.</p>
+<section class="section request" id="request" aria-labelledby="r-title">
+  <div class="wrap r-grid">
+    <div><h2 id="r-title">اطلب عرضاً مباشراً</h2><p class="lead">نعرض لك النظام على دورة عملك أنت، من الشراء إلى البيع إلى القوائم المالية، مع أثر كل خطوة على السيولة والهامش.</p></div>
+    <form class="form card" id="lead-form" action="/api/interest.php" method="post" novalidate data-endpoint="/api/interest.php" data-lang="ar"
+      data-l-ok="وصلنا طلبك. نتواصل معك على بريدك لتحديد موعد العرض." data-l-fail="تعذّر الإرسال. تحقق من الاتصال وحاول مرة أخرى." data-l-rate="وصلنا عدد كبير من الطلبات من هذا الاتصال. حاول بعد ساعة." data-l-sending="جارٍ الإرسال…" data-l-submit="أرسل الطلب"
+      data-e-name="اكتب اسمك." data-e-email="اكتب بريداً بالشكل name@company.com." data-e-phone="اكتب رقم جوال صحيحاً، مثل 05xxxxxxxx." data-e-company="اكتب اسم المنشأة." data-e-sector="اختر النشاط." data-e-consent="نحتاج موافقتك لنتواصل معك.">
+      <div class="row2">
+        <div class="field"><label for="f-name">الاسم</label><input id="f-name" name="name" autocomplete="name" required aria-describedby="e-name" maxlength="120"><p class="err" id="e-name"></p></div>
+        <div class="field"><label for="f-company">اسم المنشأة</label><input id="f-company" name="company" autocomplete="organization" required aria-describedby="e-company" maxlength="160"><p class="err" id="e-company"></p></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f-email">البريد الإلكتروني للعمل</label><input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" required aria-describedby="e-email" maxlength="254"><p class="err" id="e-email"></p></div>
+        <div class="field"><label for="f-phone">رقم الجوال</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required aria-describedby="e-phone" maxlength="20"><p class="err" id="e-phone"></p></div>
+      </div>
+      <div class="row3">
+        <div class="field"><label for="f-sector">النشاط</label><select id="f-sector" name="sector" required aria-describedby="e-sector"><option value="">اختر النشاط</option><option value="trade">تجارة وجملة</option><option value="distribution">توزيع</option><option value="retail">تجزئة</option><option value="services">خدمات</option><option value="accounting-office">مكتب محاسبة</option><option value="other">أخرى</option></select><p class="err" id="e-sector"></p></div>
+        <div class="field"><label for="f-branches">عدد الفروع</label><select id="f-branches" name="branches"><option value="1">فرع واحد</option><option value="2-5">من 2 إلى 5</option><option value="6+">أكثر من 5</option></select><p class="err" id="e-branches"></p></div>
+        <div class="field"><label for="f-plan">الباقة المهتم بها</label><select id="f-plan" name="plan"><option value="">لم أقرر بعد</option><option value="launch">الأساسية</option><option value="growth">الأعمال</option><option value="scale">المتقدمة</option></select><p class="err" id="e-plan"></p></div>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
+      <div class="field consent"><label><input id="f-consent" name="consent" type="checkbox" required aria-describedby="e-consent"> أوافق على استخدام هذه البيانات للتواصل معي بخصوص طلبي فقط.</label><p class="err" id="e-consent"></p>
+        <details class="privacy"><summary>كيف نستخدم بياناتك</summary><p>نحفظ بيانات الطلب للتواصل معك بخصوصه فقط، ولا نبيعها ولا نشاركها مع جهة تسويق، وتستطيع طلب حذفها بالرد على أي رسالة منا. لا نجمع بيانات من العرض التفاعلي ولا نضع ملفات تتبع إعلانية.</p></details></div>
+      <button class="btn btn-lg" type="submit">أرسل الطلب</button>
+      <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+    </form>
   </div>
-  <form class="lead-form" id="lead-form" action="/api/interest" method="post" novalidate data-endpoint="/api/interest.php">
-    <div class="field">
-      <label for="f-email">البريد الإلكتروني للعمل</label>
-      <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" required dir="ltr" aria-describedby="e-email">
-      <p class="err" id="e-email"></p>
-    </div>
-    <div class="field">
-      <label for="f-sector">القطاع</label>
-      <select id="f-sector" name="sector" required aria-describedby="e-sector">
-        <option value="">اختر القطاع</option>
-        <option value="trade">تجارة وجملة</option>
-        <option value="distribution">توزيع سلع استهلاكية</option>
-        <option value="retail">تجزئة</option>
-        <option value="services">خدمات</option>
-        <option value="accounting-office">مكتب محاسبة</option>
-        <option value="other">أخرى</option>
-      </select>
-      <p class="err" id="e-sector"></p>
-    </div>
-    <div class="field">
-      <label for="f-need">أهم ما تحتاجه (اختياري)</label>
-      <select id="f-need" name="need">
-        <option value="">بدون تحديد</option>
-        <option value="close">جاهزية الإقفال</option>
-        <option value="migration">الانتقال من نظام سابق</option>
-        <option value="distribution">التوزيع الميداني</option>
-        <option value="einvoice">الفوترة الإلكترونية</option>
-        <option value="ai">ميزات الذكاء الاصطناعي</option>
-      </select>
-    </div>
-    <div class="hp" aria-hidden="true"><label for="f-company">اترك هذا الحقل فارغاً</label><input id="f-company" name="company" tabindex="-1" autocomplete="off"></div>
-    <div class="field consent">
-      <label><input id="f-consent" name="consent" type="checkbox" required aria-describedby="e-consent"> أوافق على استخدام بريدي للتواصل معي بخصوص إطلاق تامنكس فقط.</label>
-      <p class="err" id="e-consent"></p>
-      <details class="privacy">
-        <summary>كيف نستخدم بياناتك</summary>
-        <p>نحفظ البريد والقطاع والحاجة لإبلاغك بالإطلاق فقط، ولا نبيعها ولا نشاركها مع جهة تسويق. تستطيع طلب حذفها بالرد على أي رسالة منا. لا نجمع بيانات العرض التفاعلي، ولا نضع ملفات تتبع إعلانية.</p>
-      </details>
-    </div>
-    <button class="btn btn-lg" type="submit">سجّل اهتمامي</button>
-    <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
-  </form>
 </section>
-
 </main>
-
-<footer class="foot">
-  <img class="foot-mark" src="/brand/tamnex-wordmark-ar.svg" alt="تامنكس" width="221" height="72" loading="lazy">
-  <nav class="foot-nav" aria-label="روابط التذييل">
-    <a href="#demo">العرض التفاعلي</a>
-    <a href="#ai">الذكاء الاصطناعي</a>
-    <a href="#operations">دورة العمل</a>
-    <a href="#trust">ما نعد به</a>
-    <a href="#faq">الأسئلة</a>
-    <a href="#interest">سجّل اهتمامك</a>
+<footer class="foot"><div class="wrap foot-in">
+  <div><img src="/brand/tamnex-wordmark-ar.svg" alt="تامنكس" width="148" height="48" loading="lazy"><p>نظام ERP ذكي للمنشآت السعودية.</p></div>
+  <nav aria-label="روابط الموقع" class="foot-nav">
+    <a href="/#product">المنتج</a><a href="/#features">المزايا</a><a href="/pricing/">الأسعار</a><a href="/#faq">الأسئلة</a><a href="/#request">اطلب عرضاً مباشراً</a>
   </nav>
-  <p class="foot-legal"><span dir="ltr">Tamnex by Evexa</span> · © 2026 Evexa AI Systems</p>
-</footer>
+  <p class="legal"><span dir="ltr">Tamnex by Evexa</span> · © 2026 Evexa AI Systems</p>
+</div></footer>
 </body>
 </html>

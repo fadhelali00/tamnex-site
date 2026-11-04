@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tamnex.com/contracts/pricing-catalog.v1.schema.json",
+  "title": "Tamnex public pricing catalog, v1",
+  "description": "Public, read-only projection of the SA-11 commercial catalog: list prices, cycles, currency, tax policy, published features and limits, version ids. Never private discounts, contracts, customer data or staff identity. Owner of the contract: TRACK-SUPERADMIN (SA-11). This is the consumer's pinned copy.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schemaVersion", "catalogVersion", "effectiveFrom", "source", "market", "currency", "tax", "cycles", "defaultCycle", "features", "plans"],
+  "$defs": {
+    "money": { "type": "string", "pattern": "^(0|[1-9][0-9]{0,8})\\.[0-9]{2}$" },
+    "i18n": { "type": "object", "additionalProperties": false, "required": ["ar", "en"], "properties": { "ar": { "type": "string", "minLength": 1 }, "en": { "type": "string", "minLength": 1 } } },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]{1,40}$" },
+    "value": {
+      "type": "object", "additionalProperties": false, "required": ["kind"],
+      "properties": {
+        "kind": { "enum": ["included", "not_included", "unlimited", "count", "upto", "contract"] },
+        "value": { "type": "integer", "minimum": 0 },
+        "addon": { "type": "boolean" }
+      },
+      "allOf": [{ "if": { "properties": { "kind": { "enum": ["count", "upto"] } } }, "then": { "required": ["value"] } }]
+    }
+  },
+  "properties": {
+    "schema": { "const": "pricing-catalog" },
+    "schemaVersion": { "const": 1 },
+    "catalogVersion": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.[0-9]+$" },
+    "effectiveFrom": { "type": "string", "format": "date" },
+    "source": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "dynamicLink"],
+      "properties": { "kind": { "enum": ["approved-display-copy", "sa11-published"] }, "dynamicLink": { "type": "boolean" }, "approvedBy": { "type": "string" }, "ref": { "type": "string" } }
+    },
+    "market": { "const": "SA" },
+    "currency": { "const": "SAR" },
+    "tax": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "ratePercent", "pricesIncludeTax"],
+      "properties": { "kind": { "const": "VAT" }, "ratePercent": { "type": "integer", "minimum": 0, "maximum": 100 }, "pricesIncludeTax": { "type": "boolean" } }
+    },
+    "cycles": { "type": "array", "items": { "enum": ["monthly", "annual"] }, "minItems": 1, "uniqueItems": true },
+    "defaultCycle": { "enum": ["monthly", "annual"] },
+    "features": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "group", "availability", "name"],
+        "properties": { "id": { "$ref": "#/$defs/id" }, "group": { "enum": ["core", "limits", "advanced", "ai", "enterprise"] }, "availability": { "enum": ["launch", "after_launch"] }, "name": { "$ref": "#/$defs/i18n" } }
+      }
+    },
+    "plans": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "order", "public", "highlight", "name", "audience", "pricing", "values", "highlights"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "order": { "type": "integer", "minimum": 1 },
+          "public": { "type": "boolean" },
+          "highlight": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/i18n" }] },
+          "name": { "$ref": "#/$defs/i18n" },
+          "audience": { "$ref": "#/$defs/i18n" },
+          "pricing": {
+            "oneOf": [
+              { "type": "object", "additionalProperties": false, "required": ["kind"], "properties": { "kind": { "const": "on_request" } } },
+              {
+                "type": "object", "additionalProperties": false, "required": ["kind", "monthly", "annual"],
+                "properties": {
+                  "kind": { "const": "listed" },
+                  "monthly": { "type": "object", "additionalProperties": false, "required": ["amount"], "properties": { "amount": { "$ref": "#/$defs/money" } } },
+                  "annual": { "type": "object", "additionalProperties": false, "required": ["amount", "monthlyEquivalent", "billedUpfront"], "properties": { "amount": { "$ref": "#/$defs/money" }, "monthlyEquivalent": { "$ref": "#/$defs/money" }, "billedUpfront": { "type": "boolean" } } }
+                }
+              }
+            ]
+          },
+          "values": { "type": "object", "additionalProperties": { "$ref": "#/$defs/value" } },
+          "highlights": { "type": "array", "items": { "$ref": "#/$defs/id" }, "maxItems": 6 }
+        }
+      }
+    }
+  }
+}

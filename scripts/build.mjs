@@ -8,10 +8,11 @@
  * plus site/data/pricing-catalog.json (a derived copy for the browser). No price literal lives here.
  */
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
-import { loadCatalog, publicPlans, priceFor, money, valueLabel } from './catalog.mjs';
+import { assertValidV1, loadCatalog, loadV1, publicPlans, priceFor, money, valueLabel } from './catalog.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const SITE = 'https://tamnex.com';
+await assertValidV1(loadV1()); // Fail Loudly: never render a catalog that breaks the pinned SA-11 v1 contract
 const catalog = loadCatalog();
 /** @type {Record<'ar'|'en', Record<string, any>>} */
 const T = {

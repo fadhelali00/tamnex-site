@@ -1,5 +1,5 @@
 # Tamnex marketing site (Apache / LiteSpeed, e.g. Hostinger). Public: the stealth teaser (/, /en/) and its
-# waitlist endpoint; the full site is under /preview/. Nothing here touches admin.tamnex.com, tenant subdomains or the ERP.
+# waitlist endpoint; the full site is under /preview/. Nothing here touches the ERP, its admin surface or tenant subdomains.
 Options -Indexes
 DirectoryIndex index.html
 ErrorDocument 404 /404.html

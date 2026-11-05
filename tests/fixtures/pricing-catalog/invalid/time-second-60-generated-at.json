@@ -1,0 +1,341 @@
+{
+  "schema": "pricing-catalog",
+  "schema_version": 1,
+  "catalog_revision": 3,
+  "generated_at": "2026-11-04T23:59:60Z",
+  "currency": "SAR",
+  "tax": {
+    "prices_exclude_vat": true,
+    "vat_percent": "15.00",
+    "jurisdiction": "SA"
+  },
+  "plans": [
+    {
+      "plan_id": "core",
+      "plan_version_id": "11111111-1111-4111-8111-111111111111",
+      "version_no": 1,
+      "published_at": "2026-11-04T09:30:00.000Z",
+      "display_order": 0,
+      "name": {
+        "ar": "الأساسية",
+        "en": "Core"
+      },
+      "pricing": {
+        "cycles": {
+          "monthly": {
+            "amount": "120.00",
+            "amount_incl_vat": "138.00"
+          },
+          "annual": {
+            "amount_per_month": "95.00",
+            "amount_total": "1140.00",
+            "amount_total_incl_vat": "1311.00",
+            "billed": "upfront"
+          }
+        }
+      },
+      "features": [
+        {
+          "code": "sales",
+          "label": {
+            "ar": "المبيعات",
+            "en": "Sales"
+          },
+          "order": 0,
+          "state": "included",
+          "availability": "available"
+        },
+        {
+          "code": "inventory",
+          "label": {
+            "ar": "المخزون",
+            "en": "Inventory"
+          },
+          "order": 1,
+          "state": "included",
+          "availability": "available"
+        },
+        {
+          "code": "purchases",
+          "label": {
+            "ar": "المشتريات",
+            "en": "Purchases"
+          },
+          "order": 2,
+          "state": "not_included",
+          "availability": "available"
+        },
+        {
+          "code": "pos",
+          "label": {
+            "ar": "نقاط البيع",
+            "en": "Point of sale"
+          },
+          "order": 3,
+          "state": "not_included",
+          "availability": "available"
+        },
+        {
+          "code": "field_distribution",
+          "label": {
+            "ar": "التوزيع الميداني",
+            "en": "Field distribution"
+          },
+          "order": 4,
+          "state": "not_included",
+          "availability": "coming_soon"
+        }
+      ],
+      "limits": [
+        {
+          "code": "users",
+          "unit": {
+            "ar": "مستخدم",
+            "en": "user"
+          },
+          "unlimited": false,
+          "value": 5,
+          "extra_paid": true
+        },
+        {
+          "code": "branches",
+          "unit": {
+            "ar": "فرع",
+            "en": "branch"
+          },
+          "unlimited": false,
+          "value": 1,
+          "extra_paid": true
+        },
+        {
+          "code": "storage_gb",
+          "unit": {
+            "ar": "غيغابايت",
+            "en": "GB"
+          },
+          "unlimited": false,
+          "value": 10,
+          "extra_paid": false
+        }
+      ]
+    },
+    {
+      "plan_id": "business",
+      "plan_version_id": "22222222-2222-4222-8222-222222222222",
+      "version_no": 1,
+      "published_at": "2026-11-04T09:30:00.000Z",
+      "display_order": 1,
+      "name": {
+        "ar": "الأعمال",
+        "en": "Business"
+      },
+      "pricing": {
+        "cycles": {
+          "monthly": {
+            "amount": "220.00",
+            "amount_incl_vat": "253.00"
+          },
+          "annual": {
+            "amount_per_month": "155.00",
+            "amount_total": "1860.00",
+            "amount_total_incl_vat": "2139.00",
+            "billed": "upfront"
+          }
+        }
+      },
+      "features": [
+        {
+          "code": "sales",
+          "label": {
+            "ar": "المبيعات",
+            "en": "Sales"
+          },
+          "order": 0,
+          "state": "included",
+          "availability": "available"
+        },
+        {
+          "code": "inventory",
+          "label": {
+            "ar": "المخزون",
+            "en": "Inventory"
+          },
+          "order": 1,
+          "state": "included",
+          "availability": "available"
+        },
+        {
+          "code": "purchases",
+          "label": {
+            "ar": "المشتريات",
+            "en": "Purchases"
+          },
+          "order": 2,
+          "state": "included",
+          "availability": "available"
+        },
+        {
+          "code": "pos",
+          "label": {
+            "ar": "نقاط البيع",
+            "en": "Point of sale"
+          },
+          "order": 3,
+          "state": "included",
+          "availability": "available"
+        },
+        {
+          "code": "field_distribution",
+          "label": {
+            "ar": "التوزيع الميداني",
+            "en": "Field distribution"
+          },
+          "order": 4,
+          "state": "not_included",
+          "availability": "coming_soon"
+        }
+      ],
+      "limits": [
+        {
+          "code": "users",
+          "unit": {
+            "ar": "مستخدم",
+            "en": "user"
+          },
+          "unlimited": false,
+          "value": 15,
+          "extra_paid": true
+        },
+        {
+          "code": "branches",
+          "unit": {
+            "ar": "فرع",
+            "en": "branch"
+          },
+          "unlimited": false,
+          "value": 5,
+          "extra_paid": true
+        },
+        {
+          "code": "storage_gb",
+          "unit": {
+            "ar": "غيغابايت",
+            "en": "GB"
+          },
+          "unlimited": false,
+          "value": 50,
+          "extra_paid": false
+        }
+      ]
+    },
+    {
+      "plan_id": "advanced",
+      "plan_version_id": "33333333-3333-4333-8333-333333333333",
+      "version_no": 1,
+      "published_at": "2026-11-04T09:30:00.000Z",
+      "display_order": 2,
+      "name": {
+        "ar": "المتقدمة",
+        "en": "Advanced"
+      },
+      "pricing": {
+        "cycles": {
+          "monthly": {
+            "amount": "320.00",
+            "amount_incl_vat": "368.00"
+          },
+          "annual": {
+            "amount_per_month": "225.00",
+            "amount_total": "2700.00",
+            "amount_total_incl_vat": "3105.00",
+            "billed": "upfront"
+          }
+        }
+      },
+      "features": [
+        {
+          "code": "sales",
+          "label": {
+            "ar": "المبيعات",
+            "en": "Sales"
+          },
+          "order": 0,
+          "state": "included",
+          "availability": "available"
+        },
+        {
+          "code": "inventory",
+          "label": {
+            "ar": "المخزون",
+            "en": "Inventory"
+          },
+          "order": 1,
+          "state": "included",
+          "availability": "available"
+        },
+        {
+          "code": "purchases",
+          "label": {
+            "ar": "المشتريات",
+            "en": "Purchases"
+          },
+          "order": 2,
+          "state": "included",
+          "availability": "available"
+        },
+        {
+          "code": "pos",
+          "label": {
+            "ar": "نقاط البيع",
+            "en": "Point of sale"
+          },
+          "order": 3,
+          "state": "included",
+          "availability": "available"
+        },
+        {
+          "code": "field_distribution",
+          "label": {
+            "ar": "التوزيع الميداني",
+            "en": "Field distribution"
+          },
+          "order": 4,
+          "state": "included",
+          "availability": "coming_soon"
+        }
+      ],
+      "limits": [
+        {
+          "code": "users",
+          "unit": {
+            "ar": "مستخدم",
+            "en": "user"
+          },
+          "unlimited": true,
+          "value": null,
+          "extra_paid": false
+        },
+        {
+          "code": "branches",
+          "unit": {
+            "ar": "فرع",
+            "en": "branch"
+          },
+          "unlimited": false,
+          "value": 20,
+          "extra_paid": true
+        },
+        {
+          "code": "storage_gb",
+          "unit": {
+            "ar": "غيغابايت",
+            "en": "GB"
+          },
+          "unlimited": false,
+          "value": 200,
+          "extra_paid": false
+        }
+      ]
+    }
+  ]
+}

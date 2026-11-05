@@ -25,7 +25,7 @@ after(() => srv.kill());
 const post = (path, body, origin = ORIGIN, type = 'application/json') =>
   fetch(ORIGIN + path, { method: 'POST', redirect: 'manual', headers: { Origin: origin, 'Content-Type': type }, body: type === 'application/json' ? JSON.stringify(body) : body });
 
-const good = (o = {}) => ({ lang: 'ar', company: 'شركة الاختبار', sector: 'distribution', size: '11-50', branches: '2-5', cr: '1010123456', subdomain: 'test-co', first: 'فاضل', last: 'علي', job: 'cfo', email: 'cfo@example.com', phone: '+966551234567', password: 'Secure-pass-2026', vatreg: 'yes', vat: '310123456700003', fy: '1', plan: 'growth', terms: true, marketing: false, website: '', ...o });
+const good = (o = {}) => ({ lang: 'ar', company: 'شركة الاختبار', sector: 'distribution', size: '11-50', branches: '2-5', cr: '1010123456', subdomain: 'test-co', first: 'فاضل', last: 'علي', job: 'cfo', email: 'cfo@example.com', phone: '+966551234567', password: 'Secure-pass-2026', vatreg: 'yes', vat: '310123456700003', fy: '1', plan: 'business', terms: true, marketing: false, website: '', ...o });
 
 test('valid pre-registration returns a reference and is stored outside the web root', async () => {
   const r = await post('/api/preregister.php', good());
@@ -95,7 +95,7 @@ test('rate limit: the 6th registration in an hour is refused', async () => {
 });
 
 test('quote request endpoint accepts a valid request', async () => {
-  const r = await post('/api/interest.php', { name: 'n', company: 'c', email: 'q@example.com', phone: '0551234567', sector: 'trade', branches: '1', plan: 'scale', lang: 'en', consent: true, website: '' });
+  const r = await post('/api/interest.php', { name: 'n', company: 'c', email: 'q@example.com', phone: '0551234567', sector: 'trade', branches: '1', plan: 'advanced', lang: 'en', consent: true, website: '' });
   assert.equal(r.status, 200);
 });
 

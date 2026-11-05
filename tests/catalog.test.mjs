@@ -41,6 +41,35 @@ test('the page catalog validates against the pinned v1 schema (Ajv 2020, strict,
   await assert.rejects(() => assertValidV1(broken), /does not satisfy/);
 });
 
+test('RED (D98): the upstream valid example goes through the real read layer, whatever codes it carries', () => {
+  const ex = root + 'tests/fixtures/pricing-catalog/v1.example.json';
+  const up = JSON.parse(readFileSync(ex, 'utf8'));
+  const cat = loadCatalog({ catalogPath: ex }); // must not throw: the page owns its presentation, the catalog owns what exists
+  assert.deepEqual(publicPlans(cat).map(p => p.id), up.plans.map(p => p.plan_id));
+  // every catalog feature and limit becomes a row, in a visible group; nothing from the page's own list is invented for it
+  const codes = [...up.plans[0].features.map(f => f.code), ...up.plans[0].limits.map(l => l.code)];
+  assert.deepEqual(cat.features.map(f => f.id).sort(), codes.sort());
+  for (const f of cat.features) assert.ok(f.group && f.name.ar && f.name.en, `row ${f.id} lacks a group or a name`);
+  assert.ok(cat.features.every(f => f.group === 'more' || ['core', 'limits', 'advanced', 'ai'].includes(f.group)));
+  // the example's labels are the catalog's own (never replaced by the page's wording for another feature)
+  assert.equal(cat.features.find(f => f.id === 'field_distribution').name.ar, 'التوزيع الميداني');
+  assert.equal(cat.features.find(f => f.id === 'field_distribution').availability, 'after_launch');
+  // prices are the example's own amounts, read as given
+  for (const p of up.plans) {
+    const got = priceFor(cat, cat.plans.find(x => x.id === p.plan_id), 'annual');
+    assert.equal(got.charged, toHalalas(p.pricing.cycles.annual.amount_total));
+    assert.equal(got.chargedTotal, toHalalas(p.pricing.cycles.annual.amount_total_incl_vat));
+  }
+  // a plan the page has no presentation for still renders, without badge or bullets
+  const plain = cat.plans.filter(p => !loadCatalog().plans.some(x => x.id === p.id));
+  for (const p of plain) assert.deepEqual([p.highlight, p.highlights], [null, []]);
+});
+
+test('GOLDEN: the current page catalog joins to exactly what it did before the read layer became tolerant', () => {
+  const golden = JSON.parse(readFileSync(root + 'tests/fixtures/pricing-catalog/page-join.golden.json', 'utf8'));
+  assert.deepEqual(loadCatalog(), golden);
+});
+
 test('contract invariants the schema cannot express: ids, same feature list in every plan, VAT, annual = 12 x monthly', () => {
   assert.deepEqual(v1.plans.map(p => p.plan_id), ['core', 'business', 'advanced']);
   assert.equal(new Set(v1.plans.map(p => p.plan_id)).size, v1.plans.length);

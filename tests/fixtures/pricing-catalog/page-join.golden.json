@@ -1,0 +1,380 @@
+{
+  "schema": "pricing-catalog",
+  "schemaVersion": 1,
+  "catalogVersion": "2026-11-04.2",
+  "effectiveFrom": "2026-11-04",
+  "source": {
+    "kind": "approved-display-copy",
+    "dynamicLink": false
+  },
+  "currency": "SAR",
+  "tax": {
+    "kind": "VAT",
+    "ratePercent": 15,
+    "pricesIncludeTax": false
+  },
+  "cycles": [
+    "monthly",
+    "annual"
+  ],
+  "defaultCycle": "annual",
+  "features": [
+    {
+      "id": "accounting_ifrs18",
+      "group": "core",
+      "name": {
+        "ar": "المحاسبة والقوائم المالية بفئات IFRS 18",
+        "en": "Accounting and IFRS 18 financial statements"
+      },
+      "availability": "launch"
+    },
+    {
+      "id": "sales_einvoice_p1",
+      "group": "core",
+      "name": {
+        "ar": "المبيعات والفوترة الإلكترونية (المرحلة الأولى)",
+        "en": "Sales and e-invoicing (phase 1)"
+      },
+      "availability": "launch"
+    },
+    {
+      "id": "einvoice_p2",
+      "group": "core",
+      "name": {
+        "ar": "الربط مع منصة فاتورة (المرحلة الثانية)، يُفعَّل قبل موعد موجة منشأتك",
+        "en": "Fatoora integration (phase 2), activated before your company's wave date"
+      },
+      "availability": "launch"
+    },
+    {
+      "id": "purchases_inventory",
+      "group": "core",
+      "name": {
+        "ar": "المشتريات والمخزون والخزينة",
+        "en": "Purchasing, inventory and treasury"
+      },
+      "availability": "launch"
+    },
+    {
+      "id": "invoices",
+      "group": "limits",
+      "name": {
+        "ar": "الفواتير شهرياً",
+        "en": "Invoices per month"
+      },
+      "availability": "launch"
+    },
+    {
+      "id": "warehouses",
+      "group": "limits",
+      "name": {
+        "ar": "المستودعات",
+        "en": "Warehouses"
+      },
+      "availability": "launch"
+    },
+    {
+      "id": "cash_bank",
+      "group": "limits",
+      "name": {
+        "ar": "الخزائن والحسابات البنكية",
+        "en": "Cash boxes and bank accounts"
+      },
+      "availability": "launch"
+    },
+    {
+      "id": "customers",
+      "group": "limits",
+      "name": {
+        "ar": "العملاء",
+        "en": "Customers"
+      },
+      "availability": "launch"
+    },
+    {
+      "id": "users",
+      "group": "limits",
+      "name": {
+        "ar": "المستخدمون المضمّنون",
+        "en": "Included users"
+      },
+      "availability": "launch"
+    },
+    {
+      "id": "cost_centers_price_lists",
+      "group": "advanced",
+      "name": {
+        "ar": "مراكز التكلفة وقوائم الأسعار",
+        "en": "Cost centres and price lists"
+      },
+      "availability": "after_launch"
+    },
+    {
+      "id": "api",
+      "group": "advanced",
+      "name": {
+        "ar": "الربط عبر API",
+        "en": "API access"
+      },
+      "availability": "after_launch"
+    },
+    {
+      "id": "orders",
+      "group": "advanced",
+      "name": {
+        "ar": "أوامر البيع والشراء",
+        "en": "Sales and purchase orders"
+      },
+      "availability": "after_launch"
+    },
+    {
+      "id": "ai_assistant",
+      "group": "ai",
+      "name": {
+        "ar": "ميزات الذكاء الاصطناعي (مسودات، والاعتماد لك)",
+        "en": "AI features (drafts; you approve)"
+      },
+      "availability": "after_launch"
+    }
+  ],
+  "plans": [
+    {
+      "id": "core",
+      "order": 1,
+      "public": true,
+      "highlight": null,
+      "name": {
+        "ar": "الأساسية",
+        "en": "Core"
+      },
+      "audience": {
+        "ar": "لمنشأة بمستودع واحد تريد أرقامها المالية لحظة بلحظة",
+        "en": "For a single-warehouse business that wants its numbers in real time"
+      },
+      "pricing": {
+        "kind": "listed",
+        "monthly": {
+          "amount": "120.00",
+          "total": "138.00"
+        },
+        "annual": {
+          "amount": "1140.00",
+          "monthlyEquivalent": "95.00",
+          "total": "1311.00",
+          "billedUpfront": true
+        }
+      },
+      "values": {
+        "accounting_ifrs18": {
+          "kind": "included"
+        },
+        "sales_einvoice_p1": {
+          "kind": "included"
+        },
+        "einvoice_p2": {
+          "kind": "included"
+        },
+        "purchases_inventory": {
+          "kind": "included"
+        },
+        "cost_centers_price_lists": {
+          "kind": "not_included"
+        },
+        "api": {
+          "kind": "not_included"
+        },
+        "orders": {
+          "kind": "not_included"
+        },
+        "ai_assistant": {
+          "kind": "included"
+        },
+        "invoices": {
+          "kind": "unlimited"
+        },
+        "warehouses": {
+          "kind": "count",
+          "value": 1
+        },
+        "cash_bank": {
+          "kind": "count",
+          "value": 2
+        },
+        "customers": {
+          "kind": "upto",
+          "value": 100
+        },
+        "users": {
+          "kind": "count",
+          "value": 1,
+          "addon": true
+        }
+      },
+      "highlights": [
+        "accounting_ifrs18",
+        "sales_einvoice_p1",
+        "invoices",
+        "warehouses"
+      ]
+    },
+    {
+      "id": "business",
+      "order": 2,
+      "public": true,
+      "highlight": {
+        "ar": "مناسبة لعدة مستودعات",
+        "en": "Built for several warehouses"
+      },
+      "name": {
+        "ar": "الأعمال",
+        "en": "Business"
+      },
+      "audience": {
+        "ar": "لمنشأة بعدة مستودعات تحتاج تحليلاً أدق",
+        "en": "For a multi-warehouse business that needs sharper analysis"
+      },
+      "pricing": {
+        "kind": "listed",
+        "monthly": {
+          "amount": "220.00",
+          "total": "253.00"
+        },
+        "annual": {
+          "amount": "1860.00",
+          "monthlyEquivalent": "155.00",
+          "total": "2139.00",
+          "billedUpfront": true
+        }
+      },
+      "values": {
+        "accounting_ifrs18": {
+          "kind": "included"
+        },
+        "sales_einvoice_p1": {
+          "kind": "included"
+        },
+        "einvoice_p2": {
+          "kind": "included"
+        },
+        "purchases_inventory": {
+          "kind": "included"
+        },
+        "cost_centers_price_lists": {
+          "kind": "included"
+        },
+        "api": {
+          "kind": "included"
+        },
+        "orders": {
+          "kind": "not_included"
+        },
+        "ai_assistant": {
+          "kind": "included"
+        },
+        "invoices": {
+          "kind": "unlimited"
+        },
+        "warehouses": {
+          "kind": "count",
+          "value": 3
+        },
+        "cash_bank": {
+          "kind": "count",
+          "value": 5
+        },
+        "customers": {
+          "kind": "upto",
+          "value": 300
+        },
+        "users": {
+          "kind": "count",
+          "value": 1,
+          "addon": true
+        }
+      },
+      "highlights": [
+        "warehouses",
+        "cash_bank",
+        "cost_centers_price_lists",
+        "api"
+      ]
+    },
+    {
+      "id": "advanced",
+      "order": 3,
+      "public": true,
+      "highlight": null,
+      "name": {
+        "ar": "المتقدمة",
+        "en": "Advanced"
+      },
+      "audience": {
+        "ar": "لمنشأة تدير دورة كاملة من الطلب إلى التحصيل",
+        "en": "For a business running the full order-to-cash cycle"
+      },
+      "pricing": {
+        "kind": "listed",
+        "monthly": {
+          "amount": "320.00",
+          "total": "368.00"
+        },
+        "annual": {
+          "amount": "2700.00",
+          "monthlyEquivalent": "225.00",
+          "total": "3105.00",
+          "billedUpfront": true
+        }
+      },
+      "values": {
+        "accounting_ifrs18": {
+          "kind": "included"
+        },
+        "sales_einvoice_p1": {
+          "kind": "included"
+        },
+        "einvoice_p2": {
+          "kind": "included"
+        },
+        "purchases_inventory": {
+          "kind": "included"
+        },
+        "cost_centers_price_lists": {
+          "kind": "included"
+        },
+        "api": {
+          "kind": "included"
+        },
+        "orders": {
+          "kind": "included"
+        },
+        "ai_assistant": {
+          "kind": "included"
+        },
+        "invoices": {
+          "kind": "unlimited"
+        },
+        "warehouses": {
+          "kind": "count",
+          "value": 5
+        },
+        "cash_bank": {
+          "kind": "unlimited"
+        },
+        "customers": {
+          "kind": "unlimited"
+        },
+        "users": {
+          "kind": "count",
+          "value": 1,
+          "addon": true
+        }
+      },
+      "highlights": [
+        "warehouses",
+        "cash_bank",
+        "customers",
+        "orders"
+      ]
+    }
+  ]
+}

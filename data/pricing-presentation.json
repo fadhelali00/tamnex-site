@@ -1,5 +1,5 @@
 {
-  "_note": "Page-owned presentation, keyed by plan_id and feature/limit code. Nothing here is part of the SA-11 public catalog (a key of it inside the catalog is rejected by additionalProperties:false).",
+  "_note": "Page-owned presentation, keyed by plan_id and feature/limit code. Nothing here is part of the SA-11 public catalog (a key of it inside the catalog is rejected by additionalProperties:false). Feature labels come from the catalog; `name` here is only the page wording for a limit row.",
   "source": {
     "kind": "approved-display-copy",
     "dynamicLink": false,
@@ -17,37 +17,21 @@
     {
       "code": "accounting_ifrs18",
       "group": "core",
-      "name": {
-        "ar": "المحاسبة والقوائم المالية بفئات IFRS 18",
-        "en": "Accounting and IFRS 18 financial statements"
-      },
       "kind": "feature"
     },
     {
       "code": "sales_einvoice_p1",
       "group": "core",
-      "name": {
-        "ar": "المبيعات والفوترة الإلكترونية (المرحلة الأولى)",
-        "en": "Sales and e-invoicing (phase 1)"
-      },
       "kind": "feature"
     },
     {
       "code": "einvoice_p2",
       "group": "core",
-      "name": {
-        "ar": "الربط مع منصة فاتورة (المرحلة الثانية)، يُفعَّل قبل موعد موجة منشأتك",
-        "en": "Fatoora integration (phase 2), activated before your company's wave date"
-      },
       "kind": "feature"
     },
     {
       "code": "purchases_inventory",
       "group": "core",
-      "name": {
-        "ar": "المشتريات والمخزون والخزينة",
-        "en": "Purchasing, inventory and treasury"
-      },
       "kind": "feature"
     },
     {
@@ -98,37 +82,21 @@
     {
       "code": "cost_centers_price_lists",
       "group": "advanced",
-      "name": {
-        "ar": "مراكز التكلفة وقوائم الأسعار",
-        "en": "Cost centres and price lists"
-      },
       "kind": "feature"
     },
     {
       "code": "api",
       "group": "advanced",
-      "name": {
-        "ar": "الربط عبر API",
-        "en": "API access"
-      },
       "kind": "feature"
     },
     {
       "code": "orders",
       "group": "advanced",
-      "name": {
-        "ar": "أوامر البيع والشراء",
-        "en": "Sales and purchase orders"
-      },
       "kind": "feature"
     },
     {
       "code": "ai_assistant",
       "group": "ai",
-      "name": {
-        "ar": "ميزات الذكاء الاصطناعي (مسودات، والاعتماد لك)",
-        "en": "AI features (drafts; you approve)"
-      },
       "kind": "feature"
     }
   ],

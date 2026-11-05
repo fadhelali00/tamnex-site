@@ -41,24 +41,38 @@ export function toHalalas(s) {
 /** Half away from zero on non-negative integers. Used by the contract test only: the page reads the source's VAT-inclusive amounts. @param {number} h @param {number} pct */
 export function vatOf(h, pct) { return Math.floor((h * pct + 50) / 100); }
 
+/** Comparison groups the page knows; any catalog row the page has no presentation for lands in `more` (shown honestly, never dropped). */
+export const GROUPS = ['core', 'limits', 'advanced', 'ai', 'more'];
+
 /**
  * Join the v1 projection with the page-owned presentation.
+ * The catalog owns WHAT EXISTS (features, limits, plans, labels, availability, prices). The page owns only HOW IT IS GROUPED AND PHRASED,
+ * keyed by code: a presentation entry for a code the catalog does not carry is ignored, and a catalog row the presentation does not know
+ * is shown in the `more` group under the catalog's own label. So any valid v1 document renders, whatever codes it carries.
  * @param {any} v1 @param {any} pres @returns {Catalog}
  */
 export function joinCatalog(v1, pres) {
-  const rows = /** @type {{code:string, group:string, name:{ar:string,en:string}, kind:'feature'|'limit'}[]} */ (pres.rows);
-  const featureByCode = new Map(v1.plans[0].features.map((/** @type {any} */ f) => [f.code, f]));
+  const first = v1.plans[0];
+  const presRows = /** @type {{code:string, group:string, name?:{ar:string,en:string}, kind:'feature'|'limit'}[]} */ (pres.rows ?? []);
+  const presByCode = new Map(presRows.map(r => [r.code, r]));
+  const catFeatures = new Map((first?.features ?? []).map((/** @type {any} */ f) => [f.code, f]));
+  const catLimits = new Map((first?.limits ?? []).map((/** @type {any} */ l) => [l.code, l]));
+  /** @param {string} code @returns {Feature|null} */
+  const rowFor = code => {
+    const pr = presByCode.get(code);
+    const f = catFeatures.get(code), l = catLimits.get(code);
+    if (f) return { id: code, group: pr?.group ?? 'more', name: f.label, availability: f.availability === 'coming_soon' ? 'after_launch' : 'launch' };
+    if (l) return { id: code, group: pr?.group ?? 'more', name: pr?.name ?? l.unit, availability: 'launch' };
+    return null;
+  };
+  // the page's own order first (only codes the catalog carries), then every other catalog row in the catalog's order
+  const ordered = [...presRows.map(r => r.code), ...catFeatures.keys(), ...catLimits.keys()];
   /** @type {Feature[]} */
-  const features = rows.map(r => {
-    if (r.kind === 'limit') return { id: r.code, group: r.group, name: r.name, availability: /** @type {const} */ ('launch') };
-    const f = /** @type {any} */ (featureByCode.get(r.code));
-    if (!f) throw new Error(`presentation row ${r.code} has no feature in the catalog`);
-    return { id: r.code, group: r.group, name: r.name, availability: /** @type {'launch'|'after_launch'} */ (f.availability === 'coming_soon' ? 'after_launch' : 'launch') };
-  });
-  // a feature row follows the catalog's availability («coming_soon» shows as «after launch»); limits are available at launch
+  const features = [];
+  for (const code of new Set(ordered)) { const r = rowFor(code); if (r) features.push(r); }
+  const known = new Set(features.map(f => f.id));
   const plans = /** @type {Plan[]} */ (v1.plans.map((/** @type {any} */ p) => {
-    const pp = pres.plans[p.plan_id];
-    if (!pp) throw new Error(`no presentation for plan ${p.plan_id}`);
+    const pp = pres.plans?.[p.plan_id] ?? { highlight: null, audience: { ar: '', en: '' }, highlights: [] };
     /** @type {Plan['values']} */
     const values = {};
     for (const f of p.features) values[f.code] = { kind: f.state === 'included' ? 'included' : 'not_included' };
@@ -67,21 +81,22 @@ export function joinCatalog(v1, pres) {
         : pres.limitStyle?.[l.code] === 'upto' ? { kind: 'upto', value: l.value }
         : { kind: 'count', value: l.value, ...(l.extra_paid ? { addon: true } : {}) };
     }
+    for (const f of features) values[f.id] ??= { kind: 'not_included' }; // a row this plan does not list is never shown as included
     const c = p.pricing.cycles;
     return {
-      id: p.plan_id, order: p.display_order + 1, public: true, highlight: pp.highlight, name: p.name, audience: pp.audience,
+      id: p.plan_id, order: p.display_order + 1, public: true, highlight: pp.highlight ?? null, name: p.name, audience: pp.audience ?? { ar: '', en: '' },
       pricing: { kind: 'listed', monthly: { amount: c.monthly.amount, total: c.monthly.amount_incl_vat },
         annual: { amount: c.annual.amount_total, monthlyEquivalent: c.annual.amount_per_month, total: c.annual.amount_total_incl_vat, billedUpfront: c.annual.billed === 'upfront' } },
-      values, highlights: pp.highlights,
+      values, highlights: (pp.highlights ?? []).filter((/** @type {string} */ h) => known.has(h)),
     };
   }));
   return {
     schema: v1.schema, schemaVersion: v1.schema_version,
     // shown to the visitor as the price version: date of the revision + its number (the source's revision is the integer)
     catalogVersion: `${v1.generated_at.slice(0, 10)}.${v1.catalog_revision}`, effectiveFrom: v1.generated_at.slice(0, 10),
-    source: { kind: pres.source.kind, dynamicLink: pres.source.dynamicLink }, currency: v1.currency,
+    source: { kind: pres.source?.kind ?? 'public-catalog', dynamicLink: pres.source?.dynamicLink ?? false }, currency: v1.currency,
     tax: { kind: 'VAT', ratePercent: Number(v1.tax.vat_percent), pricesIncludeTax: !v1.tax.prices_exclude_vat },
-    cycles: ['monthly', 'annual'], defaultCycle: pres.defaultCycle, features, plans,
+    cycles: ['monthly', 'annual'], defaultCycle: pres.defaultCycle ?? 'annual', features, plans,
   };
 }
 

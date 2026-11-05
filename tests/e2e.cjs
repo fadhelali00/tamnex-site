@@ -81,14 +81,14 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
       await p.click('[data-cycle] [data-c="monthly"]');
       const monthly = await read();
       for (const plan of catalog.plans) {
-        const a = annual.find(x => x.id === plan.id), m = monthly.find(x => x.id === plan.id);
-        if (plan.pricing.kind !== 'listed') { check(`${lang + pg} ${plan.id} shows on-request, no zero price`, !/\b0\b/.test(a.amount) && a.amount.length > 0, a.amount); continue; }
-        const mNet = H(plan.pricing.monthly.amount), aNet = H(plan.pricing.annual.amount), aEq = H(plan.pricing.annual.monthlyEquivalent);
-        const vat = h => Math.floor((h * catalog.tax.ratePercent + 50) / 100);
-        check(`${lang + pg} ${plan.id} annual per-month = catalog`, a.amount === fmt(aEq), `${a.amount} vs ${fmt(aEq)}`);
-        check(`${lang + pg} ${plan.id} annual billed + VAT total`, a.billed.includes(fmt(aNet)) && a.billed.includes(fmt(aNet + vat(aNet))), a.billed);
-        check(`${lang + pg} ${plan.id} monthly = catalog`, m.amount === fmt(mNet), `${m.amount}`);
-        check(`${lang + pg} ${plan.id} monthly VAT total`, m.billed.includes(fmt(mNet + vat(mNet))), m.billed);
+        // the page must show the SOURCE's amounts (pricing-catalog v1), including its own VAT-inclusive totals: nothing is recomputed
+        const id = plan.plan_id, c = plan.pricing.cycles;
+        const a = annual.find(x => x.id === id), m = monthly.find(x => x.id === id);
+        const mNet = H(c.monthly.amount), aNet = H(c.annual.amount_total), aEq = H(c.annual.amount_per_month);
+        check(`${lang + pg} ${id} annual per-month = catalog`, a.amount === fmt(aEq), `${a.amount} vs ${fmt(aEq)}`);
+        check(`${lang + pg} ${id} annual billed + VAT total`, a.billed.includes(fmt(aNet)) && a.billed.includes(fmt(H(c.annual.amount_total_incl_vat))), a.billed);
+        check(`${lang + pg} ${id} monthly = catalog`, m.amount === fmt(mNet), `${m.amount}`);
+        check(`${lang + pg} ${id} monthly VAT total`, m.billed.includes(fmt(H(c.monthly.amount_incl_vat))), m.billed);
       }
       await p.close();
     }
@@ -173,8 +173,8 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   const fm = await p.textContent('#form-msg');
   check('quote request is saved and confirmed', /وصلنا طلبك/.test(fm), fm);
   // choose plan starts registration with that plan
-  await p.click('[data-choose="growth"]'); await p.waitForURL(/\/start\/\?plan=growth/);
-  check('“اختر باقتك” opens registration with the plan selected', (await p.inputValue('#s-plan')) === 'growth');
+  await p.click('[data-choose="business"]'); await p.waitForURL(/\/start\/\?plan=business/);
+  check('“اختر باقتك” opens registration with the plan selected', (await p.inputValue('#s-plan')) === 'business');
   // registration flow
   check('registration shows step 1 of 4 only', await p.isVisible('[data-step="1"]') && !(await p.isVisible('[data-step="2"]')) && /1/.test(await p.textContent('[data-step-of]')));
   await p.click('[data-next]');

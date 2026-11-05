@@ -1,0 +1,150 @@
+{
+  "_note": "Page-owned presentation, keyed by plan_id and feature/limit code. Nothing here is part of the SA-11 public catalog (a key of it inside the catalog is rejected by additionalProperties:false). Feature labels come from the catalog; `name` here is only the page wording for a limit row.",
+  "source": {
+    "kind": "approved-display-copy",
+    "dynamicLink": false,
+    "approvedBy": "owner",
+    "ref": "erp-system-2026#151 comment 6616623188 (manus-tamnex-commerce-catalog-006); limits from docs/07-go-to-market/phase-1/copy/pricing.md (D40, D45)"
+  },
+  "defaultCycle": "annual",
+  "groups": [
+    "core",
+    "limits",
+    "advanced",
+    "ai"
+  ],
+  "rows": [
+    {
+      "code": "accounting_ifrs18",
+      "group": "core",
+      "kind": "feature"
+    },
+    {
+      "code": "sales_einvoice_p1",
+      "group": "core",
+      "kind": "feature"
+    },
+    {
+      "code": "einvoice_p2",
+      "group": "core",
+      "kind": "feature"
+    },
+    {
+      "code": "purchases_inventory",
+      "group": "core",
+      "kind": "feature"
+    },
+    {
+      "code": "invoices",
+      "group": "limits",
+      "name": {
+        "ar": "الفواتير شهرياً",
+        "en": "Invoices per month"
+      },
+      "kind": "limit"
+    },
+    {
+      "code": "warehouses",
+      "group": "limits",
+      "name": {
+        "ar": "المستودعات",
+        "en": "Warehouses"
+      },
+      "kind": "limit"
+    },
+    {
+      "code": "cash_bank",
+      "group": "limits",
+      "name": {
+        "ar": "الخزائن والحسابات البنكية",
+        "en": "Cash boxes and bank accounts"
+      },
+      "kind": "limit"
+    },
+    {
+      "code": "customers",
+      "group": "limits",
+      "name": {
+        "ar": "العملاء",
+        "en": "Customers"
+      },
+      "kind": "limit"
+    },
+    {
+      "code": "users",
+      "group": "limits",
+      "name": {
+        "ar": "المستخدمون المضمّنون",
+        "en": "Included users"
+      },
+      "kind": "limit"
+    },
+    {
+      "code": "cost_centers_price_lists",
+      "group": "advanced",
+      "kind": "feature"
+    },
+    {
+      "code": "api",
+      "group": "advanced",
+      "kind": "feature"
+    },
+    {
+      "code": "orders",
+      "group": "advanced",
+      "kind": "feature"
+    },
+    {
+      "code": "ai_assistant",
+      "group": "ai",
+      "kind": "feature"
+    }
+  ],
+  "limitStyle": {
+    "customers": "upto"
+  },
+  "plans": {
+    "core": {
+      "highlight": null,
+      "audience": {
+        "ar": "لمنشأة بمستودع واحد تريد أرقامها المالية لحظة بلحظة",
+        "en": "For a single-warehouse business that wants its numbers in real time"
+      },
+      "highlights": [
+        "accounting_ifrs18",
+        "sales_einvoice_p1",
+        "invoices",
+        "warehouses"
+      ]
+    },
+    "business": {
+      "highlight": {
+        "ar": "مناسبة لعدة مستودعات",
+        "en": "Built for several warehouses"
+      },
+      "audience": {
+        "ar": "لمنشأة بعدة مستودعات تحتاج تحليلاً أدق",
+        "en": "For a multi-warehouse business that needs sharper analysis"
+      },
+      "highlights": [
+        "warehouses",
+        "cash_bank",
+        "cost_centers_price_lists",
+        "api"
+      ]
+    },
+    "advanced": {
+      "highlight": null,
+      "audience": {
+        "ar": "لمنشأة تدير دورة كاملة من الطلب إلى التحصيل",
+        "en": "For a business running the full order-to-cash cycle"
+      },
+      "highlights": [
+        "warehouses",
+        "cash_bank",
+        "customers",
+        "orders"
+      ]
+    }
+  }
+}

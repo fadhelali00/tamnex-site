@@ -15,7 +15,7 @@ cells that start with `= + - @` are prefixed with `'` (formula guard; strip it o
 | `company`, `sector`, `size`, `branches`, `cr`, `subdomain_pref` | company step |
 | `first`, `last`, `job`, `email`, `phone` | owner (phone in `+9665XXXXXXXX`) |
 | `password_hash` | **Argon2id PHC string**, see below |
-| `vat_registered`, `vat`, `fy_start_month`, `plan` | tax and plan (`plan` = stable catalog id `launch`/`growth`/`scale`) |
+| `vat_registered`, `vat`, `fy_start_month`, `plan` | tax and plan (`plan` = stable catalog `plan_id` `core`/`business`/`advanced` (SA-11 pricing-catalog v1, D-SA-28)) |
 | `lang`, `terms`, `marketing`, `utc_time`, `ip_hash` | consent and audit |
 
 ## Hash format (must stay compatible with `apps/api/src/auth/password.ts`)

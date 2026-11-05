@@ -8,10 +8,11 @@
  * plus site/data/pricing-catalog.json (a derived copy for the browser). No price literal lives here.
  */
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
-import { loadCatalog, publicPlans, priceFor, money, valueLabel } from './catalog.mjs';
+import { GROUPS, assertValidV1, loadCatalog, loadV1, publicPlans, priceFor, money, valueLabel } from './catalog.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const SITE = 'https://tamnex.com';
+await assertValidV1(loadV1()); // Fail Loudly: never render a catalog that breaks the pinned SA-11 v1 contract
 const catalog = loadCatalog();
 /** @type {Record<'ar'|'en', Record<string, any>>} */
 const T = {
@@ -245,7 +246,7 @@ function pricing(lang, full) {
       <ul class="ticks">${p.highlights.map(fid => { const f = /** @type {import('./catalog.mjs').Feature} */ (feats.find(x => x.id === fid)); const v = valueLabel(catalog, p, f, t); return `<li><span>${esc(f.name[lang])}</span><b>${esc(v.label)}</b>${v.soon ? ` <span class="chip chip-soon">${esc(t.soon)}</span>` : ''}</li>`; }).join('')}</ul>
     </article>`;
   }).join('');
-  const groups = ['core', 'limits', 'advanced', 'ai'];
+  const groups = GROUPS.filter(g => feats.some(f => f.group === g)); // a group with no row is not shown
   const table = `<div class="table-scroll" tabindex="0" role="region" aria-labelledby="cmp-title"><table class="compare">
       <caption id="cmp-title">${esc(t.compare_title)}</caption>
       <thead><tr><th scope="col">${esc(t.compare_feature)}</th>${plans.map(p => `<th scope="col"${p.highlight ? ' class="hl"' : ''}>${esc(p.name[lang])}</th>`).join('')}</tr></thead>

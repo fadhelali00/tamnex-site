@@ -87,7 +87,7 @@ function header(lang, page) {
     <nav class="nav" id="site-nav" aria-label="${esc(t.nav_label)}" data-nav>
       <a href="${sec('product')}">${esc(t.nav_product)}</a>
       <a href="${sec('features')}">${esc(t.nav_features)}</a>
-      <a href="${sec('nexa')}">${esc(t.nav_nexa)}</a>
+      <a href="${sec('tamo')}">${esc(t.nav_tamo)}</a>
       <a href="${fhref(lang, '/pricing/')}"${page === 'pricing' ? ' aria-current="page"' : ''}>${esc(t.nav_pricing)}</a>
       <a href="${sec('faq')}">${esc(t.nav_faq)}</a>
       <a class="lang" href="${otherPath}" hreflang="${t.otherLang}" lang="${t.otherLang}">${esc(t.otherLangName)}</a>
@@ -119,7 +119,7 @@ function showcase(lang) {
       <div class="cd-grid">
         <ul class="cd-checks">${t.cd_checks.map((/** @type {string[]} */ r) => `<li>${tick}<div><b>${esc(r[0])}</b><span>${esc(r[1])}</span></div><span class="chip chip-ok">${esc(r[2])}</span></li>`).join('')}</ul>
         <div class="cd-side">
-          <div class="capsule">${orb('orb orb-sm')}<div><p class="nx-who">${esc(t.nexa_badge)}</p><p>${esc(t.cd_nexa)}</p>
+          <div class="capsule">${orb('orb orb-sm')}<div><p class="nx-who">${esc(t.tamo_badge)}</p><p>${esc(t.cd_tamo)}</p>
             <button type="button" class="btn btn-ghost btn-sm" data-cd-approve>${esc(t.cd_approve)}</button><p class="nx-done" data-cd-approved hidden>${esc(t.cd_approved)}</p></div></div>
           <div class="cd-actions"><button type="button" class="btn" data-cd-fs>${esc(t.cd_fs)}</button><button type="button" class="btn btn-ghost" data-cd-log aria-expanded="false" aria-controls="cd-log-${lang}">${esc(t.cd_log)}</button></div>
           <p class="nx-done" data-cd-fs-done hidden>${esc(t.cd_fs_done)}</p>
@@ -152,27 +152,27 @@ function demo(lang) {
 }
 
 
-/** Geometric light core for Nexa (no robot, no chat bubble). @param {string} cls */
+/** Geometric light core for Tamo (no robot, no chat bubble). @param {string} cls */
 let orbN = 0;
 const orb = cls => { const g = 'nx-g' + (++orbN); return `<svg class="${cls}" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="${g}" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#e0e7ff"/><stop offset=".45" stop-color="#818cf8"/><stop offset="1" stop-color="#2563eb"/></radialGradient></defs><circle class="orb-pulse" cx="24" cy="24" r="22" fill="none" stroke="#6366f1" stroke-width="1"/><circle cx="24" cy="24" r="14" fill="url(#${g})"/><path d="M24 14l2.6 7.4L34 24l-7.4 2.6L24 34l-2.6-7.4L14 24l7.4-2.6Z" fill="#fff" opacity=".9"/></svg>`; };
 
 /** @param {'ar'|'en'} lang */
-function nexa(lang) {
+function tamo(lang) {
   const t = T[lang];
   const tbl = (/** @type {string[]} */ cols, /** @type {string[][]} */ rows) => `<div class="tscroll" tabindex="0" role="region" aria-label="${esc(t.sc_label)}"><table class="ui-table"><thead><tr>${cols.map((c, i) => `<th scope="col"${i ? ' class="n"' : ''}>${esc(c)}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => i ? `<td class="n"><bdi>${esc(c)}</bdi></td>` : `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
   const tabs = [['s1', t.nx_s1_tab], ['s2', t.nx_s2_tab], ['s3', t.nx_s3_tab]];
   const s1 = `<div class="cmd"><span class="kbd" dir="ltr">${esc(t.nx_s1_kbd)}</span>${orb('orb orb-sm')}<span class="cmd-q" data-type="${esc(t.nx_s1_q)}">${esc(t.nx_s1_q)}</span></div>
-      <div class="nx-answer"><p class="nx-who">${esc(t.nexa_badge)}</p><p>${esc(t.nx_s1_a)}</p>${tbl(t.nx_s1_cols, t.nx_s1_rows)}
+      <div class="nx-answer"><p class="nx-who">${esc(t.tamo_badge)}</p><p>${esc(t.nx_s1_a)}</p>${tbl(t.nx_s1_cols, t.nx_s1_rows)}
       <button type="button" class="btn btn-ghost btn-sm" data-nx-act="s1">${esc(t.nx_s1_btn)}</button><p class="nx-done" data-nx-done="s1" hidden>${esc(t.nx_s1_done)}</p></div>`;
   const s2 = `<p class="nx-h">${esc(t.nx_s2_head)}</p>
       <ul class="kpis">${t.nx_s2_kpis.map((/** @type {string[]} */ r) => `<li><span>${esc(r[0])}</span><b><bdi>${esc(r[1])}</bdi> <small>${esc(t.currency)}</small></b></li>`).join('')}</ul>
-      <div class="nx-answer"><p class="nx-who">${esc(t.nexa_badge)}</p><p>${esc(t.nx_s2_sugg)}</p>
+      <div class="nx-answer"><p class="nx-who">${esc(t.tamo_badge)}</p><p>${esc(t.nx_s2_sugg)}</p>
       <button type="button" class="btn btn-ghost btn-sm" data-nx-act="s2">${esc(t.nx_s2_btn)}</button><p class="nx-done" data-nx-done="s2" hidden>${esc(t.nx_s2_done)}</p></div>`;
   const s3 = `<div class="po"><div class="ui-head"><b>${esc(t.nx_s3_head)}</b><span class="fine">${esc(t.nx_s3_vendor)}</span></div>
-      <div class="capsule">${orb('orb orb-sm')}<div><p class="nx-who">${esc(t.nexa_badge)}</p><p>${esc(t.nx_s3_price)}</p><p>${esc(t.nx_s3_stock)}</p><p class="nx-prop">${esc(t.nx_s3_prop)}</p>
+      <div class="capsule">${orb('orb orb-sm')}<div><p class="nx-who">${esc(t.tamo_badge)}</p><p>${esc(t.nx_s3_price)}</p><p>${esc(t.nx_s3_stock)}</p><p class="nx-prop">${esc(t.nx_s3_prop)}</p>
       <button type="button" class="btn btn-sm" data-nx-act="s3">${esc(t.nx_s3_btn)}</button><p class="nx-done" data-nx-done="s3" hidden>${esc(t.nx_s3_done)}</p></div></div></div>`;
   const panels = { s1, s2, s3 };
-  return `<section class="section nexa" id="nexa" aria-labelledby="nx-title">
+  return `<section class="section tamo" id="tamo" aria-labelledby="nx-title">
   <div class="wrap">
     <div class="nx-head">${orb('orb orb-lg')}<div><h2 id="nx-title">${esc(t.nx_title)}</h2><p class="lead">${esc(t.nx_sub)}</p>
       <p class="nx-tags"><span class="demo-label">${esc(t.nx_label)}</span> <span class="chip chip-soon">${esc(t.soon)}</span></p></div></div>
@@ -198,7 +198,7 @@ function features(lang) {
     <div class="bento">
       <article class="card c-close"><div class="card-head"><h3>${esc(t.close_title)}</h3>${soon}</div><p>${esc(t.close_body)}</p>${demo(lang)}</article>
       <article class="card c-cycle"><h3>${esc(t.cycle_title)}</h3><p>${esc(t.cycle_body)}</p><ol class="flow">${t.cycle_steps.map((/** @type {string} */ s) => `<li>${esc(s)}</li>`).join('')}</ol></article>
-      <article class="card c-ai"><div class="card-head"><h3>${esc(t.ai_title)}</h3>${soon}</div><p>${esc(t.ai_body)}</p><ul class="ticks">${t.ai_points.map((/** @type {string} */ s) => `<li>${esc(s)}</li>`).join('')}</ul><a class="btn btn-ghost btn-sm nx-ask" href="#nexa">${esc(t.nexa_ask)}</a></article>
+      <article class="card c-ai"><div class="card-head"><h3>${esc(t.ai_title)}</h3>${soon}</div><p>${esc(t.ai_body)}</p><ul class="ticks">${t.ai_points.map((/** @type {string} */ s) => `<li>${esc(s)}</li>`).join('')}</ul><a class="btn btn-ghost btn-sm nx-ask" href="#tamo">${esc(t.tamo_ask)}</a></article>
       <article class="card c-mig"><div class="card-head"><h3>${esc(t.mig_title)}</h3>${soon}</div><p>${esc(t.mig_body)}</p></article>
       <article class="card c-dist"><div class="card-head"><h3>${esc(t.dist_title)}</h3>${soon}</div><p>${esc(t.dist_body)}</p></article>
     </div>
@@ -414,7 +414,7 @@ ${header(lang, 'home')}
   </div>
   <div class="wrap hero-visual">${showcase(lang)}</div>
 </section>
-${nexa(lang)}
+${tamo(lang)}
 <section class="trust" aria-labelledby="trust-title">
   <div class="wrap"><h2 id="trust-title" class="trust-title">${esc(t.trust_label)}</h2>
   <ul class="trust-grid">${t.trust_items.map((/** @type {string[]} */ s) => `<li><b>${esc(s[0])}</b><span>${esc(s[1])}</span></li>`).join('')}</ul></div>

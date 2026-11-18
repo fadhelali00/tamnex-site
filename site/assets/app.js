@@ -9,6 +9,7 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   /** @param {string} s @param {ParentNode} [r] @returns {any[]} */
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  if (reduce) $$('video.tamo-vid').forEach(function (/** @type {HTMLVideoElement} */ v) { v.removeAttribute('autoplay'); v.pause(); });
 
   /** Privacy-safe events: no third party, no ledger content. @param {string} name @param {object} [data] */
   function track(name, data) {

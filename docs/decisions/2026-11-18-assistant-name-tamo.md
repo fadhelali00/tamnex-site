@@ -9,7 +9,7 @@
 - The AI assistant inside Tamnex is called **Tamo** (Arabic: **تامو**). The name comes from Tamnex.
 - Tamo is an internal, in-product assistant name used under the Tamnex brand ("Tamo by Tamnex" / "تامو من تامنكس").
   The brand is Tamnex. Tamo is not a separate brand.
-- Visual identity: the visual reference for the assistant is kept privately (unreleased).
+- Visual identity: the approved head is published on this site. See [2026-11-18-tamo-visual-public.md](2026-11-18-tamo-visual-public.md).
 
 ## Applied in this repository
 - Every visible "Nexa"/"نكسا" string in `src/i18n/ar.json`, `src/i18n/en.json`, `scripts/build.mjs`,

@@ -294,7 +294,7 @@ html.js .cd-log:not([data-open]) { display: none; }
 .v-better, .v-stale { background: var(--warn-bg); color: var(--warn-text); }
 .v-complete { background: var(--ok-bg); color: var(--ok-text); }
 
-/* ---------- Nexa ---------- */
+/* ---------- Tamo ---------- */
 .orb { flex: none; overflow: visible; }
 .orb-lg { width: 64px; height: 64px; }
 .orb-sm { width: 28px; height: 28px; }

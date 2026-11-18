@@ -142,7 +142,7 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   await p.click('[data-cd-log]');
   check('adjustments log opens and reports expanded', await p.isVisible('[data-cd-logbox]') && (await p.getAttribute('[data-cd-log]', 'aria-expanded')) === 'true');
   await p.click('[data-cd-approve]');
-  check('approving the Nexa draft completes readiness (human action)', (await p.textContent('[data-cd-pct]')) === '100%' && /باسمك/.test(await p.textContent('[data-cd-approved]')) && (await p.getAttribute('[data-cd-meter]', 'aria-valuenow')) === '100');
+  check('approving the Tamo draft completes readiness (human action)', (await p.textContent('[data-cd-pct]')) === '100%' && /باسمك/.test(await p.textContent('[data-cd-approved]')) && (await p.getAttribute('[data-cd-meter]', 'aria-valuenow')) === '100');
   await p.click('[data-cd-fs]');
   check('draft statements are a draft that needs approval', /مسودة/.test(await p.textContent('[data-cd-fs-done]')) && /اعتمادك/.test(await p.textContent('[data-cd-fs-done]')));
   // demo
@@ -157,12 +157,12 @@ const fmt = h => Math.floor(h / 100).toLocaleString('en-US') + (h % 100 ? '.' + 
   check('all cleared: 8/8, awaiting accountant review', (await ring()) === '8/8' && /بانتظار مراجعة المحاسب/.test(await verdict()));
   await p.click('[data-demo-reset]');
   check('reset returns to 5/8', (await ring()) === '5/8');
-  // Nexa scenes
+  // Tamo scenes
   await p.click('#tab-s2');
   await p.click('[data-nx-act="s2"]');
-  check('Nexa cash plan is a draft only, nothing sent', /مسودة/.test(await p.textContent('[data-nx-done="s2"]')) && /لم يُرسَل/.test(await p.textContent('[data-nx-done="s2"]')));
+  check('Tamo cash plan is a draft only, nothing sent', /مسودة/.test(await p.textContent('[data-nx-done="s2"]')) && /لم يُرسَل/.test(await p.textContent('[data-nx-done="s2"]')));
   await p.click('#tab-s3'); await p.click('[data-nx-act="s3"]');
-  check('Nexa purchase request approval is a human action, logged', /باسمك/.test(await p.textContent('[data-nx-done="s3"]')));
+  check('Tamo purchase request approval is a human action, logged', /باسمك/.test(await p.textContent('[data-nx-done="s3"]')));
   // form
   await p.click('#lead-form [type=submit]');
   check('empty form: field errors and focus on the first', (await p.textContent('#e-name')).length > 0 && (await p.evaluate(() => document.activeElement.id)) === 'f-name');

@@ -52,7 +52,7 @@
     });
   }
 
-  /* ---------- Tabs (showcase and Nexa scenes): WAI-ARIA tabs, arrows follow reading direction ---------- */
+  /* ---------- Tabs (showcase and Tamo scenes): WAI-ARIA tabs, arrows follow reading direction ---------- */
   $$('[role="tablist"]').forEach(function (tablist) {
     var tabs = $$('[role="tab"]', tablist);
     var select = function (/** @type {HTMLElement} */ tab, /** @type {boolean} */ focus) {
@@ -78,7 +78,7 @@
     });
   });
 
-  /* ---------- Nexa scenes: the question types itself once; buttons give an honest demo result ---------- */
+  /* ---------- Tamo scenes: the question types itself once; buttons give an honest demo result ---------- */
   var typed = false;
   function typeQuestion() {
     var q = $('.cmd-q[data-type]');
@@ -102,7 +102,7 @@
     b.addEventListener('click', function () {
       var id = b.getAttribute('data-nx-act');
       var done = $('[data-nx-done="' + id + '"]'); if (done) done.hidden = false;
-      b.disabled = true; track('nexa_scene', { scene: id });
+      b.disabled = true; track('tamo_scene', { scene: id });
     });
   });
 

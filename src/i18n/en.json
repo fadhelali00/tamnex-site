@@ -40,7 +40,7 @@
   ],
   [
    "Built-in executive intelligence",
-   "Nexa watches your working-capital cycle, warns you of stock-out risk, and suggests purchasing and pricing decisions."
+   "Tamo watches your working-capital cycle, warns you of stock-out risk, and suggests purchasing and pricing decisions."
   ],
   [
    "Speed and a modern experience",
@@ -60,8 +60,8 @@
   "Invoice",
   "Entry and stock"
  ],
- "ai_title": "Tamnex Nexa: proactive insights",
- "ai_body": "Reads supplier invoices, suggests bank matches, and answers questions about your numbers in Arabic with sources. Everything Nexa suggests is a draft you approve.",
+ "ai_title": "Tamo by Tamnex: proactive insights",
+ "ai_body": "Reads supplier invoices, suggests bank matches, and answers questions about your numbers in Arabic with sources. Everything Tamo suggests is a draft you approve.",
  "ai_points": [
   "Supplier invoice to draft",
   "Bank matching from statement files",
@@ -233,19 +233,19 @@
  "footer_tag": "The AI-native ERP for Saudi businesses.",
  "footer_nav": "Site links",
  "rights": "© 2026 Evexa AI Systems",
- "nav_nexa": "Nexa",
- "nexa_full": "Tamnex Nexa",
- "nexa_short": "Nexa",
- "nexa_badge": "✦ Nexa AI",
- "nexa_ask": "✦ Ask Nexa",
- "nx_title": "The Nexa AI Show",
- "nx_sub": "Nexa is the AI engine inside Tamnex: it watches margins, cash and cost deviations as they happen, prepares the action and leaves the decision to you.",
+ "nav_tamo": "Tamo",
+ "tamo_full": "Tamo by Tamnex",
+ "tamo_short": "Tamo",
+ "tamo_badge": "✦ Tamo AI",
+ "tamo_ask": "✦ Ask Tamo",
+ "nx_title": "The Tamo AI Show",
+ "nx_sub": "Tamo is the AI engine inside Tamnex: it watches margins, cash and cost deviations as they happen, prepares the action and leaves the decision to you.",
  "nx_label": "Interactive demo with sample data",
- "nx_scenes_label": "Nexa scenes",
- "nx_s1_tab": "Ask Nexa",
+ "nx_scenes_label": "Tamo scenes",
+ "nx_s1_tab": "Ask Tamo",
  "nx_s3_tab": "Alert inside the document cycle",
  "nx_s1_kbd": "Ctrl K",
- "nx_s1_q": "Nexa, analyse how freight and customs affect this quarter's item margins",
+ "nx_s1_q": "Tamo, analyse how freight and customs affect this quarter's item margins",
  "nx_s1_a": "Freight and customs impact on margin, Q4. Source: 18 purchase invoices this quarter.",
  "nx_s1_cols": [
   "Item",
@@ -283,7 +283,7 @@
  "nx_s3_btn": "Approve suggested purchase request",
  "nx_s3_done": "You approved the request in the demo. It is logged under your name.",
  "nx_rules": [
-  "Nexa suggests and explains; the decision and approval are yours.",
+  "Tamo suggests and explains; the decision and approval are yours.",
   "Every figure it shows opens to its source.",
   "It catches cost and cash deviations as they happen, not at month end."
  ],
@@ -415,7 +415,7 @@
  "f_pw_hide": "Hide",
  "e_pw": "Use at least 12 characters, without your email or a common password.",
  "e_pw2": "The passwords do not match.",
- "hero_badge": "AI-Native ERP Powered by Nexa",
+ "hero_badge": "AI-Native ERP Powered by Tamo",
  "cta_plans": "Browse plans",
  "cd_org": "Al Wadi Trading Co. · November 2026",
  "cd_status": "November close status:",
@@ -442,7 +442,7 @@
    "Ready"
   ]
  ],
- "cd_nexa": "A SAR 420 variance from freight differences was found; a draft adjustment is ready for your one-click approval.",
+ "cd_tamo": "A SAR 420 variance from freight differences was found; a draft adjustment is ready for your one-click approval.",
  "cd_approve": "Review and approve the draft",
  "cd_approved": "You approved the draft in the demo, logged under your name. Close readiness is complete.",
  "cd_fs": "Generate draft closing financial statements",
@@ -463,7 +463,7 @@
   ],
   [
    "09:16",
-   "SAR 420 freight variance detected and passed to Nexa"
+   "SAR 420 freight variance detected and passed to Tamo"
   ]
  ],
  "nx_s2_tab": "Cash radar",
@@ -488,13 +488,13 @@
  "cd_den_done": "Share of close checks complete: 2,000 of 2,000.",
  "st_fix": "We could not create the account yet: correct the field marked in red, then submit again.",
  "tz_title": "Tamnex | Launching Soon",
- "tz_desc": "Tamnex: an AI-native cloud ERP for forward-thinking businesses, powered by Nexa. Join the early-access list.",
+ "tz_desc": "Tamnex: an AI-native cloud ERP for forward-thinking businesses, powered by Tamo. Join the early-access list.",
  "tz_pill": "✦ Next-Gen AI-Native ERP • Launching Soon",
  "tz_h1": "Real-Time Close. Intelligence Ahead of Your Decisions.",
- "tz_sub": "Tamnex redefines enterprise resource planning for forward-thinking businesses: an AI-native cloud ERP powered by Nexa that unifies accounting, inventory and invoicing, and shortens your workflows and financial close.",
+ "tz_sub": "Tamnex redefines enterprise resource planning for forward-thinking businesses: an AI-native cloud ERP powered by Tamo that unifies accounting, inventory and invoicing, and shortens your workflows and financial close.",
  "tz_pills": [
   "Real-Time Continuous Close",
-  "Proactive Margin Protection by Nexa",
+  "Proactive Margin Protection by Tamo",
   "End-to-End Workflow Automation"
  ],
  "tz_email": "Your work email",
